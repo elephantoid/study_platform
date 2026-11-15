@@ -40,6 +40,16 @@ Claude Code(CC)와 Antigravity(AG)가 병렬로 작업하기 위한 계약이다
 - 라이선스는 닫힌 목록이다. `verbatim` 은 허용 목록(`verbatimLicense`)의 라이선스만 쓸 수 있다 (fail closed).
 - 검수 체크리스트: 사실 오류 / `reviewTarget`·`segmentId` 가 실재하는가 / 타임스탬프가 영상 길이 안에 있는가 / 자막 원문이 섞였는가 / `link_only` 소스 원문이 섞였는가 / 기존 문항과 중복되는가.
 
+## 3.1 ID·본문 규칙
+
+- **강의 ID** `<sourceId>-l<NN>`, **구간 ID** `<lectureId>-s<NN>`. 둘 다 `pipeline/manifests/videos.json` 이 정본이다. AG 는 강의 파일을 만들 때 manifest 의 `lectureId` 와 `segments[].id/startSec/endSec` 를 그대로 쓴다.
+  - 강의 번호는 제목의 `Lecture N` / `Part N` 을 따르고, 없으면 다음 빈 번호를 쓴다. **한 번 부여한 번호는 바꾸지 않는다** (`lectureIds` 맵에 고정). 재생목록 순서는 강의 순서가 아니다 (CS329Z 는 6강이 맨 앞이다).
+  - YouTube 챕터가 있는 강의(54/62편)는 챕터 = 구간이다. 챕터가 없는 강의(CS329A 등)는 AG 가 구간을 나누고 `s01` 부터 번호를 매긴 뒤 manifest 반영 PR 을 CC 에 요청한다.
+  - CC 는 아직 강의 파일이 없는 구간 ID 를 문항의 `reviewTarget.segmentId` 로 참조할 수 있다. `ingest check` 는 manifest 에 있으면 통과시키고 경고만 남긴다.
+- **문항 본문**: `## 문제` 로 시작한다. `concept` 은 `## 해설` 이 필수다. `open` 의 모범답안은 `rubric.modelAnswerKo` 에 둔다.
+- **원본 자막 위치**: `~/.cache/study-platform/raw/yt/<lectureId>.json` (전체 cue) 과 `<lectureId>.md` (챕터별 30초 단위 압축본, LLM 입력용). `ingest transcripts` 가 만든다. 두 worktree 가 같은 경로를 공유하며, 어떤 경우에도 repo 에 commit 하지 않는다. `STUDY_RAW_DIR` 로 경로를 바꿀 수 있다.
+- **검증**: `cd pipeline && uv run ingest check`. 스키마, 참조 무결성(topic, source, note, segment), link_only 본문 길이, 구간 시각 범위를 검사한다. 0 errors 가 PR 조건이다.
+
 ## 4. 앱 API 타입 (AG 는 이 타입으로 목업을 만든다)
 
 CC 가 `app/api/` 에 구현한다. 구현 전까지 AG 는 `app/_mock/` 에 같은 모양의 고정 데이터를 둔다.
