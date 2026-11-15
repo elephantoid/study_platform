@@ -27,15 +27,15 @@
 
 | # | 이름 | 역할 | 입력 → 출력 | 도구 (allowlist) | 모델 | 실행 위치 |
 |---|---|---|---|---|---|---|
-| 0 | (스크립트) `ingest` | repo md·YouTube 메타·자막 수집. 같은 오류 2회면 중단하고 실패 보고 | `sources.yaml` → `tmp/raw/*` | gh, yt-dlp 또는 Agent-Reach (`--lang en-orig,en` 고정) | **LLM 없음** | `pipeline/` Python CLI |
+| 0 | (스크립트) `ingest repos\|videos\|transcripts` | repo md·YouTube 메타·자막 수집. 같은 차단 오류 2회면 중단 | `sources.yaml` → `~/.cache/study-platform/raw/*`, `pipeline/manifests/videos.json` | gh, yt-dlp, 대체 경로 Defuddle | **LLM 없음** | `pipeline/` Python CLI |
 | 1 | (스크립트) `ingest audit` | 소스 라이선스 재확인, 선언값과 다르면 drift 로 실패 | `sources.yaml` → `pipeline/manifests/audit.json` | gh | **LLM 없음**. 판정이 GitHub API 값 비교라 LLM 이 필요 없다 (M1 에서 subagent 계획을 대체) | `pipeline/` Python CLI |
-| 2 | `interview-extractor` | 레포 md 에서 Q/A 정규화, 직무·토픽 태깅 | `tmp/raw/repo/*.md` → `content/questions/*.md` (draft) | Read, Write(`content/` 만) | haiku | subagent, 파일 단위 병렬 |
-| 3 | `lecture-segmenter` | 자막을 챕터로 나누고 한국어 요약 + 타임스탬프 작성 | `tmp/raw/yt/<id>.srt` → `content/lectures/<id>.md` | Read, Write(`content/` 만) | sonnet | subagent, 강의 단위 병렬 |
-| 4 | `question-generator` | 세그먼트에서 면접 문항·모범답안·rubric 생성 (RS·Agent 직무 보강) | `content/lectures/*.md` → `content/questions/*.md` | Read, Write(`content/` 만) | sonnet. rubric 템플릿은 opus 가 1회 작성 | subagent |
+| 2 | (스크립트) `ingest extract` | boost-devs Q/A 를 concept 카드로 추출, 토픽 가중치로 직무 태깅 | raw repo md → `content/questions/`, `content/notes/` (draft) | – | **LLM 없음**. 원본이 균일한 구조라 규칙으로 충분하다 (M2 에서 haiku subagent 계획을 대체). 다른 MIT 레포는 구조가 달라 미적용 | `pipeline/` Python CLI |
+| 3 | `lecture-segmenter` | 챕터(=구간)별 한국어 요약. 챕터 없는 강의는 구간 분할도 한다 | `raw/yt/<lectureId>.md` → `content/lectures/<course>/<lectureId>.md` | Read, Write(`content/lectures/` 만) | `gemini-3.5-flash-lite` | **AG** (CONTRACT §1). 54/62편은 YouTube 챕터가 있어 분할이 필요 없다 |
+| 4 | `question-generator` | 강의 구간에서 서술형 면접 문항·모범답안·rubric 생성 (RS·Agent 직무 보강) | `raw/yt/<lectureId>.md` → `content/questions/<topicId>/<lectureId>-qNN.md` | Read, Write, Glob | sonnet | CC subagent, 정의: `.claude/agents/question-generator.md`. 강의 파일(AG) 없이 manifest 구간 id 로 바로 참조한다 |
 | 5 | `content-critic` | 사실 오류·중복·라이선스 위반·난이도 판정 → pass/fail + 사유 | draft md → 판정 JSON | Read, Grep | 생성 모델과 다른 계열 (Gemini 또는 `ai review`) | 외부 위임 |
 | 6 | 런타임 `grader` | 서술형 답안을 rubric 으로 채점하고 피드백 생성 | 답안 + rubric → score, feedback | 없음 (구조화 출력) | `anthropic/claude-haiku-5-5` 기본, 낮은 확신이면 `claude-sonnet-5-5` 로 승급 | 앱 서버 (AI SDK + Gateway) |
 
-- 1~4 는 `.claude/agents/*.md` 로 정의한다. 각 파일의 `description` 은 "언제 부르는가" 한 문장으로 쓴다.
+- LLM 이 필요한 단계만 에이전트로 정의한다 (현재 CC 는 4 하나). 각 파일의 `description` 은 "언제 부르는가" 한 문장으로 쓴다.
 - 쓰기 경로는 `content/` 로 제한한다. 앱 코드·설정은 에이전트가 건드리지 않는다.
 - 2~4 의 출력은 언제나 `status: draft` 다. `published` 전환은 사람 PR 리뷰로만 한다.
 - 실행 절차(수집 → 변환 → critic → PR)는 스킬 `content-pipeline` 하나로 묶는다. 부작용이 있으므로 `disable-model-invocation: true` 를 건다.
