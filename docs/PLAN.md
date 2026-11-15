@@ -28,7 +28,7 @@ ML Engineer · Research Scientist · Agent Engineer · Data Scientist 지원자�
 
 | M | 내용 | 완료 기준 (테스트 가능) |
 |---|---|---|
-| M1 수집 기반 | `sources.yaml`, `ingest` 스크립트, `source-auditor` | `ingest` 실행 시 MIT 소스 4개의 md 가 `tmp/raw/repo/` 에 생기고, `link_only` 소스는 본문 0바이트다. CME295·CS153 전 영상의 자막 유무가 `sources.yaml` 에 기록된다 |
+| M1 수집 기반 | `content/sources.yaml`, `pipeline/` (`ingest audit\|repos\|videos`) | `ingest` 실행 시 MIT 소스 4개의 md 가 `tmp/raw/repo/` 에 생기고, `link_only` 소스는 본문 0바이트다. 전 강의 영상의 자막·업로더·공개 상태가 `pipeline/manifests/videos.json` 에 기록된다 (영상별 상태는 계약 파일인 `sources.yaml` 이 아니라 CC 소유 manifest 에 둔다) |
 | M2 콘텐츠 파이프라인 | 에이전트 2~5, `content-pipeline` 스킬, 빌드 시 라이선스 검사 | boost-devs 에서 ≥200 문항이 draft 로 생성되고, 모든 문항에 `sourceId`·`roleTags` 가 있다. CME295 1편이 세그먼트 ≥5개 + 문항 ≥10개로 변환된다. `link_only` 소스 원문이 들어간 파일이 있으면 빌드가 실패한다 |
 | M3 앱 MVP | Next.js 앱, DB 스키마, 인증, FSRS 큐, 강의 페이지, 검색 | 로그인 사용자가 카드 10개를 평가하면 `ReviewCard.due` 가 FSRS 규칙대로 갱신된다 (단위 테스트). 강의 타임스탬프를 클릭하면 해당 초로 이동한다 (E2E). 모의 면접 세트가 직무 가중치대로 출제된다 (단위 테스트, 1,000회 샘플링에서 토픽 분포 오차 ±5%p). 375px·1440px 에서 가로 스크롤이 없다 |
 | M4 AI 채점 + 공개 | `grader`, 오답 모음, SEO, 배포 | 서술형 답안 채점 결과가 rubric 항목별 점수 JSON 으로 저장된다. 고정 답안 20개 평가셋에서 사람 채점과 ±1점 일치율 ≥80%. 외부 콘텐츠를 렌더링하는 모든 화면에서 출처·라이선스·원본 링크 배지 누락이 0건이다 (DOM 검사 E2E). Vercel production 배포 후 Lighthouse SEO ≥90 |

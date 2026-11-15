@@ -1,0 +1,1318 @@
+{
+  "cme295-2025au": {
+    "checkedAt": "2026-11-15",
+    "order": [
+      "Ub3GoFaUcds",
+      "yT84Y5zCnaA",
+      "Q5baLehv5So",
+      "VlA_jt_3Qc4",
+      "PmW_TMQ3l0I",
+      "k5Fh-UgTuCo",
+      "h-7S6HNq0Vg",
+      "8fNP4N46RRo",
+      "Q86qzJ1K1Ss"
+    ],
+    "videos": {
+      "8fNP4N46RRo": {
+        "autoOrig": true,
+        "chapters": 17,
+        "durationSec": 6565,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 8 - LLM Evaluation",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251202",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "8fNP4N46RRo"
+      },
+      "PmW_TMQ3l0I": {
+        "autoOrig": true,
+        "chapters": 14,
+        "durationSec": 6461,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 5 - LLM tuning",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251114",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "PmW_TMQ3l0I"
+      },
+      "Q5baLehv5So": {
+        "autoOrig": true,
+        "chapters": 16,
+        "durationSec": 6525,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 3 - Tranformers & Large Language Models",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251017",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "Q5baLehv5So"
+      },
+      "Q86qzJ1K1Ss": {
+        "autoOrig": true,
+        "chapters": 13,
+        "durationSec": 6691,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 9 - Recap & Current Trends",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251209",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "Q86qzJ1K1Ss"
+      },
+      "Ub3GoFaUcds": {
+        "autoOrig": true,
+        "chapters": 9,
+        "durationSec": 6119,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 1 - Transformer",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251017",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "Ub3GoFaUcds"
+      },
+      "VlA_jt_3Qc4": {
+        "autoOrig": true,
+        "chapters": 14,
+        "durationSec": 6447,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 4 - LLM Training",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251021",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "VlA_jt_3Qc4"
+      },
+      "h-7S6HNq0Vg": {
+        "autoOrig": true,
+        "chapters": 13,
+        "durationSec": 6562,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 7 - Agentic LLMs",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251118",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "h-7S6HNq0Vg"
+      },
+      "k5Fh-UgTuCo": {
+        "autoOrig": true,
+        "chapters": 10,
+        "durationSec": 6430,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 6 - LLM Reasoning",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251114",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "k5Fh-UgTuCo"
+      },
+      "yT84Y5zCnaA": {
+        "autoOrig": true,
+        "chapters": 13,
+        "durationSec": 6439,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 2 - Transformer-Based Models & Tricks",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251017",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "yT84Y5zCnaA"
+      }
+    }
+  },
+  "cme295-2026au": {
+    "checkedAt": "2026-11-15",
+    "order": [
+      "114i2Kz-LZA",
+      "GaIeu3npx04",
+      "S3bCDcJhz4s",
+      "3Vaj0Oka_t4",
+      "25KIyaeI_Fg",
+      "nU2a2lm6vDE"
+    ],
+    "videos": {
+      "114i2Kz-LZA": {
+        "autoOrig": true,
+        "chapters": 16,
+        "durationSec": 6268,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2026 | Lecture 1 - Transformers",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260928",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "114i2Kz-LZA"
+      },
+      "25KIyaeI_Fg": {
+        "autoOrig": true,
+        "chapters": 16,
+        "durationSec": 6421,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2026 | Lecture 5 -  LLM Systems",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20261105",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "25KIyaeI_Fg"
+      },
+      "3Vaj0Oka_t4": {
+        "autoOrig": true,
+        "chapters": 20,
+        "durationSec": 6206,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2026 | Lecture 4 - Reinforcement Learning with LLMs",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20261019",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "3Vaj0Oka_t4"
+      },
+      "GaIeu3npx04": {
+        "autoOrig": true,
+        "chapters": 19,
+        "durationSec": 6194,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2026 | Lecture 2 - Large Language Models",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20261009",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "GaIeu3npx04"
+      },
+      "S3bCDcJhz4s": {
+        "autoOrig": true,
+        "chapters": 16,
+        "durationSec": 6271,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2026 | Lecture 3 - LLM training",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20261015",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "S3bCDcJhz4s"
+      },
+      "nU2a2lm6vDE": {
+        "autoOrig": true,
+        "chapters": 14,
+        "durationSec": 6043,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2026 | Lecture 6 - AI Agents",
+        "track": [
+          "auto",
+          "en-orig"
+        ],
+        "uploadDate": "20261113",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "nU2a2lm6vDE"
+      }
+    }
+  },
+  "cs153-2026sp": {
+    "checkedAt": "2026-11-15",
+    "order": [
+      "8cAQdELWYuo",
+      "d0Pfu6B7gIM",
+      "F_7M4Hc-usM",
+      "g50FHC-PzK8",
+      "VeTqsCpcDgg",
+      "Lri2LNYtERM",
+      "wisccQYTRQc",
+      "B8NvdfssGac",
+      "BQrJ4lHAjhc",
+      "6nUl_w5W9Wk",
+      "CBaLU0dDEY8",
+      "vfF011ko89o",
+      "O5PfU_uDhS0",
+      "tsQB0n0YV3k"
+    ],
+    "videos": {
+      "6nUl_w5W9Wk": {
+        "autoOrig": true,
+        "chapters": 12,
+        "durationSec": 3461,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CS153 Frontier Systems | Amit Jain from Luma AI on Unified Intelligence Systems",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260506",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "6nUl_w5W9Wk"
+      },
+      "8cAQdELWYuo": {
+        "autoOrig": true,
+        "chapters": 9,
+        "durationSec": 2529,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "Stanford CS153 Frontier Systems | Teaching AI to Touch Atoms",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260929",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "8cAQdELWYuo"
+      },
+      "B8NvdfssGac": {
+        "autoOrig": true,
+        "chapters": 10,
+        "durationSec": 3977,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CS153 Frontier Systems | Ben Horowitz from a16z on Venture Capital Systems, Network Effects",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260511",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "B8NvdfssGac"
+      },
+      "BQrJ4lHAjhc": {
+        "autoOrig": true,
+        "chapters": 12,
+        "durationSec": 3794,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CS153 Frontier Systems | Nikhyl Singhal from Skip on Product Management in the AI Era",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260507",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "BQrJ4lHAjhc"
+      },
+      "CBaLU0dDEY8": {
+        "autoOrig": true,
+        "chapters": 9,
+        "durationSec": 3674,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CS153 Frontier Systems | Andreas Blattmann from Black Forest Labs on Visual Intelligence",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260504",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "CBaLU0dDEY8"
+      },
+      "F_7M4Hc-usM": {
+        "autoOrig": true,
+        "chapters": 10,
+        "durationSec": 2470,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "Stanford CS153 Frontier Systems | Scale, AGI, and the Future of Everything",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260615",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "F_7M4Hc-usM"
+      },
+      "Lri2LNYtERM": {
+        "autoOrig": true,
+        "chapters": 10,
+        "durationSec": 2834,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CS153 Frontier Systems | The AI Native Company: How One Founder Becomes a 1000x Engineer",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260520",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "Lri2LNYtERM"
+      },
+      "O5PfU_uDhS0": {
+        "autoOrig": true,
+        "chapters": 11,
+        "durationSec": 3955,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CS153 Frontier Systems | Anjney Midha from AMP PBC on Frontier Systems",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260430",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "O5PfU_uDhS0"
+      },
+      "VeTqsCpcDgg": {
+        "autoOrig": true,
+        "chapters": 0,
+        "durationSec": 3862,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CS153 Frontier Systems | The Discipline of Delivering Value per Gigawatt",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260527",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "VeTqsCpcDgg"
+      },
+      "d0Pfu6B7gIM": {
+        "autoOrig": true,
+        "chapters": 10,
+        "durationSec": 3438,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "Stanford CS153 Frontier Systems | Building the Frontier Ecosystem",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260629",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "d0Pfu6B7gIM"
+      },
+      "g50FHC-PzK8": {
+        "autoOrig": true,
+        "chapters": 0,
+        "durationSec": 3918,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CS153 Frontier Systems | The Road Ahead: Resilience Required",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260528",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "g50FHC-PzK8"
+      },
+      "tsQB0n0YV3k": {
+        "unavailable": "Private video",
+        "videoId": "tsQB0n0YV3k"
+      },
+      "vfF011ko89o": {
+        "autoOrig": true,
+        "chapters": 9,
+        "durationSec": 3986,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CS153 Frontier Systems | Mati Staniszewski from ElevenLabs on The Future of Voice Systems",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260504",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "vfF011ko89o"
+      },
+      "wisccQYTRQc": {
+        "autoOrig": true,
+        "chapters": 11,
+        "durationSec": 3627,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-US"
+        ],
+        "title": "Stanford CS153 Frontier Systems | Scott Nolan from General Matter on Energy Bottlenecks",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260512",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "wisccQYTRQc"
+      }
+    }
+  },
+  "cs329a-2025au": {
+    "checkedAt": "2026-11-15",
+    "order": [
+      "6YnLB0XbTnI",
+      "-Ggc37xLj_Y",
+      "p7TdPUcPoik",
+      "Lxh9RF5S-K0",
+      "Ml_fp9XkB8Y",
+      "yVnmHSAy3ck",
+      "Uni9dqyuuDM",
+      "8JAqLnTaZu4",
+      "AyO6wyu4DEg"
+    ],
+    "videos": {
+      "-Ggc37xLj_Y": {
+        "autoOrig": true,
+        "chapters": 0,
+        "durationSec": 3800,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 2 | Test-Time Compute Scaling",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "-Ggc37xLj_Y"
+      },
+      "6YnLB0XbTnI": {
+        "autoOrig": true,
+        "chapters": 0,
+        "durationSec": 4182,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 1 | Course Overview",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "6YnLB0XbTnI"
+      },
+      "8JAqLnTaZu4": {
+        "autoOrig": true,
+        "chapters": 0,
+        "durationSec": 4517,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 8 | Agentic Evaluations and Long Horizon Tasks",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "8JAqLnTaZu4"
+      },
+      "AyO6wyu4DEg": {
+        "autoOrig": true,
+        "chapters": 0,
+        "durationSec": 4062,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 9 | Future Research Areas",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "AyO6wyu4DEg"
+      },
+      "Lxh9RF5S-K0": {
+        "autoOrig": true,
+        "chapters": 0,
+        "durationSec": 4273,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 4 | Learning from Feedback with Tools/Code",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "Lxh9RF5S-K0"
+      },
+      "Ml_fp9XkB8Y": {
+        "autoOrig": true,
+        "chapters": 0,
+        "durationSec": 4495,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 5 | Planning and Multi-Step Reasoning",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "Ml_fp9XkB8Y"
+      },
+      "Uni9dqyuuDM": {
+        "autoOrig": true,
+        "chapters": 0,
+        "durationSec": 4346,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 7 | Self-Improvement and Deep Research Agents",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "Uni9dqyuuDM"
+      },
+      "p7TdPUcPoik": {
+        "autoOrig": true,
+        "chapters": 0,
+        "durationSec": 4378,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 3 | Robust Verification",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "p7TdPUcPoik"
+      },
+      "yVnmHSAy3ck": {
+        "autoOrig": true,
+        "chapters": 0,
+        "durationSec": 4358,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 6 | Train Time Scaling/Scaling RL",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "yVnmHSAy3ck"
+      }
+    }
+  },
+  "cs329z-2026au": {
+    "checkedAt": "2026-11-15",
+    "order": [
+      "JC_pLC5EX_w",
+      "q0Q-Hy8TTps",
+      "s0S38lz6O7M",
+      "psLc-46GqY0",
+      "Vr1NzH8bT44",
+      "DGI4vucR71w",
+      "qh5tP6PBZ6U",
+      "TlX_ft_PQIM",
+      "e_m99aR7_3Q",
+      "7GW-9ug2nvw",
+      "HbgZFwWj4vY",
+      "y2cwbmOy12U"
+    ],
+    "videos": {
+      "7GW-9ug2nvw": {
+        "unavailable": "Private video",
+        "videoId": "7GW-9ug2nvw"
+      },
+      "DGI4vucR71w": {
+        "autoOrig": true,
+        "chapters": 14,
+        "durationSec": 4176,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "What Are AI Agents? Agentic Systems Explained | Stanford CS329Z Lecture 1 with Diyi Yang",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20261109",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "DGI4vucR71w"
+      },
+      "HbgZFwWj4vY": {
+        "unavailable": "Private video",
+        "videoId": "HbgZFwWj4vY"
+      },
+      "JC_pLC5EX_w": {
+        "autoOrig": true,
+        "chapters": 0,
+        "durationSec": 4611,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [],
+        "title": "AI Agent Design Patterns: ReAct, CodeAct & More | Stanford CS329Z Lecture 6 with Michael Ryan",
+        "track": [
+          "auto",
+          "en-orig"
+        ],
+        "uploadDate": "20261114",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "JC_pLC5EX_w"
+      },
+      "TlX_ft_PQIM": {
+        "unavailable": "Private video",
+        "videoId": "TlX_ft_PQIM"
+      },
+      "Vr1NzH8bT44": {
+        "autoOrig": true,
+        "chapters": 14,
+        "durationSec": 4673,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "LLMs for Agent Builders: Context Engineering | Stanford CS329Z Lecture 2 with Michael Ryan",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20261110",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "Vr1NzH8bT44"
+      },
+      "e_m99aR7_3Q": {
+        "unavailable": "Private video",
+        "videoId": "e_m99aR7_3Q"
+      },
+      "psLc-46GqY0": {
+        "autoOrig": true,
+        "chapters": 14,
+        "durationSec": 4591,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "RAG Explained: From BM25 to Agentic RAG | Stanford CS329Z Lecture 3 with Diyi Yang",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20261111",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "psLc-46GqY0"
+      },
+      "q0Q-Hy8TTps": {
+        "autoOrig": true,
+        "chapters": 0,
+        "durationSec": 4634,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [],
+        "title": "DSPy vs. LangGraph: AI Agent Frameworks Explained | Stanford CS329Z Lecture 5 with Michael Ryan",
+        "track": [
+          "auto",
+          "en-orig"
+        ],
+        "uploadDate": "20261113",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "q0Q-Hy8TTps"
+      },
+      "qh5tP6PBZ6U": {
+        "unavailable": "Private video",
+        "videoId": "qh5tP6PBZ6U"
+      },
+      "s0S38lz6O7M": {
+        "autoOrig": true,
+        "chapters": 0,
+        "durationSec": 4755,
+        "hasCaptions": true,
+        "language": "en-US",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "title": "How AI Agents Use Tools: Function Calling & MCP | Stanford CS329Z Lecture 4 with Diyi Yang",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20261112",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "s0S38lz6O7M"
+      },
+      "y2cwbmOy12U": {
+        "unavailable": "Private video",
+        "videoId": "y2cwbmOy12U"
+      }
+    }
+  },
+  "ibm-ai-agents": {
+    "checkedAt": "2026-11-15",
+    "order": [
+      "hvnPWgfmvyI",
+      "rXFV1ivDe6c",
+      "EkdIZXDnRK8",
+      "4LINhsEZEDI",
+      "BwXremQ-i6I",
+      "hTAWHgQI4xg",
+      "F3hlZSZc6UI",
+      "jRMbbRdju7Q",
+      "X4FVEEegCbk",
+      "nVImVgKpoOY",
+      "i1ZmNUbRGD4",
+      "BHGTA6ZEls4",
+      "qYNs80FKIVc",
+      "bNRhppHct54",
+      "goU9VIXA8II",
+      "k5jYwyhDMxA",
+      "fCHe_fOqlYA",
+      "PjrXaC5UsIw",
+      "kYkZI3oj2W4",
+      "BacJ6sEhqMo"
+    ],
+    "videos": {
+      "4LINhsEZEDI": {
+        "unavailable": "Private video",
+        "videoId": "4LINhsEZEDI"
+      },
+      "BHGTA6ZEls4": {
+        "autoOrig": true,
+        "chapters": 5,
+        "durationSec": 688,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "5 Ways to Connect AI Agents to Tools: From APIs to MCP",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260816",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "BHGTA6ZEls4"
+      },
+      "BacJ6sEhqMo": {
+        "autoOrig": true,
+        "chapters": 0,
+        "durationSec": 640,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "The Four Types of Memory Every AI Agent Needs",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260526",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "BacJ6sEhqMo"
+      },
+      "BwXremQ-i6I": {
+        "autoOrig": true,
+        "chapters": 10,
+        "durationSec": 620,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "Context Engineering for AI Agents: 4 Failure Modes to Avoid",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20261015",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "BwXremQ-i6I"
+      },
+      "EkdIZXDnRK8": {
+        "autoOrig": true,
+        "chapters": 10,
+        "durationSec": 393,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "Context-Aware Coding: Give AI Agents the Right Context",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20261102",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "EkdIZXDnRK8"
+      },
+      "F3hlZSZc6UI": {
+        "autoOrig": true,
+        "chapters": 8,
+        "durationSec": 586,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "How AI Agents, LLMs & APIs Use Real-Time Data at the US Open",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260924",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "F3hlZSZc6UI"
+      },
+      "PjrXaC5UsIw": {
+        "autoOrig": true,
+        "chapters": 5,
+        "durationSec": 620,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "What Is Agentic Coding? How AI Agents Modernize Code",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260608",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "PjrXaC5UsIw"
+      },
+      "X4FVEEegCbk": {
+        "autoOrig": true,
+        "chapters": 0,
+        "durationSec": 550,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "Skills vs MCP vs RAG vs Memory: What AI Agents Need to Know",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260903",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "X4FVEEegCbk"
+      },
+      "bNRhppHct54": {
+        "autoOrig": true,
+        "chapters": 4,
+        "durationSec": 651,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "Understanding AI Agent Hallucination in AI Systems",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260802",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "bNRhppHct54"
+      },
+      "fCHe_fOqlYA": {
+        "autoOrig": true,
+        "chapters": 8,
+        "durationSec": 785,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "Building AI Agent Systems and Scaling Challenges in Agentic AI",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260609",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "fCHe_fOqlYA"
+      },
+      "goU9VIXA8II": {
+        "autoOrig": true,
+        "chapters": 6,
+        "durationSec": 482,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "MCP vs Skills: Which Is Right for Your AI Agent and LLMs?",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260707",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "goU9VIXA8II"
+      },
+      "hTAWHgQI4xg": {
+        "autoOrig": true,
+        "chapters": 10,
+        "durationSec": 602,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "5 Concepts to Know for Coding with AI Agents",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20261012",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "hTAWHgQI4xg"
+      },
+      "hvnPWgfmvyI": {
+        "autoOrig": true,
+        "chapters": 10,
+        "durationSec": 544,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "Why AI Agents Need RAG + Observability",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20261112",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "hvnPWgfmvyI"
+      },
+      "i1ZmNUbRGD4": {
+        "autoOrig": true,
+        "chapters": 6,
+        "durationSec": 625,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "AI Agents vs Business Rules: Which Should Make Decisions?",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260820",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "i1ZmNUbRGD4"
+      },
+      "jRMbbRdju7Q": {
+        "autoOrig": true,
+        "chapters": 5,
+        "durationSec": 685,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "When Should AI Systems Use Super Agents?",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260920",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "jRMbbRdju7Q"
+      },
+      "k5jYwyhDMxA": {
+        "autoOrig": true,
+        "chapters": 6,
+        "durationSec": 667,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "5 AI Agent Terms You Need to Know",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260623",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "k5jYwyhDMxA"
+      },
+      "kYkZI3oj2W4": {
+        "autoOrig": true,
+        "chapters": 0,
+        "durationSec": 655,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "Multi AI Agent Systems: When One AI Brain Isn’t Enough",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260528",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "kYkZI3oj2W4"
+      },
+      "nVImVgKpoOY": {
+        "autoOrig": true,
+        "chapters": 6,
+        "durationSec": 901,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "LLM & AI Agent Benchmarks vs Reality: Why AI Applications Break",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260827",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "nVImVgKpoOY"
+      },
+      "qYNs80FKIVc": {
+        "autoOrig": true,
+        "chapters": 7,
+        "durationSec": 802,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "5 Best Practices for Building AI Agent Skills",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260810",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "qYNs80FKIVc"
+      },
+      "rXFV1ivDe6c": {
+        "autoOrig": true,
+        "chapters": 10,
+        "durationSec": 601,
+        "hasCaptions": true,
+        "language": "en",
+        "manual": [
+          "en"
+        ],
+        "title": "Are Vector Databases Still Needed? RAG, AI Agents & Search",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20261105",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "rXFV1ivDe6c"
+      }
+    }
+  }
+}

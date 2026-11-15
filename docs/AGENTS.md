@@ -28,7 +28,7 @@
 | # | 이름 | 역할 | 입력 → 출력 | 도구 (allowlist) | 모델 | 실행 위치 |
 |---|---|---|---|---|---|---|
 | 0 | (스크립트) `ingest` | repo md·YouTube 메타·자막 수집. 같은 오류 2회면 중단하고 실패 보고 | `sources.yaml` → `tmp/raw/*` | gh, yt-dlp 또는 Agent-Reach (`--lang en-orig,en` 고정) | **LLM 없음** | `pipeline/` Python CLI |
-| 1 | `source-auditor` | 소스 라이선스·reuse 판정, 갱신 감지 | `sources.yaml` → 판정 + diff | Bash(`gh api` 만), Read | haiku | Claude Code subagent |
+| 1 | (스크립트) `ingest audit` | 소스 라이선스 재확인, 선언값과 다르면 drift 로 실패 | `sources.yaml` → `pipeline/manifests/audit.json` | gh | **LLM 없음**. 판정이 GitHub API 값 비교라 LLM 이 필요 없다 (M1 에서 subagent 계획을 대체) | `pipeline/` Python CLI |
 | 2 | `interview-extractor` | 레포 md 에서 Q/A 정규화, 직무·토픽 태깅 | `tmp/raw/repo/*.md` → `content/questions/*.md` (draft) | Read, Write(`content/` 만) | haiku | subagent, 파일 단위 병렬 |
 | 3 | `lecture-segmenter` | 자막을 챕터로 나누고 한국어 요약 + 타임스탬프 작성 | `tmp/raw/yt/<id>.srt` → `content/lectures/<id>.md` | Read, Write(`content/` 만) | sonnet | subagent, 강의 단위 병렬 |
 | 4 | `question-generator` | 세그먼트에서 면접 문항·모범답안·rubric 생성 (RS·Agent 직무 보강) | `content/lectures/*.md` → `content/questions/*.md` | Read, Write(`content/` 만) | sonnet. rubric 템플릿은 opus 가 1회 작성 | subagent |
