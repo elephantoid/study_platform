@@ -18,10 +18,15 @@ KINDS = {"questions": "question", "notes": "studyNote", "lectures": "lecture"}
 LINK_ONLY_BODY_LIMIT = 600  # chars; link_only sources may carry a short summary plus links only
 QUOTE_WORDS = 12  # contract allows at most one quoted sentence; 12 identical words in a row is copying
 _WORD = re.compile(r"[a-z0-9']+")
+_LECTURE_ID = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*-l[0-9]{2}")
 
 
 @lru_cache(maxsize=None)
 def _transcript_shingles(lecture_id: str) -> frozenset[tuple[str, ...]] | None:
+    # Ids come from unvalidated frontmatter (schema errors don't stop the loop); never let one
+    # become a path outside RAW_DIR/yt.
+    if not _LECTURE_ID.fullmatch(lecture_id):
+        return None
     p = RAW_DIR / "yt" / f"{lecture_id}.json"
     if not p.exists():
         return None  # CI has no raw transcripts; this check runs where they exist (local / pipeline)

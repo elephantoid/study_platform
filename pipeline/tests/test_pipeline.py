@@ -202,3 +202,12 @@ def test_copied_span_detects_transcript_copy(monkeypatch, tmp_path):
     check._transcript_shingles.cache_clear()
     assert check.copied_span("요약: " + words, "x-l01")
     assert check.copied_span("attention lets each token attend to all others", "x-l01") is None
+
+
+@pytest.mark.parametrize("lid", ["../../etc/x-l01", "x-l01/../../y", "/abs-l01", "X-L01", ""])
+def test_copied_span_rejects_non_id_paths(monkeypatch, tmp_path, lid):
+    from study_pipeline import check
+
+    monkeypatch.setattr(check, "RAW_DIR", tmp_path / "raw")
+    check._transcript_shingles.cache_clear()
+    assert check._transcript_shingles(lid) is None
