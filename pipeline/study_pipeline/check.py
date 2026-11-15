@@ -109,7 +109,8 @@ def check(content: Path = CONTENT) -> tuple[list[str], list[str]]:
             elif src.reuse == "summary_link":
                 seg = (f.get("reviewTarget") or {}).get("segmentId") or ""
                 lid = fid if kind == "lectures" else seg.rsplit("-s", 1)[0]
-                text = body + "\n" + yaml.safe_dump(f.get("rubric") or {}, allow_unicode=True)
+                # Whole frontmatter: rubric, followUps and NotebookLM-written slideUnits live there, not in the body.
+                text = body + "\n" + yaml.safe_dump(f, allow_unicode=True)
                 if lid and (hit := copied_span(text, lid)):
                     errors.append(f"{rel}: copies {QUOTE_WORDS}+ consecutive transcript words: \"{hit}\"")
             elif src.reuse != "verbatim":

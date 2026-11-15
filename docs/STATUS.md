@@ -24,12 +24,14 @@
 
 ## 남은 일
 
-- [ ] `boost-net-031.md`, `boost-net-032.md` 삭제 (추출 규칙 변경 전의 잔여 파일, commit 안 됨. 자동 삭제가 권한 대기로 막혀 남겨둠)
-- [ ] 문항 생성 시범 23개 품질 확인 (사람) → 통과하면 나머지 60편으로 확대 (Sonnet 1편당 약 10만 토큰)
-- [ ] `rubric.mustHave` 가 영어 원어 키워드다. 한국어 답안 채점은 문자열 일치가 아니라 의미 일치여야 한다 → M4 grader 설계에 반영
+- [x] 시범 문항 검토 (2026-11-16): 말투 "~하세요" 통일, 조사 띄어쓰기 교정, Reflexion 중복(q04·q05)을 q05로 병합. 생성 지침에 규칙 3개 추가
+- [x] `cs329z-2026au-l01-q04.md` 삭제 (q05에 병합됨. id는 재사용하지 않는다)
+- [ ] 나머지 60편 문항 확대: **현 단계에서는 하지 않음** (사용자 결정 2026-11-16)
+- [x] 계약 v2 (`chore/contract-v2`): AG의 꼬리질문·syllabus·slideUnits를 **선택 항목**으로 받고, `generation.by: notebooklm` 추가(검수는 CC·사람만), 복사 검사를 frontmatter 전체로 확대, 모의면접 삭제(사용자 승인)
+- [ ] AG: `feat/ui-ag`를 `chore/contract-v2` 위로 rebase (공유 파일 충돌은 v2 채택)
+- [x] 채점 방식: **의미 일치로 확정** (사용자 2026-11-16). `mustHave`·`rubricKeywords` 는 영어 원어여도 한국어 답의 같은 개념을 인정한다
 - [ ] concept 카드 268개의 `difficulty` 는 전부 자리표시자(`intermediate`). critic 또는 사람이 정한다
 - [ ] jbee·gyoogle·jobhope (MIT) 추출: 구조가 boost-devs 와 달라 규칙 추출기 미적용
-- [ ] AG: `git rebase feat/initial-plan-cc` 후 착수 (계약이 2회 갱신됨)
 - [ ] CI: `ingest check` + "published 전환은 사람 승인" 검사 (CONTRACT §3)
 - [ ] 비공개 CS329Z 6편: 공개되면 `ingest videos` 재실행으로 자동 편입
 

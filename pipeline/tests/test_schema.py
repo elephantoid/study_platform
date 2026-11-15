@@ -61,3 +61,42 @@ def test_cross_review_accepted():
 
 def test_draft_needs_no_review():
     assert errors("question", {**Q, "status": "draft"}) == []
+
+
+FU = {"promptMd": "p", "hintKo": "h", "rubricKeywords": ["k"], "modelAnswerKo": "a", "maxScore": 5}
+
+
+def test_follow_ups_optional_for_existing_cards():
+    assert errors("question", {**Q, "status": "draft"}) == []
+
+
+@pytest.mark.parametrize("n", [1, 2, 4])
+def test_follow_ups_exactly_three_when_present(n):
+    fus = [{**FU, "id": f"q1-f{i}", "order": min(i, 3)} for i in range(1, n + 1)]
+    assert errors("question", {**Q, "status": "draft", "followUps": fus})
+
+
+def test_three_follow_ups_accepted():
+    fus = [{**FU, "id": f"q1-f{i}", "order": i} for i in (1, 2, 3)]
+    assert errors("question", {**Q, "status": "draft", "followUps": fus}) == []
+
+
+LEC = {
+    "id": "ibm-ai-agents-l01", "sourceId": "ibm-ai-agents", "course": "ibm", "term": "-", "title": "t",
+    "videoId": "abcdefghijk", "durationSec": 600, "hasCaptions": True, "status": "draft",
+    "segments": [{"id": "ibm-ai-agents-l01-s01", "startSec": 0, "endSec": 600, "title": "t", "summaryKo": "s", "topicIds": ["ai-agents"]}],
+}
+NLM = {**LEC, "generation": {"by": "notebooklm", "model": "notebooklm", "at": "2026-11-16"}}
+
+
+def test_lecture_without_syllabus_or_slides_accepted():
+    # IBM playlists have no syllabus or slide deck.
+    assert errors("lecture", {**LEC, "generation": {"by": "antigravity", "model": "m", "at": "2026-11-16"}}) == []
+
+
+def test_notebooklm_output_not_reviewable_by_gemini_side():
+    assert errors("lecture", {**NLM, "status": "reviewed", "review": PASS_BY_AG})
+
+
+def test_notebooklm_output_reviewable_by_claude():
+    assert errors("lecture", {**NLM, "status": "reviewed", "review": {**PASS_BY_AG, "by": "claude-code"}}) == []

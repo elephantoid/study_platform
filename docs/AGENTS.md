@@ -33,7 +33,7 @@
 | 3 | `lecture-segmenter` | 챕터(=구간)별 한국어 요약. 챕터 없는 강의는 구간 분할도 한다 | `raw/yt/<lectureId>.md` → `content/lectures/<course>/<lectureId>.md` | Read, Write(`content/lectures/` 만) | `gemini-3.5-flash-lite` | **AG** (CONTRACT §1). 54/62편은 YouTube 챕터가 있어 분할이 필요 없다 |
 | 4 | `question-generator` | 강의 구간에서 서술형 면접 문항·모범답안·rubric 생성 (RS·Agent 직무 보강) | `raw/yt/<lectureId>.md` → `content/questions/<topicId>/<lectureId>-qNN.md` | Read, Write, Glob | sonnet | CC subagent, 정의: `.claude/agents/question-generator.md`. 강의 파일(AG) 없이 manifest 구간 id 로 바로 참조한다 |
 | 5 | `content-critic` | 사실 오류·중복·라이선스 위반·난이도 판정 → pass/fail + 사유 | draft md → 판정 JSON | Read, Grep | 생성 모델과 다른 계열 (Gemini 또는 `ai review`) | 외부 위임 |
-| 6 | 런타임 `grader` | 서술형 답안을 rubric 으로 채점하고 피드백 생성 | 답안 + rubric → score, feedback | 없음 (구조화 출력) | `anthropic/claude-haiku-5-5` 기본, 낮은 확신이면 `claude-sonnet-5-5` 로 승급 | 앱 서버 (AI SDK + Gateway) |
+| 6 | 런타임 `grader` | 서술형 답안을 rubric 으로 채점하고 피드백 생성. `mustHave` 는 문자열이 아니라 **의미 일치**로 판정한다 (영어 키워드 ↔ 한국어 답) | 답안 + rubric → score, feedback | 없음 (구조화 출력) | `anthropic/claude-haiku-5-5` 기본, 낮은 확신이면 `claude-sonnet-5-5` 로 승급 | 앱 서버 (AI SDK + Gateway) |
 
 - LLM 이 필요한 단계만 에이전트로 정의한다 (현재 CC 는 4 하나). 각 파일의 `description` 은 "언제 부르는가" 한 문장으로 쓴다.
 - 쓰기 경로는 `content/` 로 제한한다. 앱 코드·설정은 에이전트가 건드리지 않는다.

@@ -55,7 +55,7 @@
       ]
     },
     "reviewGate": {
-      "description": "검수 게이트. reviewed/published 는 pass 검수가 있어야 하고, 검수자는 생성자와 달라야 한다 (생성자 3종 모두에 분기를 둔다). published 전환의 사람 승인은 CI 가 별도로 검사한다 (CONTRACT §3)",
+      "description": "검수 게이트. reviewed/published 는 pass 검수가 있어야 하고, 검수자는 생성자와 달라야 한다 (생성자 4종 모두에 분기를 둔다). published 전환의 사람 승인은 CI 가 별도로 검사한다 (CONTRACT §3)",
       "allOf": [
         {
           "if": {
@@ -181,6 +181,38 @@
               }
             }
           }
+        },
+        {
+          "description": "NotebookLM 은 Gemini 계열이라 AG 가 검수하면 같은 계열 자기 검수가 된다",
+          "if": {
+            "required": [
+              "generation",
+              "review"
+            ],
+            "properties": {
+              "generation": {
+                "properties": {
+                  "by": {
+                    "const": "notebooklm"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "review": {
+                "properties": {
+                  "by": {
+                    "enum": [
+                      "claude-code",
+                      "human"
+                    ]
+                  }
+                }
+              }
+            }
+          }
         }
       ]
     },
@@ -235,12 +267,13 @@
           "enum": [
             "claude-code",
             "antigravity",
-            "human"
+            "human",
+            "notebooklm"
           ]
         },
         "model": {
           "type": "string",
-          "description": "예: claude-sonnet-5-5, gemini-3.5-flash-lite"
+          "description": "예: claude-sonnet-5-5, gemini-3.5-flash-lite, notebooklm"
         },
         "at": {
           "$ref": "#/$defs/date"
@@ -473,6 +506,56 @@
         }
       }
     },
+    "followUp": {
+      "type": "object",
+      "description": "본 문항 풀이 후 이어서 답하는 꼬리질문. id 는 <questionId>-f<order>",
+      "required": [
+        "id",
+        "order",
+        "promptMd",
+        "hintKo",
+        "rubricKeywords",
+        "modelAnswerKo",
+        "maxScore"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "order": {
+          "enum": [
+            1,
+            2,
+            3
+          ]
+        },
+        "promptMd": {
+          "type": "string"
+        },
+        "hintKo": {
+          "type": "string"
+        },
+        "rubricKeywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "description": "채점은 의미 일치로 한다. 문자열 포함 여부로 판정하지 않는다"
+        },
+        "modelAnswerKo": {
+          "type": "string"
+        },
+        "sampleFeedbackKo": {
+          "type": "string"
+        },
+        "maxScore": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
     "question": {
       "type": "object",
       "description": "content/questions/<topicId>/<id>.md. 본문(markdown) = 문제 지문.",
@@ -557,6 +640,14 @@
         },
         "review": {
           "$ref": "#/$defs/review"
+        },
+        "followUps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/followUp"
+          },
+          "minItems": 3,
+          "maxItems": 3
         }
       },
       "allOf": [
@@ -594,6 +685,54 @@
         }
       ]
     },
+    "slideUnit": {
+      "type": "object",
+      "description": "슬라이드 몇 장 + 해설 글 한 장. 해설은 NotebookLM 생성 가능 (generation.by 로 기록)",
+      "required": [
+        "slideId",
+        "slideNumberLabel",
+        "slideTitle",
+        "timestampSec",
+        "slideVisualBullets",
+        "explanationArticleMd",
+        "keyTakeawayKo",
+        "notebookLmPrompt"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "slideId": {
+          "$ref": "#/$defs/id"
+        },
+        "slideNumberLabel": {
+          "type": "string",
+          "description": "예: Slides 01–04"
+        },
+        "slideTitle": {
+          "type": "string"
+        },
+        "timestampSec": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "slideVisualBullets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "description": "슬라이드 요점을 한국어로 재구성한 것. 슬라이드 문장을 그대로 옮기지 않는다"
+        },
+        "explanationArticleMd": {
+          "type": "string"
+        },
+        "keyTakeawayKo": {
+          "type": "string"
+        },
+        "notebookLmPrompt": {
+          "type": "string"
+        }
+      }
+    },
     "segment": {
       "type": "object",
       "required": [
@@ -625,7 +764,7 @@
         "summaryKo": {
           "type": "string",
           "maxLength": 1200,
-          "description": "요약만. 자막 문장 인용은 1문장 이내"
+          "description": "구간 학습 가이드. 강의 전체 요약과 자막 원문은 금지"
         },
         "topicIds": {
           "type": "array",
@@ -633,12 +772,89 @@
             "$ref": "#/$defs/id"
           },
           "minItems": 1
+        },
+        "slideRange": {
+          "type": "string",
+          "description": "예: Slides 1–11. 슬라이드가 없는 강의는 생략"
+        },
+        "slideKeyPointsPlaceholder": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "slideUnits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/slideUnit"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "syllabus": {
+      "type": "object",
+      "required": [
+        "lectureNo",
+        "date",
+        "instructor",
+        "syllabusUrl",
+        "slidesTitle",
+        "slidesUrl",
+        "deckPageCount"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "lectureNo": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "date": {
+          "$ref": "#/$defs/date"
+        },
+        "instructor": {
+          "type": "string"
+        },
+        "syllabusUrl": {
+          "$ref": "#/$defs/url"
+        },
+        "slidesTitle": {
+          "type": "string"
+        },
+        "slidesUrl": {
+          "$ref": "#/$defs/url"
+        },
+        "deckPageCount": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "notebookLmUrl": {
+          "$ref": "#/$defs/url"
+        },
+        "readingLinks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "title",
+              "url"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "$ref": "#/$defs/url"
+              }
+            }
+          }
         }
       }
     },
     "lecture": {
       "type": "object",
-      "description": "content/lectures/<course>/<id>.md. 본문(markdown) = 강의 전체 한국어 요약. 자막 원문 금지.",
+      "description": "content/lectures/<course>/<id>.md. 강의 전체 요약 금지. syllabus 의 slides 와 구간을 함께 공부하는 구조. syllabus 가 없는 강의(IBM 등)는 생략",
       "required": [
         "id",
         "sourceId",
@@ -707,6 +923,9 @@
         },
         "review": {
           "$ref": "#/$defs/review"
+        },
+        "syllabus": {
+          "$ref": "#/$defs/syllabus"
         }
       },
       "allOf": [
