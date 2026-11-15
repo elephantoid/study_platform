@@ -49,10 +49,75 @@ def src(**kw) -> Source:
 def test_link_only_downloads_nothing(monkeypatch, tmp_path):
     monkeypatch.setattr(repos, "RAW_DIR", tmp_path)
     called = []
-    report = repos.fetch([src(license="NONE", reuse="link_only")], FailGuard(), download=called.append)
+    report = repos.fetch([src(license="NONE", reuse="link_only")], FailGuard(), {}, download=called.append)
     assert called == []
     assert report["s"]["status"] == "skipped"
     assert not (tmp_path / "repo" / "s").exists()
+
+
+@pytest.mark.parametrize("audit_status", [None, "drift", "failed"])
+def test_unverified_license_downloads_nothing(monkeypatch, tmp_path, audit_status):
+    monkeypatch.setattr(repos, "RAW_DIR", tmp_path)
+    called = []
+    audited = {"s": {"status": audit_status}} if audit_status else {}
+    report = repos.fetch([src()], FailGuard(), audited, download=called.append)
+    assert called == [] and report["s"]["status"] == "failed"
+
+
+@pytest.mark.parametrize("url", [
+    "https://github.com/a/b/../../orgs/x",
+    "https://github.com/a",
+    "https://evil.com/a/b",
+    "https://github.com/a/..",
+    "https://github.com/a/b?x=1/../../y",
+])
+def test_repo_url_rejects_non_plain_github(url):
+    with pytest.raises(ValueError):
+        src(url=url).repo
+
+
+def test_unavailable_reason_does_not_mask_blocks():
+    vid = "aaaaaaaaaaa"
+    assert youtube.unavailable_reason(f"ERROR: [youtube] {vid}: Private video. Sign in") == "Private video"
+    assert youtube.unavailable_reason(f"ERROR: [youtube] {vid}: Sign in to confirm you're not a bot. Private video") is None
+    assert youtube.unavailable_reason("HTTP Error 429: Too Many Requests") is None
+    assert youtube.unavailable_reason("some text mentioning Private video") is None
+
+
+def test_lecture_ids_are_stable_and_title_numbered():
+    titles = {"a": "Lecture 6", "b": "Lecture 1", "c": "Intro", "d": "Lecture 1 (re-upload)"}
+    ids = youtube.lecture_ids("cs", ["a", "b", "c", "d"], titles, {})
+    assert ids == {"a": "cs-l06", "b": "cs-l01", "c": "cs-l07", "d": "cs-l08"}
+    # A new video inserted at the front must not renumber existing ones.
+    again = youtube.lecture_ids("cs", ["new", "a", "b", "c", "d"], {**titles, "new": "Bonus"}, ids)
+    assert {k: again[k] for k in ids} == ids and again["new"] == "cs-l09"
+
+
+def test_defuddle_markdown_parsing():
+    from study_pipeline import transcripts
+
+    md = "### Welcome\n\n**0:05** · Hello.\n\n**0:09** · Today.\n\n### Agents\n\n**1:02:03** · Tools."
+    cues, chapters = transcripts.parse_defuddle(md)
+    assert [c["s"] for c in cues] == [5, 9, 3723]
+    assert chapters == [{"title": "Welcome", "startSec": 5}, {"title": "Agents", "startSec": 3723}]
+    assert cues[0]["e"] == 9
+
+
+def test_split_qa_boost_format():
+    from study_pipeline.extract_interview import split_qa
+
+    text = (
+        "# T\n## Table of Contents\n- x\n\n---\n\n## #1\n\n#### Q one?\n\nAnswer ![i](./img/a.png)\n\n"
+        "#### References\n\n- [r](https://e.com)\n\n---\n\n## #2\n\n#### Q two?\n\nA2\n"
+    )
+    text += (
+        "\n---\n\n## #3\n\n### Stats style heading?\n\n" + "x" * 50 + "\n\n### sub heading\n\nmore\n"
+        "\n---\n\n## #4\n\n#### Graph\n\nshort\n\n---\n\n## #4-1\n\n#### BFS\n\n" + "y" * 50 + "\n"
+    )
+    qa = split_qa(text.replace("A2\n", "A2 " + "z" * 50 + "\n").replace("Answer ", "Answer " + "w" * 40))
+    assert [q for q, _ in qa] == ["Q one?", "Q two?", "Stats style heading?", "BFS"]
+    assert "### sub heading" in qa[2][1]
+    assert "**References**" in qa[0][1] and "[r](https://e.com)" in qa[0][1]
 
 
 def test_failguard_aborts_on_second_identical_error():

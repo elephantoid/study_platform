@@ -2,7 +2,7 @@ import argparse
 import json
 import sys
 
-from . import audit, repos, sources, youtube
+from . import audit, check, extract_interview, repos, sources, transcripts, youtube
 from .config import MANIFEST_DIR
 from .failguard import Aborted, FailGuard
 
@@ -19,22 +19,38 @@ def _write(name: str, data: dict) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="ingest")
-    ap.add_argument("step", choices=["audit", "repos", "videos", "all"])
-    ap.add_argument("--refresh", action="store_true", help="re-fetch videos already in the manifest")
+    ap.add_argument("step", choices=["audit", "repos", "videos", "transcripts", "extract", "check", "all"])
+    ap.add_argument("--refresh", action="store_true", help="re-fetch videos / transcripts already fetched")
+    ap.add_argument("--only", nargs="*", help="transcripts: limit to these lectureIds or sourceIds")
     args = ap.parse_args(argv)
+
+    if args.step == "check":
+        errors, warnings = check.check()
+        for w in warnings[:20]:
+            print("warn:", w)
+        for e in errors:
+            print("error:", e, file=sys.stderr)
+        print(f"check: {len(errors)} errors, {len(warnings)} warnings")
+        return 1 if errors else 0
+    if args.step == "extract":
+        counts = extract_interview.extract(check.load_topics())
+        print("extract:", counts, "total", sum(counts.values()))
+        return 0
 
     srcs = sources.load()
     guard = FailGuard()
     failed = False
     try:
-        if args.step in ("audit", "all"):
-            report = audit.audit(srcs, guard)
-            _write("audit.json", report)
-            bad = {k: v["status"] for k, v in report.items() if v["status"] != "ok"}
-            print(f"audit: {len(report)} repos, not ok: {bad or 'none'}")
+        audited: dict = {}
+        if args.step in ("audit", "repos", "all"):
+            # `repos` always re-audits first; downloads are gated on this run's result.
+            audited = audit.audit(srcs, guard)
+            _write("audit.json", audited)
+            bad = {k: v["status"] for k, v in audited.items() if v["status"] != "ok"}
+            print(f"audit: {len(audited)} repos, not ok: {bad or 'none'}")
             failed |= bool(bad)
         if args.step in ("repos", "all"):
-            report = repos.fetch(srcs, guard)
+            report = repos.fetch(srcs, guard, audited)
             print("repos:", {k: v.get("files", v["status"]) for k, v in report.items()})
             failed |= any(v["status"] == "failed" for v in report.values())
         if args.step in ("videos", "all"):
@@ -53,6 +69,11 @@ def main(argv: list[str] | None = None) -> int:
                     f" | errors {sum('error' in v for v in vids)}"
                 )
                 failed |= any("error" in v for v in vids)
+        if args.step in ("transcripts", "all"):
+            report = transcripts.fetch(_read("videos.json"), guard, refresh=args.refresh, only=set(args.only or []) or None)
+            for lid, status in report.items():
+                print(f"transcript {lid}: {status}")
+            failed |= any(s.startswith("failed") for s in report.values())
     except Aborted as e:
         print(f"ABORTED: {e}", file=sys.stderr)
         return 2

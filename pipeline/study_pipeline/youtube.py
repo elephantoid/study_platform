@@ -23,7 +23,19 @@ class _SilentLogger:
 _BASE_OPTS = {"quiet": True, "no_warnings": True, "skip_download": True, "logger": _SilentLogger()}
 
 # Per-video states, not blocks: record and re-check next run (scheduled lectures start private).
-_UNAVAILABLE = re.compile(r"Private video|Video unavailable|has been removed|members-only|Premieres in", re.I)
+# Anchored on yt-dlp's "[youtube] <id>: <reason>" so a block message cannot hide behind a keyword.
+_UNAVAILABLE = re.compile(
+    r"\[youtube\] [A-Za-z0-9_-]{11}: (Private video|Video unavailable|This video has been removed"
+    r"|Join this channel to get access to members-only content|Premieres in)"
+)
+_BLOCKED = re.compile(r"not a bot|HTTP Error 429|Too Many Requests|rate.?limit", re.I)
+
+
+def unavailable_reason(err: str) -> str | None:
+    if _BLOCKED.search(err):
+        return None
+    m = _UNAVAILABLE.search(err)
+    return m.group(1) if m else None
 
 
 def list_playlist(playlist_id: str, limit: int | None) -> list[str]:
@@ -71,12 +83,49 @@ def pick_caption_track(info: dict) -> tuple[str, str] | None:
     return None
 
 
+_LECTURE_NO = re.compile(r"\b(?:Lecture|Lec\.?|Part)\s*(\d+)\b", re.I)
+
+
+def lecture_ids(
+    source_id: str, order: list[str], titles: dict[str, str | None], existing: dict[str, str]
+) -> dict[str, str]:
+    """`<sourceId>-l<NN>`, assigned once and never renumbered (questions reference these ids).
+
+    New videos take NN from 'Lecture N' / 'Part N' in the title when free (playlist order is not
+    lecture order: CS329Z lists Lecture 6 first), else the next unused number.
+    """
+    out = {v: existing[v] for v in order if v in existing}
+    used = {int(lid.rsplit("-l", 1)[1]) for lid in out.values()}
+    pending = []
+    for v in order:
+        if v in out:
+            continue
+        m = _LECTURE_NO.search(titles.get(v) or "")
+        n = int(m.group(1)) if m else None
+        if n is not None and n not in used:
+            out[v], used = f"{source_id}-l{n:02d}", used | {n}
+        else:
+            pending.append(v)
+    for v in pending:
+        n = max(used, default=0) + 1
+        out[v], used = f"{source_id}-l{n:02d}", used | {n}
+    return out
+
+
+def with_segment_ids(lecture_id: str, chapters: list[dict], duration: int | None) -> list[dict]:
+    out = []
+    for i, c in enumerate(chapters):
+        end = chapters[i + 1]["startSec"] if i + 1 < len(chapters) else (duration or c["startSec"])
+        out.append({"id": f"{lecture_id}-s{i + 1:02d}", "title": c["title"], "startSec": c["startSec"], "endSec": end})
+    return out
+
+
 def _video_record(s: Source, vid: str, guard: FailGuard) -> dict | None:
     try:
         info = video_info(vid)
     except DownloadError as e:
-        if m := _UNAVAILABLE.search(str(e)):
-            return {"videoId": vid, "unavailable": m.group(0)}
+        if reason := unavailable_reason(str(e)):
+            return {"videoId": vid, "unavailable": reason}
         guard.record("video-info", e)
         return {"videoId": vid, "error": str(e)[:200]}
     uploader = info.get("channel") or info.get("uploader")
@@ -90,6 +139,7 @@ def _video_record(s: Source, vid: str, guard: FailGuard) -> dict | None:
         "language": info.get("language"),
         # YouTube chapters become M2 segment boundaries without an LLM split.
         "chapters": len(info.get("chapters") or []),
+        "chapterList": [{"title": c["title"], "startSec": int(c["start_time"])} for c in info.get("chapters") or []],
         "track": list(track) if (track := pick_caption_track(info)) else None,
         **caption_status(info),
     }
@@ -117,6 +167,15 @@ def scan(sources: list[Source], manifest: dict, guard: FailGuard, refresh: bool 
             for rec in pool.map(lambda v: _video_record(s, v, guard), todo):
                 entry["videos"][rec["videoId"]] = rec
         entry["order"] = ids
+        # Only available videos get ids (private placeholders have no title yet). Assigned ids
+        # persist in entry["lectureIds"] even if a video later goes private or leaves the playlist.
+        avail = [v for v in ids if "title" in entry["videos"].get(v, {})]
+        assigned = entry.setdefault("lectureIds", {})
+        assigned.update(lecture_ids(s.id, avail, {v: entry["videos"][v]["title"] for v in avail}, assigned))
+        for v in avail:
+            rec = entry["videos"][v]
+            rec["lectureId"] = assigned[v]
+            rec["segments"] = with_segment_ids(assigned[v], rec.get("chapterList") or [], rec.get("durationSec"))
         entry["checkedAt"] = date.today().isoformat()
         entry.pop("error", None)
     return manifest

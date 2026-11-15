@@ -38,7 +38,10 @@ def extract_markdown(tar_bytes: bytes, dest: Path) -> int:
     return count
 
 
-def fetch(sources: list[Source], guard: FailGuard, download=_download_tarball) -> dict[str, dict]:
+def fetch(
+    sources: list[Source], guard: FailGuard, audited: dict[str, dict], download=_download_tarball
+) -> dict[str, dict]:
+    """`audited` is this run's audit report; only sources whose live license matched are fetched."""
     report: dict[str, dict] = {}
     for s in sources:
         if s.kind != "repo":
@@ -48,6 +51,11 @@ def fetch(sources: list[Source], guard: FailGuard, download=_download_tarball) -
             # Body must stay at 0 bytes for unlicensed sources.
             shutil.rmtree(dest, ignore_errors=True)
             report[s.id] = {"status": "skipped", "reason": "link_only"}
+            continue
+        if audited.get(s.id, {}).get("status") != "ok":
+            # Fail closed: a drifted or unverified license must not reach verbatim reuse.
+            shutil.rmtree(dest, ignore_errors=True)
+            report[s.id] = {"status": "failed", "error": "license not verified by audit in this run"}
             continue
         try:
             data = download(s.repo)

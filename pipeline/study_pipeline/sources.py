@@ -1,4 +1,5 @@
 import json
+import re
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
@@ -8,6 +9,8 @@ import jsonschema
 import yaml
 
 from .config import SCHEMA, SOURCES
+
+_SEGMENT = re.compile(r"(?!\.{1,2}$)[A-Za-z0-9._-]+")
 
 
 @dataclass(frozen=True)
@@ -23,9 +26,14 @@ class Source:
 
     @property
     def repo(self) -> str:
+        # The value is interpolated into a `gh api` path; accept only plain github.com/owner/repo.
         assert self.kind == "repo", self.id
-        owner, name = urlparse(self.url).path.strip("/").split("/")[:2]
-        return f"{owner}/{name}"
+        u = urlparse(self.url)
+        parts = u.path.strip("/").split("/")
+        plain = u.scheme == "https" and u.netloc == "github.com" and not (u.query or u.fragment or u.params)
+        if not plain or len(parts) != 2 or not all(_SEGMENT.fullmatch(p) for p in parts):
+            raise ValueError(f"{self.id}: repo url must be https://github.com/<owner>/<repo>, got {self.url}")
+        return "/".join(parts)
 
     @property
     def playlist_id(self) -> str:
