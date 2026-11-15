@@ -124,17 +124,3 @@ export type LectureView = {
   attribution: Attribution;
 };
 
-// POST /api/mock-interviews  body: { roleId: RoleId; size: number }
-export type MockInterview = {
-  id: string;
-  roleId: RoleId;
-  questionIds: string[];
-};
-
-// GET /api/mock-interviews/:id/report
-export type MockReport = {
-  id: string;
-  total: number;
-  max: number;
-  weakTopics: { topicId: string; ratio: number }[];
-};
