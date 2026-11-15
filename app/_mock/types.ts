@@ -88,7 +88,19 @@ export type ReviewQueue = {
 // POST /api/review/:questionId  body: { rating: 1 | 2 | 3 | 4 }   (FSRS Again/Hard/Good/Easy)
 export type ReviewResult = { questionId: string; nextDue: string };
 
-// Syllabus 및 Slides 동시 학습 메타데이터 (계약 변경 제안 반영: 전체 요약 summaryMd 제거 -> Syllabus Slides 연동)
+// 슬라이드 1장(또는 소주제 묶음) + 짝지어진 교재형 해설 글 (NotebookLM 기반 추출/연동)
+export type SlideStudyUnit = {
+  slideId: string;
+  slideNumberLabel: string; // 예: "Slides 25–29"
+  slideTitle: string;
+  timestampSec: number; // 이 슬라이드를 설명하는 영상 시작 초
+  slideVisualBullets: string[]; // 슬라이드 화면에 적힌 핵심 수식/다이어그램/불릿
+  explanationArticleMd: string; // 슬라이드 행간을 풀어쓴 한국어 교재형 해설 글
+  keyTakeawayKo: string; // 한 줄 핵심 요약
+  notebookLmPrompt: string; // NotebookLM에서 이 슬라이드를 더 깊게 파고들 때 쓰는 질문 프롬프트
+};
+
+// Syllabus 및 Slides 동시 학습 메타데이터 (계약 변경 제안 반영: 전체 요약 summaryMd 제거 -> Syllabus Slides + 해설 글 연동)
 export type LectureSyllabus = {
   lectureNo: number;
   date: string;
@@ -97,6 +109,7 @@ export type LectureSyllabus = {
   slidesTitle: string;
   slidesUrl: string;
   deckPageCount: number;
+  notebookLmUrl?: string; // 공유된 강의 전용 NotebookLM 노트북 URL
   readingLinks: { title: string; url: string }[];
 };
 
@@ -105,9 +118,10 @@ export type LectureSegmentView = {
   startSec: number;
   endSec: number;
   title: string;
-  summaryKo: string; // 세그먼트 자리표시자 (전체 요약 금지, 슬라이드 학습 포인트 안내)
-  slideRange: string; // 예: "Slides 1–14"
+  summaryKo: string; // 세그먼트 가이드 (전체 요약 금지, 슬라이드 학습 포인트 안내)
+  slideRange: string; // 예: "Slides 1–11"
   slideKeyPointsPlaceholder: string[]; // 슬라이드와 함께 볼 체크포인트 자리표시자
+  slideUnits: SlideStudyUnit[]; // 쪼개서 하나씩 넘기며 읽는 [슬라이드 + 해설 글] 카드 배열
   questionIds: string[];
 };
 
