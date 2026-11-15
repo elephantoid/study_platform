@@ -4,13 +4,15 @@ The repo is uniformly structured (`## #N` → `#### <question>` → answer → `
 so no LLM is needed. Only difficulty is a placeholder; content-critic or a human sets it.
 """
 
+import json
 import re
 from datetime import date
 from pathlib import Path
 
 import yaml
 
-from .config import CONTENT, RAW_DIR
+from .config import CONTENT, MANIFEST_DIR, RAW_DIR
+from .sources import load as load_sources
 
 SOURCE_ID = "boost-ai-tech-interview"
 REPO = "boost-devs/ai-tech-interview"
@@ -73,7 +75,19 @@ def _write(path: Path, front: dict, body: str) -> None:
     path.write_text(f"---\n{fm}\n---\n\n{body.strip()}\n")
 
 
+def _require_verbatim_license() -> None:
+    """Fail closed unless sources.yaml allows verbatim and the last audit confirmed the license."""
+    src = {s.id: s for s in load_sources()}.get(SOURCE_ID)
+    audit_path = MANIFEST_DIR / "audit.json"
+    audited = json.loads(audit_path.read_text()).get(SOURCE_ID, {}) if audit_path.exists() else {}
+    if src is None or src.reuse != "verbatim":
+        raise PermissionError(f"{SOURCE_ID}: sources.yaml does not allow verbatim reuse")
+    if audited.get("status") != "ok" or audited.get("license") != src.license:
+        raise PermissionError(f"{SOURCE_ID}: license not confirmed by `ingest audit` ({audited or 'no audit'})")
+
+
 def extract(topics: dict[str, dict], today: str | None = None) -> dict[str, int]:
+    _require_verbatim_license()
     today = today or date.today().isoformat()
     src_dir = RAW_DIR / "repo" / SOURCE_ID / "answers"
     gen = {"by": "claude-code", "model": GENERATOR, "at": today}

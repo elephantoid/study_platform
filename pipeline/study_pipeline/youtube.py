@@ -95,7 +95,9 @@ def lecture_ids(
     lecture order: CS329Z lists Lecture 6 first), else the next unused number.
     """
     out = {v: existing[v] for v in order if v in existing}
-    used = {int(lid.rsplit("-l", 1)[1]) for lid in out.values()}
+    # Numbers of videos that left the playlist stay reserved; a recycled id would silently
+    # re-point old questions at a different lecture.
+    used = {int(lid.rsplit("-l", 1)[1]) for lid in existing.values()}
     pending = []
     for v in order:
         if v in out:

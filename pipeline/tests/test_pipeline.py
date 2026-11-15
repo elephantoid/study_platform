@@ -171,3 +171,34 @@ def test_pick_caption_track(info, expected):
 
 def test_caption_status_none():
     assert youtube.caption_status({})["hasCaptions"] is False
+
+
+def test_retired_lecture_ids_are_never_recycled():
+    existing = {"a": "cs-l01", "gone": "cs-l02"}  # "gone" left the playlist
+    ids = youtube.lecture_ids("cs", ["a", "new"], {"a": "Intro", "new": "Bonus"}, existing)
+    assert ids["new"] == "cs-l03"
+
+
+def test_extract_refuses_without_audited_verbatim_license(monkeypatch, tmp_path):
+    from study_pipeline import extract_interview as ex
+
+    monkeypatch.setattr(ex, "MANIFEST_DIR", tmp_path)  # no audit.json
+    with pytest.raises(PermissionError):
+        ex.extract({})
+    (tmp_path / "audit.json").write_text('{"boost-ai-tech-interview": {"status": "drift", "license": "NONE"}}')
+    with pytest.raises(PermissionError):
+        ex.extract({})
+
+
+def test_copied_span_detects_transcript_copy(monkeypatch, tmp_path):
+    import json as _json
+
+    from study_pipeline import check
+
+    (tmp_path / "yt").mkdir()
+    words = "the attention mechanism lets every token look at every other token in the sequence at once"
+    (tmp_path / "yt" / "x-l01.json").write_text(_json.dumps({"cues": [{"t": words}]}))
+    monkeypatch.setattr(check, "RAW_DIR", tmp_path)
+    check._transcript_shingles.cache_clear()
+    assert check.copied_span("요약: " + words, "x-l01")
+    assert check.copied_span("attention lets each token attend to all others", "x-l01") is None

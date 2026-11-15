@@ -4,16 +4,40 @@ Runs offline from committed files only (sources, topics, manifests, content) so 
 """
 
 import json
+import re
+from functools import lru_cache
 from pathlib import Path
 
 import jsonschema
 import yaml
 
-from .config import CONTENT, MANIFEST_DIR, SCHEMA
+from .config import CONTENT, MANIFEST_DIR, RAW_DIR, SCHEMA
 from .sources import load as load_sources
 
 KINDS = {"questions": "question", "notes": "studyNote", "lectures": "lecture"}
 LINK_ONLY_BODY_LIMIT = 600  # chars; link_only sources may carry a short summary plus links only
+QUOTE_WORDS = 12  # contract allows at most one quoted sentence; 12 identical words in a row is copying
+_WORD = re.compile(r"[a-z0-9']+")
+
+
+@lru_cache(maxsize=None)
+def _transcript_shingles(lecture_id: str) -> frozenset[tuple[str, ...]] | None:
+    p = RAW_DIR / "yt" / f"{lecture_id}.json"
+    if not p.exists():
+        return None  # CI has no raw transcripts; this check runs where they exist (local / pipeline)
+    words = _WORD.findall(" ".join(c["t"] for c in json.loads(p.read_text())["cues"]).lower())
+    return frozenset(tuple(words[i:i + QUOTE_WORDS]) for i in range(len(words) - QUOTE_WORDS + 1))
+
+
+def copied_span(text: str, lecture_id: str) -> str | None:
+    shingles = _transcript_shingles(lecture_id)
+    if not shingles:
+        return None
+    words = _WORD.findall(text.lower())
+    for i in range(len(words) - QUOTE_WORDS + 1):
+        if tuple(words[i:i + QUOTE_WORDS]) in shingles:
+            return " ".join(words[i:i + QUOTE_WORDS])
+    return None
 
 
 def split_front(text: str) -> tuple[dict, str]:
@@ -74,8 +98,17 @@ def check(content: Path = CONTENT) -> tuple[list[str], list[str]]:
             src = sources.get(f.get("sourceId"))
             if src is None:
                 errors.append(f"{rel}: unknown sourceId {f.get('sourceId')}")
-            elif src.reuse == "link_only" and len(body) > LINK_ONLY_BODY_LIMIT:
-                errors.append(f"{rel}: source {src.id} is link_only; body {len(body)} chars > {LINK_ONLY_BODY_LIMIT}")
+            elif src.reuse == "link_only":
+                if len(body) > LINK_ONLY_BODY_LIMIT:
+                    errors.append(f"{rel}: source {src.id} is link_only; body {len(body)} chars > {LINK_ONLY_BODY_LIMIT}")
+            elif src.reuse == "summary_link":
+                seg = (f.get("reviewTarget") or {}).get("segmentId") or ""
+                lid = fid if kind == "lectures" else seg.rsplit("-s", 1)[0]
+                text = body + "\n" + yaml.safe_dump(f.get("rubric") or {}, allow_unicode=True)
+                if lid and (hit := copied_span(text, lid)):
+                    errors.append(f"{rel}: copies {QUOTE_WORDS}+ consecutive transcript words: \"{hit}\"")
+            elif src.reuse != "verbatim":
+                errors.append(f"{rel}: unknown reuse policy {src.reuse!r}")  # fail closed
             for tid in [f.get("topicId")] if kind != "lectures" else [t for s in f.get("segments") or [] for t in s.get("topicIds", [])]:
                 if tid and tid not in topics:
                     errors.append(f"{rel}: unknown topicId {tid}")
