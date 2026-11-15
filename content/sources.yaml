@@ -1,0 +1,103 @@
+# 공용 계약 파일 (docs/CONTRACT.md §1). 형식은 content/schema.json#/$defs/source.
+# 근거: docs/RESEARCH.md §3, §4. 라이선스는 `ingest audit` 가 GitHub API 로 재확인한다.
+
+# --- 기술 면접 (콘텐츠 A) ---
+- id: boost-ai-tech-interview
+  url: https://github.com/boost-devs/ai-tech-interview
+  kind: repo
+  license: MIT
+  reuse: verbatim
+  attribution: "© boost-devs, MIT License"
+  checkedAt: 2026-11-15
+- id: jbee-interview-beginner
+  url: https://github.com/jbee37142/Interview_Question_for_Beginner
+  kind: repo
+  license: MIT
+  reuse: verbatim
+  attribution: "© JaeYeopHan (jbee37142), MIT License"
+  checkedAt: 2026-11-15
+- id: gyoogle-tech-interview
+  url: https://github.com/gyoogle/tech-interview-for-developer
+  kind: repo
+  license: MIT
+  reuse: verbatim
+  attribution: "© gyoogle, MIT License"
+  checkedAt: 2026-11-15
+- id: jobhope-technicalnote
+  url: https://github.com/jobhope/TechnicalNote
+  kind: repo
+  license: MIT
+  reuse: verbatim
+  attribution: "© jobhope, MIT License"
+  checkedAt: 2026-11-15
+- id: gyoogle-blog
+  url: https://gyoogle.dev/blog/
+  kind: blog
+  license: NONE
+  reuse: link_only
+  attribution: "gyoogle.dev"
+  checkedAt: 2026-11-15
+- id: wearesoft-tech-interview
+  url: https://github.com/WeareSoft/tech-interview
+  kind: repo
+  license: NONE
+  reuse: link_only
+  attribution: "WeareSoft/tech-interview (라이선스 없음, 링크만)"
+  checkedAt: 2026-11-15
+- id: baeharam-frontend
+  url: https://github.com/baeharam/Must-Know-About-Frontend
+  kind: repo
+  license: NONE
+  reuse: link_only
+  attribution: "baeharam/Must-Know-About-Frontend (라이선스 없음, 링크만)"
+  checkedAt: 2026-11-15
+
+# --- 강의 (콘텐츠 B) ---
+- id: cs329z-2026au
+  url: https://www.youtube.com/playlist?list=PLPRcF5HR02_U
+  kind: youtube-playlist
+  license: YouTube-Standard
+  reuse: summary_link
+  uploader: Stanford Online
+  attribution: "Stanford CS329Z Engineering AI Agents, Autumn 2026 — Stanford Online"
+  checkedAt: 2026-11-15
+- id: cs329a-2025au
+  url: https://www.youtube.com/playlist?list=PLangBM27OtEA
+  kind: youtube-playlist
+  license: YouTube-Standard
+  reuse: summary_link
+  uploader: Stanford Online
+  attribution: "Stanford CS329A Self-Improving AI Agents — Stanford Online"
+  checkedAt: 2026-11-15
+- id: cme295-2025au
+  url: https://www.youtube.com/playlist?list=PLoROMvodv4rOCXd21gf0CF4xr35yINeOy
+  kind: youtube-playlist
+  license: YouTube-Standard
+  reuse: summary_link
+  uploader: Stanford Online
+  attribution: "Stanford CME295 Transformers and LLMs, Autumn 2025 — Stanford Online"
+  checkedAt: 2026-11-15
+- id: cme295-2026au
+  url: https://www.youtube.com/playlist?list=PLakGfbKCei80
+  kind: youtube-playlist
+  license: YouTube-Standard
+  reuse: summary_link
+  uploader: Stanford Online
+  attribution: "Stanford CME295 Transformers and LLMs, Autumn 2026 — Stanford Online"
+  checkedAt: 2026-11-15
+- id: cs153-2026sp
+  url: https://www.youtube.com/playlist?list=PLoROMvodv4rN447WKQ5oz_YdYbS74M5IA
+  kind: youtube-playlist
+  license: YouTube-Standard
+  reuse: summary_link
+  uploader: Stanford Online
+  attribution: "Stanford CS153 Frontier Systems, Spring 2026 — Stanford Online"
+  checkedAt: 2026-11-15
+- id: ibm-ai-agents
+  url: https://www.youtube.com/playlist?list=PLOspHqNVtKAB6AzNie7BrFhbg4dv4Gfz8
+  kind: youtube-playlist
+  license: YouTube-Standard
+  reuse: summary_link
+  uploader: IBM Technology
+  attribution: "IBM Technology — AI Agents Explained"
+  checkedAt: 2026-11-15

@@ -36,6 +36,8 @@ Claude Code(CC)와 Antigravity(AG)가 병렬로 작업하기 위한 계약이다
 - 검수자는 frontmatter 의 `review` 만 쓴다. 본문은 고치지 않고 `reasons` 에 적는다. 수정은 소유자가 한다.
 - `fail` 이면 소유자가 고친 뒤 `review` 를 지우고 다시 요청한다.
 - `published` 전환은 사람만 한다.
+- 스키마(`reviewGate`)가 기계적으로 막는 것: 검수 없는 `reviewed/published`, `fail` 판정의 승격, 생성자 본인의 검수(`generation.by == review.by`). 스키마로 막을 수 없는 "published 는 사람이 바꿨는가"는 M2 CI 가 검사한다: `status: published` 로 바뀐 diff 를 포함한 PR 은 사람 승인 리뷰 없이는 병합할 수 없다.
+- 라이선스는 닫힌 목록이다. `verbatim` 은 허용 목록(`verbatimLicense`)의 라이선스만 쓸 수 있다 (fail closed).
 - 검수 체크리스트: 사실 오류 / `reviewTarget`·`segmentId` 가 실재하는가 / 타임스탬프가 영상 길이 안에 있는가 / 자막 원문이 섞였는가 / `link_only` 소스 원문이 섞였는가 / 기존 문항과 중복되는가.
 
 ## 4. 앱 API 타입 (AG 는 이 타입으로 목업을 만든다)

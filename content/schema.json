@@ -4,99 +4,416 @@
   "title": "Study platform content frontmatter",
   "description": "content/ 아래 모든 파일의 frontmatter 계약. 정본은 이 파일이고, docs/CONTRACT.md 는 설명이다.",
   "$defs": {
-    "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 80 },
-    "roleId": { "enum": ["mle", "rs", "agent", "ds"] },
-    "status": { "enum": ["draft", "reviewed", "published"] },
-    "url": { "type": "string", "format": "uri", "pattern": "^https://" },
-    "date": { "type": "string", "format": "date" },
-
-    "review": {
-      "type": "object",
-      "description": "교차 검수 기록. 생성한 쪽과 다른 도구·모델 계열이 채운다.",
-      "required": ["by", "model", "verdict", "at"],
-      "additionalProperties": false,
-      "properties": {
-        "by": { "enum": ["claude-code", "antigravity", "human"] },
-        "model": { "type": "string" },
-        "verdict": { "enum": ["pass", "fail"] },
-        "reasons": { "type": "array", "items": { "type": "string" } },
-        "at": { "$ref": "#/$defs/date" }
-      }
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "maxLength": 80
     },
-
-    "generation": {
-      "type": "object",
-      "required": ["by", "model", "at"],
-      "additionalProperties": false,
-      "properties": {
-        "by": { "enum": ["claude-code", "antigravity", "human"] },
-        "model": { "type": "string", "description": "예: claude-sonnet-5-5, gemini-3.5-flash-lite" },
-        "at": { "$ref": "#/$defs/date" }
-      }
+    "roleId": {
+      "enum": [
+        "mle",
+        "rs",
+        "agent",
+        "ds"
+      ]
     },
-
-    "source": {
-      "type": "object",
-      "description": "content/sources.yaml 의 항목 하나.",
-      "required": ["id", "url", "kind", "license", "reuse", "attribution", "checkedAt"],
-      "additionalProperties": false,
-      "properties": {
-        "id": { "$ref": "#/$defs/id" },
-        "url": { "$ref": "#/$defs/url" },
-        "kind": { "enum": ["repo", "youtube-playlist", "blog"] },
-        "license": { "type": "string", "description": "SPDX ID 또는 NONE" },
-        "reuse": { "enum": ["verbatim", "summary_link", "link_only"] },
-        "attribution": { "type": "string" },
-        "uploader": { "type": "string", "description": "youtube 일 때 필수 확인값. 공식 강의는 'Stanford Online' 등" },
-        "checkedAt": { "$ref": "#/$defs/date" }
-      },
+    "status": {
+      "enum": [
+        "draft",
+        "reviewed",
+        "published"
+      ]
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "license": {
+      "enum": [
+        "NONE",
+        "MIT",
+        "Apache-2.0",
+        "BSD-3-Clause",
+        "CC-BY-4.0",
+        "CC-BY-SA-4.0",
+        "YouTube-Standard"
+      ],
+      "description": "닫힌 목록. 새 라이선스는 계약 변경 PR 로 추가한다"
+    },
+    "verbatimLicense": {
+      "enum": [
+        "MIT",
+        "Apache-2.0",
+        "BSD-3-Clause",
+        "CC-BY-4.0",
+        "CC-BY-SA-4.0"
+      ]
+    },
+    "reviewGate": {
+      "description": "검수 게이트. reviewed/published 는 pass 검수가 있어야 하고, 검수자는 생성자와 달라야 한다. published 전환의 사람 승인은 CI 가 별도로 검사한다 (CONTRACT §3)",
       "allOf": [
         {
-          "if": { "properties": { "license": { "const": "NONE" } } },
-          "then": { "properties": { "reuse": { "const": "link_only" } } }
+          "if": {
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "status": {
+                "enum": [
+                  "reviewed",
+                  "published"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "review"
+            ],
+            "properties": {
+              "review": {
+                "required": [
+                  "verdict"
+                ],
+                "properties": {
+                  "verdict": {
+                    "const": "pass"
+                  }
+                }
+              }
+            }
+          }
         },
         {
-          "if": { "properties": { "kind": { "const": "youtube-playlist" } } },
-          "then": { "required": ["uploader"], "properties": { "reuse": { "const": "summary_link" } } }
+          "if": {
+            "required": [
+              "generation",
+              "review"
+            ],
+            "properties": {
+              "generation": {
+                "properties": {
+                  "by": {
+                    "const": "claude-code"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "review": {
+                "properties": {
+                  "by": {
+                    "enum": [
+                      "antigravity",
+                      "human"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "generation",
+              "review"
+            ],
+            "properties": {
+              "generation": {
+                "properties": {
+                  "by": {
+                    "const": "antigravity"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "review": {
+                "properties": {
+                  "by": {
+                    "enum": [
+                      "claude-code",
+                      "human"
+                    ]
+                  }
+                }
+              }
+            }
+          }
         }
       ]
     },
-
+    "review": {
+      "type": "object",
+      "description": "교차 검수 기록. 생성한 쪽과 다른 도구·모델 계열이 채운다.",
+      "required": [
+        "by",
+        "model",
+        "verdict",
+        "at"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "by": {
+          "enum": [
+            "claude-code",
+            "antigravity",
+            "human"
+          ]
+        },
+        "model": {
+          "type": "string"
+        },
+        "verdict": {
+          "enum": [
+            "pass",
+            "fail"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "at": {
+          "$ref": "#/$defs/date"
+        }
+      }
+    },
+    "generation": {
+      "type": "object",
+      "required": [
+        "by",
+        "model",
+        "at"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "by": {
+          "enum": [
+            "claude-code",
+            "antigravity",
+            "human"
+          ]
+        },
+        "model": {
+          "type": "string",
+          "description": "예: claude-sonnet-5-5, gemini-3.5-flash-lite"
+        },
+        "at": {
+          "$ref": "#/$defs/date"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "description": "content/sources.yaml 의 항목 하나.",
+      "required": [
+        "id",
+        "url",
+        "kind",
+        "license",
+        "reuse",
+        "attribution",
+        "checkedAt"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "url": {
+          "$ref": "#/$defs/url"
+        },
+        "kind": {
+          "enum": [
+            "repo",
+            "youtube-playlist",
+            "blog"
+          ]
+        },
+        "license": {
+          "$ref": "#/$defs/license"
+        },
+        "reuse": {
+          "enum": [
+            "verbatim",
+            "summary_link",
+            "link_only"
+          ]
+        },
+        "attribution": {
+          "type": "string"
+        },
+        "uploader": {
+          "type": "string",
+          "description": "youtube 일 때 필수 확인값. 공식 강의는 'Stanford Online' 등"
+        },
+        "checkedAt": {
+          "$ref": "#/$defs/date"
+        }
+      },
+      "allOf": [
+        {
+          "description": "fail closed: 원문 수록은 허용 목록의 라이선스만",
+          "if": {
+            "properties": {
+              "reuse": {
+                "const": "verbatim"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "license": {
+                "$ref": "#/$defs/verbatimLicense"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "license": {
+                "const": "NONE"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reuse": {
+                "const": "link_only"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "youtube-playlist"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "uploader"
+            ],
+            "properties": {
+              "license": {
+                "const": "YouTube-Standard"
+              },
+              "reuse": {
+                "const": "summary_link"
+              }
+            }
+          }
+        }
+      ]
+    },
     "studyNote": {
       "type": "object",
       "description": "content/notes/<topicId>/<id>.md. 본문(markdown)은 reuse=verbatim 일 때만 원문, 아니면 한국어 요약.",
-      "required": ["id", "topicId", "sourceId", "title", "canonicalUrl", "roles", "status", "generation"],
+      "required": [
+        "id",
+        "topicId",
+        "sourceId",
+        "title",
+        "canonicalUrl",
+        "roles",
+        "status",
+        "generation"
+      ],
       "additionalProperties": false,
       "properties": {
-        "id": { "$ref": "#/$defs/id" },
-        "topicId": { "$ref": "#/$defs/id" },
-        "sourceId": { "$ref": "#/$defs/id" },
-        "title": { "type": "string" },
-        "canonicalUrl": { "$ref": "#/$defs/url" },
-        "roles": { "type": "array", "items": { "$ref": "#/$defs/roleId" }, "minItems": 1, "uniqueItems": true },
-        "status": { "$ref": "#/$defs/status" },
-        "generation": { "$ref": "#/$defs/generation" },
-        "review": { "$ref": "#/$defs/review" }
-      }
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "topicId": {
+          "$ref": "#/$defs/id"
+        },
+        "sourceId": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string"
+        },
+        "canonicalUrl": {
+          "$ref": "#/$defs/url"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/roleId"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "generation": {
+          "$ref": "#/$defs/generation"
+        },
+        "review": {
+          "$ref": "#/$defs/review"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/$defs/reviewGate"
+        }
+      ]
     },
-
     "rubric": {
       "type": "object",
-      "required": ["mustHave", "criteria", "modelAnswerKo"],
+      "required": [
+        "mustHave",
+        "criteria",
+        "modelAnswerKo"
+      ],
       "additionalProperties": false,
       "properties": {
-        "mustHave": { "type": "array", "items": { "type": "string" } },
+        "mustHave": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "criteria": {
           "type": "array",
           "minItems": 1,
           "items": {
             "type": "object",
-            "required": ["id", "desc", "points"],
+            "required": [
+              "id",
+              "desc",
+              "points"
+            ],
             "additionalProperties": false,
             "properties": {
-              "id": { "type": "string", "pattern": "^c[0-9]+$" },
-              "desc": { "type": "string" },
-              "points": { "type": "integer", "minimum": 1 }
+              "id": {
+                "type": "string",
+                "pattern": "^c[0-9]+$"
+              },
+              "desc": {
+                "type": "string"
+              },
+              "points": {
+                "type": "integer",
+                "minimum": 1
+              }
             }
           }
         },
@@ -104,87 +421,264 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["desc", "points"],
+            "required": [
+              "desc",
+              "points"
+            ],
             "additionalProperties": false,
             "properties": {
-              "desc": { "type": "string" },
-              "points": { "type": "integer", "maximum": -1 }
+              "desc": {
+                "type": "string"
+              },
+              "points": {
+                "type": "integer",
+                "maximum": -1
+              }
             }
           }
         },
-        "modelAnswerKo": { "type": "string" }
+        "modelAnswerKo": {
+          "type": "string"
+        }
       }
     },
-
     "question": {
       "type": "object",
       "description": "content/questions/<topicId>/<id>.md. 본문(markdown) = 문제 지문.",
-      "required": ["id", "topicId", "sourceId", "type", "difficulty", "roles", "reviewTarget", "status", "generation"],
+      "required": [
+        "id",
+        "topicId",
+        "sourceId",
+        "type",
+        "difficulty",
+        "roles",
+        "reviewTarget",
+        "status",
+        "generation"
+      ],
       "additionalProperties": false,
       "properties": {
-        "id": { "$ref": "#/$defs/id" },
-        "topicId": { "$ref": "#/$defs/id" },
-        "sourceId": { "$ref": "#/$defs/id" },
-        "type": { "enum": ["concept", "open", "mcq"] },
-        "difficulty": { "enum": ["basic", "intermediate", "advanced"] },
-        "roles": { "type": "array", "items": { "$ref": "#/$defs/roleId" }, "minItems": 1, "uniqueItems": true },
-        "choices": { "type": "array", "items": { "type": "string" }, "minItems": 2, "maxItems": 6 },
-        "answerIndex": { "type": "integer", "minimum": 0 },
-        "rubric": { "$ref": "#/$defs/rubric" },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "topicId": {
+          "$ref": "#/$defs/id"
+        },
+        "sourceId": {
+          "$ref": "#/$defs/id"
+        },
+        "type": {
+          "enum": [
+            "concept",
+            "open",
+            "mcq"
+          ]
+        },
+        "difficulty": {
+          "enum": [
+            "basic",
+            "intermediate",
+            "advanced"
+          ]
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/roleId"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2,
+          "maxItems": 6
+        },
+        "answerIndex": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rubric": {
+          "$ref": "#/$defs/rubric"
+        },
         "reviewTarget": {
           "type": "object",
           "description": "오답 시 이동할 곳. 둘 중 하나 이상.",
           "additionalProperties": false,
           "properties": {
-            "noteId": { "$ref": "#/$defs/id" },
-            "segmentId": { "$ref": "#/$defs/id" }
+            "noteId": {
+              "$ref": "#/$defs/id"
+            },
+            "segmentId": {
+              "$ref": "#/$defs/id"
+            }
           },
           "minProperties": 1
         },
-        "status": { "$ref": "#/$defs/status" },
-        "generation": { "$ref": "#/$defs/generation" },
-        "review": { "$ref": "#/$defs/review" }
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "generation": {
+          "$ref": "#/$defs/generation"
+        },
+        "review": {
+          "$ref": "#/$defs/review"
+        }
       },
       "allOf": [
-        { "if": { "properties": { "type": { "const": "mcq" } } }, "then": { "required": ["choices", "answerIndex"] } },
-        { "if": { "properties": { "type": { "const": "open" } } }, "then": { "required": ["rubric"] } }
+        {
+          "$ref": "#/$defs/reviewGate"
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "mcq"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "choices",
+              "answerIndex"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "open"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "rubric"
+            ]
+          }
+        }
       ]
     },
-
     "segment": {
       "type": "object",
-      "required": ["id", "startSec", "endSec", "title", "summaryKo", "topicIds"],
+      "required": [
+        "id",
+        "startSec",
+        "endSec",
+        "title",
+        "summaryKo",
+        "topicIds"
+      ],
       "additionalProperties": false,
       "properties": {
-        "id": { "$ref": "#/$defs/id" },
-        "startSec": { "type": "integer", "minimum": 0 },
-        "endSec": { "type": "integer", "minimum": 1 },
-        "title": { "type": "string" },
-        "summaryKo": { "type": "string", "maxLength": 1200, "description": "요약만. 자막 문장 인용은 1문장 이내" },
-        "topicIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "minItems": 1 }
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "startSec": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "endSec": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "type": "string"
+        },
+        "summaryKo": {
+          "type": "string",
+          "maxLength": 1200,
+          "description": "요약만. 자막 문장 인용은 1문장 이내"
+        },
+        "topicIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1
+        }
       }
     },
-
     "lecture": {
       "type": "object",
       "description": "content/lectures/<course>/<id>.md. 본문(markdown) = 강의 전체 한국어 요약. 자막 원문 금지.",
-      "required": ["id", "sourceId", "course", "term", "title", "videoId", "durationSec", "hasCaptions", "segments", "status", "generation"],
+      "required": [
+        "id",
+        "sourceId",
+        "course",
+        "term",
+        "title",
+        "videoId",
+        "durationSec",
+        "hasCaptions",
+        "segments",
+        "status",
+        "generation"
+      ],
       "additionalProperties": false,
       "properties": {
-        "id": { "$ref": "#/$defs/id" },
-        "sourceId": { "$ref": "#/$defs/id" },
-        "course": { "enum": ["cs329z", "cs329a", "cme295", "cs153", "ibm"] },
-        "term": { "type": "string" },
-        "title": { "type": "string" },
-        "lectureNo": { "type": "integer", "minimum": 1 },
-        "videoId": { "type": "string", "pattern": "^[A-Za-z0-9_-]{11}$" },
-        "durationSec": { "type": "integer", "minimum": 1 },
-        "hasCaptions": { "type": "boolean" },
-        "segments": { "type": "array", "items": { "$ref": "#/$defs/segment" }, "minItems": 1 },
-        "status": { "$ref": "#/$defs/status" },
-        "generation": { "$ref": "#/$defs/generation" },
-        "review": { "$ref": "#/$defs/review" }
-      }
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "sourceId": {
+          "$ref": "#/$defs/id"
+        },
+        "course": {
+          "enum": [
+            "cs329z",
+            "cs329a",
+            "cme295",
+            "cs153",
+            "ibm"
+          ]
+        },
+        "term": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lectureNo": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "videoId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{11}$"
+        },
+        "durationSec": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "hasCaptions": {
+          "type": "boolean"
+        },
+        "segments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/segment"
+          },
+          "minItems": 1
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "generation": {
+          "$ref": "#/$defs/generation"
+        },
+        "review": {
+          "$ref": "#/$defs/review"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/$defs/reviewGate"
+        }
+      ]
     }
   }
 }
