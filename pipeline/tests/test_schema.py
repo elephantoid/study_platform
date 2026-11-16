@@ -100,3 +100,31 @@ def test_notebooklm_output_not_reviewable_by_gemini_side():
 
 def test_notebooklm_output_reviewable_by_claude():
     assert errors("lecture", {**NLM, "status": "reviewed", "review": {**PASS_BY_AG, "by": "claude-code"}}) == []
+
+
+UNIT = {"slideId": "u1", "slideNumberLabel": "Slides 01–02", "slideTitle": "t", "timestampSec": 0,
+        "slideVisualBullets": ["b"], "explanationArticleMd": "e", "keyTakeawayKo": "k", "notebookLmPrompt": "p"}
+
+
+def _with_unit(by: str) -> dict:
+    seg = {**LEC["segments"][0], "slideRange": "Slides 1–2", "slideUnits": [{**UNIT, "generatedBy": by}]}
+    return {**LEC, "segments": [seg], "generation": {"by": "human", "model": "-", "at": "2026-11-16"}}
+
+
+def test_slide_unit_requires_generator():
+    seg = {**LEC["segments"][0], "slideUnits": [UNIT]}
+    assert errors("lecture", {**LEC, "segments": [seg], "generation": {"by": "human", "model": "-", "at": "2026-11-16"}})
+
+
+@pytest.mark.parametrize("by", ["notebooklm", "antigravity"])
+def test_gemini_card_inside_human_file_not_reviewable_by_ag(by):
+    assert errors("lecture", {**_with_unit(by), "status": "reviewed", "review": PASS_BY_AG})
+
+
+def test_human_cards_reviewable_by_ag():
+    assert errors("lecture", {**_with_unit("human"), "status": "reviewed", "review": PASS_BY_AG}) == []
+
+
+def test_free_text_is_capped():
+    seg = {**LEC["segments"][0], "slideUnits": [{**UNIT, "generatedBy": "human", "explanationArticleMd": "x" * 3001}]}
+    assert errors("lecture", {**LEC, "segments": [seg], "generation": {"by": "human", "model": "-", "at": "2026-11-16"}})

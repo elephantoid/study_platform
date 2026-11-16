@@ -33,11 +33,14 @@ Claude Code(CC)와 Antigravity(AG)가 병렬로 작업하기 위한 계약이다
 ```
 
 - 검수는 **생성한 쪽의 반대편**이 한다. CC 문항은 AG(Gemini)가, AG 강의 요약은 CC(Claude)가 본다.
-- **NotebookLM 산출물**(강의 `slideUnits` 해설 등)은 AG가 돌려서 `content/lectures/`에 넣되 `generation.by: notebooklm`으로 기록한다. NotebookLM은 Gemini 계열이므로 검수는 CC 또는 사람만 한다(스키마가 강제). 자막 12단어 연속 복사 검사는 frontmatter 전체에 적용된다. 슬라이드 문장 원문 복사는 기계로 못 잡으므로 검수 체크리스트로 본다.
+- **NotebookLM 산출물**(강의 `slideUnits` 해설 등)은 AG가 돌려서 `content/lectures/`에 넣되 `generation.by: notebooklm`으로 기록한다. 파일 안의 카드마다 `slideUnits[].generatedBy`도 적는다. NotebookLM은 Gemini 계열이므로, 파일이나 카드 중 하나라도 AG·NotebookLM이 쓴 것이면 검수는 CC 또는 사람만 한다(스키마가 강제). 자막 12단어 연속 복사 검사는 frontmatter 전체에 적용되고, 로컬 hook 에서는 참조한 강의의 자막이 없으면 오류다(CI 에는 자막이 없어 건너뛴다). 슬라이드 문장 원문 복사는 기계로 못 잡으므로 검수 체크리스트로 본다.
 - 검수자는 frontmatter 의 `review` 만 쓴다. 본문은 고치지 않고 `reasons` 에 적는다. 수정은 소유자가 한다.
 - `fail` 이면 소유자가 고친 뒤 `review` 를 지우고 다시 요청한다.
 - `published` 전환은 사람만 한다.
-- 스키마(`reviewGate`)가 기계적으로 막는 것: 검수 없는 `reviewed/published`, `fail` 판정의 승격, 생성자 본인의 검수(`generation.by == review.by`). 스키마로 막을 수 없는 "published 는 사람이 바꿨는가"는 M2 CI 가 검사한다: `status: published` 로 바뀐 diff 를 포함한 PR 은 사람 승인 리뷰 없이는 병합할 수 없다.
+- 스키마(`reviewGate`)가 기계적으로 막는 것: 검수 없는 `reviewed/published`, `fail` 판정의 승격, 생성자 본인의 검수(`generation.by == review.by`). 스키마로 막을 수 없는 "published 는 사람이 바꿨는가"는 `ingest gate` 가 검사한다.
+  - 로컬: `.githooks/pre-commit` (`git config core.hooksPath .githooks`, 모든 worktree 공유) 이 테스트, `ingest check --require-transcripts`, `ingest gate` 를 돌린다. published 전환이 있으면 터미널(`/dev/tty`)에서 `publish` 를 입력해야 커밋된다. 에이전트 셸에는 터미널이 없어 거부된다.
+  - GitHub: `.github/workflows/content.yml`. published 전환이 있는 PR 은 `publish-approved` 라벨이 없으면 실패한다.
+  - 한계: `--no-verify` 나 라벨 직접 부착은 막지 못한다. 최종 관문은 사람의 병합이다. 이 장치는 전환을 눈에 띄게 만들 뿐이다.
 - 라이선스는 닫힌 목록이다. `verbatim` 은 허용 목록(`verbatimLicense`)의 라이선스만 쓸 수 있다 (fail closed).
 - 검수 체크리스트: 사실 오류 / `reviewTarget`·`segmentId` 가 실재하는가 / 타임스탬프가 영상 길이 안에 있는가 / 자막 원문이 섞였는가 / 슬라이드 문장이 그대로 옮겨졌는가 / `link_only` 소스 원문이 섞였는가 / 기존 문항과 중복되는가.
 - `followUps`(꼬리질문)는 선택 항목이며, 넣을 때는 정확히 3개다. 기존 concept 카드에는 없다. 생성은 CC 문항 생성기가 한다.
@@ -117,7 +120,7 @@ type SlideStudyUnit = {
   explanationArticleMd: string;             // 해설 글 (NotebookLM 생성 가능)
   keyTakeawayKo: string;
   notebookLmPrompt: string;                 // NotebookLM 심화 질문 프롬프트
-  generatedBy: "antigravity" | "notebooklm" | "human"; // 강의 파일의 generation.by. UI 출처 표기용
+  generatedBy: "antigravity" | "notebooklm" | "human"; // 카드별 생성자 (frontmatter slideUnits[].generatedBy). UI 출처 표기와 교차 검수에 쓴다
 };
 
 type LectureSyllabus = {

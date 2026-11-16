@@ -502,7 +502,8 @@
           }
         },
         "modelAnswerKo": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 1500
         }
       }
     },
@@ -531,24 +532,29 @@
           ]
         },
         "promptMd": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 600
         },
         "hintKo": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 300
         },
         "rubricKeywords": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 80
           },
           "minItems": 1,
           "description": "채점은 의미 일치로 한다. 문자열 포함 여부로 판정하지 않는다"
         },
         "modelAnswerKo": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 1500
         },
         "sampleFeedbackKo": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 1000
         },
         "maxScore": {
           "type": "integer",
@@ -696,7 +702,8 @@
         "slideVisualBullets",
         "explanationArticleMd",
         "keyTakeawayKo",
-        "notebookLmPrompt"
+        "notebookLmPrompt",
+        "generatedBy"
       ],
       "additionalProperties": false,
       "properties": {
@@ -705,10 +712,12 @@
         },
         "slideNumberLabel": {
           "type": "string",
-          "description": "예: Slides 01–04"
+          "description": "예: Slides 01–04",
+          "maxLength": 40
         },
         "slideTitle": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 200
         },
         "timestampSec": {
           "type": "integer",
@@ -717,19 +726,32 @@
         "slideVisualBullets": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 200
           },
           "minItems": 1,
-          "description": "슬라이드 요점을 한국어로 재구성한 것. 슬라이드 문장을 그대로 옮기지 않는다"
+          "description": "슬라이드 요점을 한국어로 재구성한 것. 슬라이드 문장을 그대로 옮기지 않는다",
+          "maxItems": 12
         },
         "explanationArticleMd": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 3000
         },
         "keyTakeawayKo": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 400
         },
         "notebookLmPrompt": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 600
+        },
+        "generatedBy": {
+          "enum": [
+            "antigravity",
+            "notebooklm",
+            "human"
+          ],
+          "description": "이 카드를 쓴 주체. 파일의 generation.by 와 다를 수 있다 (예: AG 파일 안의 NotebookLM 해설)"
         }
       }
     },
@@ -931,6 +953,52 @@
       "allOf": [
         {
           "$ref": "#/$defs/reviewGate"
+        },
+        {
+          "description": "카드 단위 생성자도 교차 검수 대상이다. AG·NotebookLM 카드가 하나라도 있으면 검수는 CC 또는 사람",
+          "if": {
+            "required": [
+              "review",
+              "segments"
+            ],
+            "properties": {
+              "segments": {
+                "contains": {
+                  "required": [
+                    "slideUnits"
+                  ],
+                  "properties": {
+                    "slideUnits": {
+                      "contains": {
+                        "properties": {
+                          "generatedBy": {
+                            "enum": [
+                              "antigravity",
+                              "notebooklm"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "review": {
+                "properties": {
+                  "by": {
+                    "enum": [
+                      "claude-code",
+                      "human"
+                    ]
+                  }
+                }
+              }
+            }
+          }
         }
       ]
     },
