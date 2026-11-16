@@ -42,9 +42,12 @@ def transitions(base: str | None = None) -> list[str]:
             raise RuntimeError(f"no merge-base with {base}")
         rng, new_ref = [old_ref, "HEAD"], "HEAD"
     # --no-renames: a rename that also flips status must show up as an added file.
-    names = _git("diff", "--name-only", "--no-renames", "--diff-filter=AM", *rng, "--", "content/") or ""
+    # -z: without it git quotes non-ASCII paths ("content/\354..."), which would skip Korean file names.
+    names = _git("diff", "-z", "--name-only", "--no-renames", "--diff-filter=AM", *rng, "--", "content/")
+    if names is None:
+        raise RuntimeError("git diff failed; cannot tell what becomes published")  # fail closed
     return [
-        p for p in names.splitlines()
+        p for p in names.split("\0")
         if p.endswith(".md") and became_published(_git("show", f"{old_ref}:{p}"), _git("show", f"{new_ref}:{p}"))
     ]
 

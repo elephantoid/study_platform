@@ -264,6 +264,14 @@ def test_gate_catches_rename_with_status_flip(monkeypatch, tmp_path):
     assert gate.transitions() == ["content/b.md"]
 
 
+def test_gate_sees_non_ascii_paths(monkeypatch, tmp_path):
+    from study_pipeline import gate
+    monkeypatch.setattr(gate, "ROOT", tmp_path)
+    run = _repo(tmp_path, monkeypatch)
+    (tmp_path / "content" / "강의.md").write_text("---\nstatus: published\n---\nx\n"); run("add", ".")
+    assert gate.transitions() == ["content/강의.md"]
+
+
 def test_gate_tty_unavailable_means_rejected(monkeypatch):
     from study_pipeline import gate
     import builtins
