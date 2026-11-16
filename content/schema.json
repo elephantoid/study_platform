@@ -277,8 +277,69 @@
         },
         "at": {
           "$ref": "#/$defs/date"
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "description": "생성 도구에 실제로 넣은 입력. NotebookLM 은 노트북 소스 목록. 강의 영상이나 자막이 반드시 들어가야 한다",
+          "items": {
+            "type": "object",
+            "required": [
+              "kind",
+              "url"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "youtube",
+                  "transcript",
+                  "slides",
+                  "syllabus",
+                  "other"
+                ]
+              },
+              "url": {
+                "$ref": "#/$defs/url"
+              }
+            }
+          }
         }
-      }
+      },
+      "allOf": [
+        {
+          "description": "NotebookLM 출력은 강의 자체(영상·자막)를 소스로 넣었다는 기록이 있어야 한다",
+          "if": {
+            "properties": {
+              "by": {
+                "const": "notebooklm"
+              }
+            },
+            "required": [
+              "by"
+            ]
+          },
+          "then": {
+            "required": [
+              "sources"
+            ],
+            "properties": {
+              "sources": {
+                "contains": {
+                  "properties": {
+                    "kind": {
+                      "enum": [
+                        "youtube",
+                        "transcript"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "source": {
       "type": "object",
@@ -797,7 +858,7 @@
         },
         "slideRange": {
           "type": "string",
-          "description": "예: Slides 1–11. 슬라이드가 없는 강의는 생략"
+          "description": "예: Slides 1–11. 쪽 번호는 syllabus.slidesUrl PDF 의 실제 쪽수다 (ingest check 가 deckPageCount 와 대조). 덱이 없으면 생략"
         },
         "slideKeyPointsPlaceholder": {
           "type": "array",
@@ -820,10 +881,7 @@
         "lectureNo",
         "date",
         "instructor",
-        "syllabusUrl",
-        "slidesTitle",
-        "slidesUrl",
-        "deckPageCount"
+        "syllabusUrl"
       ],
       "additionalProperties": false,
       "properties": {
@@ -844,14 +902,18 @@
           "type": "string"
         },
         "slidesUrl": {
-          "$ref": "#/$defs/url"
+          "$ref": "#/$defs/url",
+          "pattern": "\\.pdf([?#].*)?$",
+          "description": "실제 슬라이드 PDF. 덱이 없으면 slidesUrl·deckPageCount·slidesTitle 을 모두 뺀다"
         },
         "deckPageCount": {
           "type": "integer",
           "minimum": 1
         },
         "notebookLmUrl": {
-          "$ref": "#/$defs/url"
+          "$ref": "#/$defs/url",
+          "pattern": "^https://notebooklm\\.google\\.com/notebook/[A-Za-z0-9-]+",
+          "description": "이 강의 노트북의 공유 URL. 제품 첫 페이지 URL 금지"
         },
         "readingLinks": {
           "type": "array",
@@ -872,6 +934,18 @@
             }
           }
         }
+      },
+      "dependentRequired": {
+        "slidesUrl": [
+          "deckPageCount",
+          "slidesTitle"
+        ],
+        "deckPageCount": [
+          "slidesUrl"
+        ],
+        "slidesTitle": [
+          "slidesUrl"
+        ]
       }
     },
     "lecture": {
