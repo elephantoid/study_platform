@@ -32,7 +32,10 @@
 - [x] 채점 방식: **의미 일치로 확정** (사용자 2026-11-16). `mustHave`·`rubricKeywords` 는 영어 원어여도 한국어 답의 같은 개념을 인정한다
 - [ ] concept 카드 268개의 `difficulty` 는 전부 자리표시자(`intermediate`). critic 또는 사람이 정한다
 - [ ] jbee·gyoogle·jobhope (MIT) 추출: 구조가 boost-devs 와 달라 규칙 추출기 미적용
-- [ ] CI: `ingest check` + "published 전환은 사람 승인" 검사 (CONTRACT §3)
+- [x] CI: `.githooks/pre-commit` (테스트 + `ingest check --require-transcripts` + `ingest gate`) + `.github/workflows/content.yml` (원격 생기면 동작). `core.hooksPath` 설정됨
+- [x] M4 채점기 설계: `docs/GRADER.md`
+- [ ] M4 평가 세트 132건 (AG 답안 초안 → 사람 라벨) → `lib/grader/` 순수 함수 → 모델 구성 확정
+- [ ] 서술형 꼬리질문 3개씩: **추후** (사용자 결정 2026-11-16)
 - [ ] 비공개 CS329Z 6편: 공개되면 `ingest videos` 재실행으로 자동 편입
 
 ## 운영 메모
