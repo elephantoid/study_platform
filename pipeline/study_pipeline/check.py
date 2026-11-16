@@ -136,4 +136,36 @@ def check(content: Path = CONTENT) -> tuple[list[str], list[str]]:
                 for s in f.get("segments") or []:
                     if not 0 <= s["startSec"] < s["endSec"] <= dur:
                         errors.append(f"{rel}: segment {s['id']} outside 0..{dur}s")
+                e, w = slide_provenance(f)
+                errors += [f"{rel}: {m}" for m in e]
+                warnings += [f"{rel}: {m}" for m in w]
+    return errors, warnings
+
+
+_NUM = re.compile(r"\d+")
+
+
+def slide_provenance(f: dict) -> tuple[list[str], list[str]]:
+    """Slide numbers must come from a real deck; NotebookLM cards must record the lecture as a source.
+
+    The 2026-11-16 review found NotebookLM files with slide numbers split evenly over an imagined
+    deck and content that never cited the lecture. The schema cannot cross-check these fields.
+    """
+    errors, warnings = [], []
+    segs = f.get("segments") or []
+    pages = (f.get("syllabus") or {}).get("deckPageCount")
+    for s in segs:
+        labels = [s.get("slideRange") or ""] + [u.get("slideNumberLabel", "") for u in s.get("slideUnits") or []]
+        nums = [int(n) for lab in labels for n in _NUM.findall(lab)]
+        if nums and not pages:
+            errors.append(f"segment {s['id']} has slide numbers but syllabus has no slidesUrl/deckPageCount")
+        elif nums and max(nums) > pages:
+            errors.append(f"segment {s['id']} cites slide {max(nums)} > deckPageCount {pages}")
+    units = [(s, u) for s in segs for u in s.get("slideUnits") or []]
+    if any(u.get("generatedBy") == "notebooklm" for _, u in units):
+        kinds = {x.get("kind") for x in (f.get("generation") or {}).get("sources") or []}
+        if not kinds & {"youtube", "transcript"}:
+            errors.append("NotebookLM cards but generation.sources lists no youtube/transcript input")
+    if len(units) >= 3 and all(u["timestampSec"] == s["startSec"] for s, u in units):
+        warnings.append("every slideUnit timestampSec equals its segment start; cards look unaligned to the lecture")
     return errors, warnings

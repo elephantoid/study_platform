@@ -34,6 +34,7 @@ Claude Code(CC)와 Antigravity(AG)가 병렬로 작업하기 위한 계약이다
 
 - 검수는 **생성한 쪽의 반대편**이 한다. CC 문항은 AG(Gemini)가, AG 강의 요약은 CC(Claude)가 본다.
 - **NotebookLM 산출물**(강의 `slideUnits` 해설 등)은 AG가 돌려서 `content/lectures/`에 넣되 `generation.by: notebooklm`으로 기록한다. 파일 안의 카드마다 `slideUnits[].generatedBy`도 적는다. NotebookLM은 Gemini 계열이므로, 파일이나 카드 중 하나라도 AG·NotebookLM이 쓴 것이면 검수는 CC 또는 사람만 한다(스키마가 강제). 자막 12단어 연속 복사 검사는 frontmatter 전체에 적용되고, 로컬 hook 에서는 참조한 강의의 자막이 없으면 오류다(CI 에는 자막이 없어 건너뛴다). 슬라이드 문장 원문 복사는 기계로 못 잡으므로 검수 체크리스트로 본다.
+- **NotebookLM 입력과 슬라이드 출처** (2026-11-16 검수에서 두 강의가 fail 한 뒤 추가). 노트북에 넣은 소스를 `generation.sources[]` 에 적고, 강의 영상(`youtube`) 또는 자막(`transcript`)이 반드시 들어가야 한다(스키마). AG 파일 안의 NotebookLM 카드도 같다(`ingest check`). 슬라이드 번호(`slideRange`·`slideNumberLabel`)는 `syllabus.slidesUrl`(실제 PDF)의 쪽수로만 매기고 `deckPageCount` 를 넘으면 오류다. 덱이 없으면 슬라이드 필드를 모두 뺀다. `notebookLmUrl` 은 `…/notebook/<id>` 공유 URL 만 허용한다. 카드 시각이 전부 구간 시작과 같으면 경고한다. 이 규칙들은 지어내기를 어렵게 만들 뿐이며, 마지막 방어선은 자막 대조 검수다.
 - 검수자는 frontmatter 의 `review` 만 쓴다. 본문은 고치지 않고 `reasons` 에 적는다. 수정은 소유자가 한다.
 - `fail` 이면 소유자가 고친 뒤 `review` 를 지우고 다시 요청한다.
 - `published` 전환은 사람만 한다.
@@ -42,7 +43,7 @@ Claude Code(CC)와 Antigravity(AG)가 병렬로 작업하기 위한 계약이다
   - GitHub: `.github/workflows/content.yml`. published 전환이 있는 PR 은 `publish-approved` 라벨이 없으면 실패한다.
   - 한계: `--no-verify` 나 라벨 직접 부착은 막지 못한다. 최종 관문은 사람의 병합이다. 이 장치는 전환을 눈에 띄게 만들 뿐이다.
 - 라이선스는 닫힌 목록이다. `verbatim` 은 허용 목록(`verbatimLicense`)의 라이선스만 쓸 수 있다 (fail closed).
-- 검수 체크리스트: 사실 오류 / `reviewTarget`·`segmentId` 가 실재하는가 / 타임스탬프가 영상 길이 안에 있는가 / 자막 원문이 섞였는가 / 슬라이드 문장이 그대로 옮겨졌는가 / `link_only` 소스 원문이 섞였는가 / 기존 문항과 중복되는가.
+- 검수 체크리스트: 사실 오류 / 강의에서 말하지 않은 일반 지식이 "보충(강의 밖)" 표시 없이 섞였는가 / 슬라이드 번호가 실제 덱과 맞는가 / `reviewTarget`·`segmentId` 가 실재하는가 / 타임스탬프가 영상 길이 안에 있는가 / 자막 원문이 섞였는가 / 슬라이드 문장이 그대로 옮겨졌는가 / `link_only` 소스 원문이 섞였는가 / 기존 문항과 중복되는가.
 - `followUps`(꼬리질문)는 선택 항목이며, 넣을 때는 정확히 3개다. 기존 concept 카드에는 없다. 생성은 CC 문항 생성기가 한다.
 - `syllabus`·`slideRange`·`slideUnits`는 선택 항목이다. 강의계획서·슬라이드가 없는 재생목록(IBM)은 생략한다.
 
@@ -128,10 +129,10 @@ type LectureSyllabus = {
   date: string;
   instructor: string;
   syllabusUrl: string;
-  slidesTitle: string;
-  slidesUrl: string;
-  deckPageCount: number;
-  notebookLmUrl?: string;                   // 공유된 강의 전용 NotebookLM URL
+  slidesTitle?: string;                     // 아래 셋은 실제 덱 PDF 가 있을 때만, 함께 있다
+  slidesUrl?: string;                       // .pdf
+  deckPageCount?: number;
+  notebookLmUrl?: string;                   // 공유된 강의 전용 NotebookLM URL (…/notebook/<id>)
   readingLinks: { title: string; url: string }[];
 };
 
@@ -161,6 +162,7 @@ type LectureView = {
 
 - 외부 콘텐츠를 렌더링하는 모든 곳에 `Attribution` 배지(출처·라이선스·원본 링크)를 둔다. M4 DOM 검사 대상이다.
 - NotebookLM이 만든 해설에는 "NotebookLM 생성" 표기를 붙인다 (`generatedBy`).
+- `status: draft` 강의 파일의 생성 콘텐츠(`summaryKo`, `syllabus`, `slideUnits`)는 학습자 화면에 보이지 않는다. 영상과 YouTube 챕터 이동만 남긴다. 검수를 통과한 `reviewed` 이상만 노출한다 (사용자 결정 2026-11-16). 개발 미리보기는 명시적 플래그로만 켠다.
 - 강의 영상은 YouTube 임베드만 쓴다. 세그먼트를 클릭하면 `startSec` 로 이동한다.
 - 375px·1440px 에서 가로 스크롤이 없어야 한다.
 - 비로그인 사용자는 열람만 한다. 답안 제출·복습은 로그인 유도로 보낸다.

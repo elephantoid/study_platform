@@ -86,7 +86,8 @@ LEC = {
     "videoId": "abcdefghijk", "durationSec": 600, "hasCaptions": True, "status": "draft",
     "segments": [{"id": "ibm-ai-agents-l01-s01", "startSec": 0, "endSec": 600, "title": "t", "summaryKo": "s", "topicIds": ["ai-agents"]}],
 }
-NLM = {**LEC, "generation": {"by": "notebooklm", "model": "notebooklm", "at": "2026-11-16"}}
+YT = [{"kind": "youtube", "url": "https://www.youtube.com/watch?v=abcdefghijk"}]
+NLM = {**LEC, "generation": {"by": "notebooklm", "model": "notebooklm", "at": "2026-11-16", "sources": YT}}
 
 
 def test_lecture_without_syllabus_or_slides_accepted():
@@ -128,3 +129,60 @@ def test_human_cards_reviewable_by_ag():
 def test_free_text_is_capped():
     seg = {**LEC["segments"][0], "slideUnits": [{**UNIT, "generatedBy": "human", "explanationArticleMd": "x" * 3001}]}
     assert errors("lecture", {**LEC, "segments": [seg], "generation": {"by": "human", "model": "-", "at": "2026-11-16"}})
+
+
+@pytest.mark.parametrize("srcs", [None, [{"kind": "syllabus", "url": "https://x.edu/"}]])
+def test_notebooklm_must_record_lecture_as_source(srcs):
+    gen = {"by": "notebooklm", "model": "notebooklm", "at": "2026-11-16"} | ({"sources": srcs} if srcs else {})
+    assert errors("lecture", {**LEC, "generation": gen})
+
+
+SYL = {"lectureNo": 1, "date": "2026-09-23", "instructor": "i", "syllabusUrl": "https://x.edu/"}
+DECK = {"slidesTitle": "t", "slidesUrl": "https://x.edu/slides/lecture01.pdf", "deckPageCount": 71}
+
+
+def test_syllabus_without_deck_accepted():
+    assert errors("lecture", {**NLM, "syllabus": SYL}) == []
+    assert errors("lecture", {**NLM, "syllabus": {**SYL, **DECK}}) == []
+
+
+@pytest.mark.parametrize("bad", [
+    {**DECK, "slidesUrl": "https://x.edu/"},                       # homepage, not a deck
+    {"slidesUrl": DECK["slidesUrl"]},                              # deck without page count
+    {"deckPageCount": 58},                                         # page count without deck
+    {"notebookLmUrl": "https://notebooklm.google.com/"},           # product homepage
+])
+def test_syllabus_deck_fields_must_be_real(bad):
+    assert errors("lecture", {**NLM, "syllabus": {**SYL, **bad}})
+
+
+def test_shared_notebook_url_accepted():
+    url = "https://notebooklm.google.com/notebook/0a1b2c3d-4e5f"
+    assert errors("lecture", {**NLM, "syllabus": {**SYL, "notebookLmUrl": url}}) == []
+
+
+def _lec(units_at, label="Slides 1–2", syllabus=None, sources=YT):
+    segs = [{**LEC["segments"][0], "id": f"ibm-ai-agents-l01-s0{i}", "startSec": i * 100, "endSec": i * 100 + 100,
+             "slideUnits": [{**UNIT, "slideNumberLabel": label, "timestampSec": i * 100 + t, "generatedBy": "notebooklm"}]}
+            for i, t in enumerate(units_at)]
+    f = {**LEC, "segments": segs, "generation": {**NLM["generation"], "sources": sources}}
+    return f | ({"syllabus": syllabus} if syllabus else {})
+
+
+def test_slide_numbers_need_a_real_deck():
+    from study_pipeline.check import slide_provenance
+    assert slide_provenance(_lec([5]))[0]                                           # no deck at all
+    assert slide_provenance(_lec([5], "Slides 70–72", {**SYL, **DECK}))[0]          # beyond page 71
+    assert slide_provenance(_lec([5], "Slides 39–40", {**SYL, **DECK}))[0] == []
+    assert slide_provenance(_lec([5], ""))[0] == []                                 # no numbers, no deck: fine
+
+
+def test_notebooklm_cards_need_lecture_source_even_in_other_files():
+    from study_pipeline.check import slide_provenance
+    assert slide_provenance(_lec([5], "", sources=[{"kind": "slides", "url": DECK["slidesUrl"]}]))[0]
+
+
+def test_cards_pinned_to_segment_start_warn():
+    from study_pipeline.check import slide_provenance
+    assert slide_provenance(_lec([0, 0, 0], ""))[1]
+    assert slide_provenance(_lec([0, 40, 0], ""))[1] == []
