@@ -211,3 +211,63 @@ def test_copied_span_rejects_non_id_paths(monkeypatch, tmp_path, lid):
     monkeypatch.setattr(check, "RAW_DIR", tmp_path / "raw")
     check._transcript_shingles.cache_clear()
     assert check._transcript_shingles(lid) is None
+
+
+def test_require_transcripts_fails_closed(monkeypatch, tmp_path):
+    from study_pipeline import check
+    monkeypatch.setattr(check, "RAW_DIR", tmp_path)
+    check._transcript_shingles.cache_clear()
+    try:
+        errs, _ = check.check(require_transcripts=True)
+        assert any("no transcript for" in e for e in errs)
+        errs, _ = check.check()
+        assert not any("no transcript for" in e for e in errs)
+    finally:
+        check._transcript_shingles.cache_clear()
+
+
+def _repo(tmp_path, monkeypatch):
+    import os
+    import subprocess
+    # Inside a git hook GIT_DIR/GIT_INDEX_FILE point at the real repo; without this the temp
+    # repo's init/config/commit land there (happened once: bogus commits, core.bare=true).
+    for k in [k for k in os.environ if k.startswith("GIT_")]:
+        monkeypatch.delenv(k)
+    run = lambda *a: subprocess.run(["git", *a], cwd=tmp_path, check=True, capture_output=True)
+    run("init", "-q", "-b", "work"); run("config", "user.email", "t@t"); run("config", "user.name", "t")
+    (tmp_path / "content").mkdir()
+    return run
+
+
+def test_gate_detects_staged_and_branch_transitions(monkeypatch, tmp_path):
+    from study_pipeline import gate
+    monkeypatch.setattr(gate, "ROOT", tmp_path)
+    run = _repo(tmp_path, monkeypatch)
+    f = tmp_path / "content" / "a.md"
+    f.write_text("---\nstatus: draft\n---\nx\n"); run("add", "."); run("commit", "-qm", "draft")
+    run("branch", "base")
+    assert gate.transitions() == []
+    f.write_text("---\nstatus: published\n---\nx\n"); run("add", ".")
+    assert gate.transitions() == ["content/a.md"]
+    run("commit", "-qm", "publish")
+    assert gate.transitions("base") == ["content/a.md"]
+    assert gate.transitions("HEAD") == []  # already published: not a transition
+
+
+def test_gate_catches_rename_with_status_flip(monkeypatch, tmp_path):
+    from study_pipeline import gate
+    monkeypatch.setattr(gate, "ROOT", tmp_path)
+    run = _repo(tmp_path, monkeypatch)
+    (tmp_path / "content" / "a.md").write_text("---\nstatus: draft\n---\nsame body\n"); run("add", "."); run("commit", "-qm", "d")
+    run("mv", "content/a.md", "content/b.md")
+    (tmp_path / "content" / "b.md").write_text("---\nstatus: published\n---\nsame body\n"); run("add", ".")
+    assert gate.transitions() == ["content/b.md"]
+
+
+def test_gate_tty_unavailable_means_rejected(monkeypatch):
+    from study_pipeline import gate
+    import builtins
+    def no_tty(*a, **k):
+        raise OSError("no tty")
+    monkeypatch.setattr(builtins, "open", no_tty)
+    assert gate.confirm_on_tty(["content/a.md"]) is False

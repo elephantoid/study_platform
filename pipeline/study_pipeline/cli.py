@@ -1,8 +1,9 @@
 import argparse
 import json
+import os
 import sys
 
-from . import audit, check, extract_interview, repos, sources, transcripts, youtube
+from . import audit, check, extract_interview, gate, repos, sources, transcripts, youtube
 from .config import MANIFEST_DIR
 from .failguard import Aborted, FailGuard
 
@@ -19,19 +20,34 @@ def _write(name: str, data: dict) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="ingest")
-    ap.add_argument("step", choices=["audit", "repos", "videos", "transcripts", "extract", "check", "all"])
+    ap.add_argument("step", choices=["audit", "repos", "videos", "transcripts", "extract", "check", "gate", "all"])
     ap.add_argument("--refresh", action="store_true", help="re-fetch videos / transcripts already fetched")
     ap.add_argument("--only", nargs="*", help="transcripts: limit to these lectureIds or sourceIds")
+    ap.add_argument("--require-transcripts", action="store_true", help="check: missing transcript is an error (local hook)")
+    ap.add_argument("--base", help="gate: compare HEAD with this ref (CI); default compares the staged index (hook)")
     args = ap.parse_args(argv)
 
     if args.step == "check":
-        errors, warnings = check.check()
+        errors, warnings = check.check(require_transcripts=args.require_transcripts)
         for w in warnings[:20]:
             print("warn:", w)
         for e in errors:
             print("error:", e, file=sys.stderr)
         print(f"check: {len(errors)} errors, {len(warnings)} warnings")
         return 1 if errors else 0
+    if args.step == "gate":
+        paths = gate.transitions(args.base)
+        if not paths:
+            print("gate: no published transitions")
+            return 0
+        if args.base is not None:
+            ok = os.environ.get("PUBLISH_APPROVED") == "true"  # set by CI from the PR's publish-approved label
+        else:
+            ok = gate.confirm_on_tty(paths)
+        print(f"gate: {len(paths)} file(s) become published: {'approved' if ok else 'NOT approved'}")
+        for p in paths:
+            print("  " + p)
+        return 0 if ok else 1
     if args.step == "extract":
         counts = extract_interview.extract(check.load_topics())
         print("extract:", counts, "total", sum(counts.values()))

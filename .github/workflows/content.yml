@@ -1,0 +1,22 @@
+name: content
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pipeline
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v6
+      - run: uv run pytest -q
+      # No raw transcripts in CI: the copy check runs in the local hook instead.
+      - run: uv run ingest check
+      # A file flipping to published needs the publish-approved label (CONTRACT §3).
+      - run: uv run ingest gate --base origin/${{ github.base_ref }}
+        env:
+          PUBLISH_APPROVED: ${{ contains(github.event.pull_request.labels.*.name, 'publish-approved') }}

@@ -65,7 +65,7 @@ def manifest_segments() -> set[str]:
     return {s["id"] for e in json.loads(p.read_text()).values() for v in e["videos"].values() for s in v.get("segments") or []}
 
 
-def check(content: Path = CONTENT) -> tuple[list[str], list[str]]:
+def check(content: Path = CONTENT, require_transcripts: bool = False) -> tuple[list[str], list[str]]:
     schema = json.loads(SCHEMA.read_text())
     v = {k: jsonschema.Draft202012Validator({**schema, "$ref": f"#/$defs/{d}"}) for k, d in KINDS.items()}
     v_topic = jsonschema.Draft202012Validator({**schema, "$ref": "#/$defs/topic"})
@@ -113,6 +113,9 @@ def check(content: Path = CONTENT) -> tuple[list[str], list[str]]:
                 text = body + "\n" + yaml.safe_dump(f, allow_unicode=True)
                 if lid and (hit := copied_span(text, lid)):
                     errors.append(f"{rel}: copies {QUOTE_WORDS}+ consecutive transcript words: \"{hit}\"")
+                elif lid and require_transcripts and _transcript_shingles(lid) is None:
+                    # Fail closed where transcripts are expected (local hook); CI has none and skips.
+                    errors.append(f"{rel}: no transcript for {lid}; copy check could not run")
             elif src.reuse != "verbatim":
                 errors.append(f"{rel}: unknown reuse policy {src.reuse!r}")  # fail closed
             for tid in [f.get("topicId")] if kind != "lectures" else [t for s in f.get("segments") or [] for t in s.get("topicIds", [])]:
