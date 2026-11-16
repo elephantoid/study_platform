@@ -46,21 +46,26 @@ export function LectureStudyView({ lectureId }: { lectureId: string }) {
     setSelectedSlideIndex(0);
   }, [activeSegment.id]);
 
-  const slideUnits = activeSegment.slideUnits;
-  const activeSlideUnit: SlideStudyUnit =
+  const slideUnits = activeSegment.slideUnits ?? [];
+  const activeSlideUnit: SlideStudyUnit | undefined =
     slideUnits[selectedSlideIndex] ?? slideUnits[0];
+  const syllabus = lecture.syllabus;
 
   const embedUrl = `https://www.youtube.com/embed/${lecture.videoId}?start=${currentStartSec}&rel=0`;
 
   const handleCopyNotebookBundle = async () => {
+    const readingLines =
+      syllabus?.readingLinks?.map((r, idx) => `${idx + 3}. ${r.title}: ${r.url}`) ?? [];
     const payload = [
       `[NotebookLM 소스 번들 — ${lecture.course} ${lecture.title}]`,
       `1. YouTube 강의 원본: https://www.youtube.com/watch?v=${lecture.videoId}`,
-      `2. Syllabus 공식 Slides: ${lecture.syllabus.slidesUrl} (${lecture.syllabus.slidesTitle})`,
-      ...lecture.syllabus.readingLinks.map((r, idx) => `${idx + 3}. ${r.title}: ${r.url}`),
+      ...(syllabus
+        ? [`2. Syllabus 공식 Slides: ${syllabus.slidesUrl} (${syllabus.slidesTitle})`]
+        : []),
+      ...readingLines,
       ``,
       `[NotebookLM 초기 지시 프롬프트]`,
-      `위 강의 슬라이드와 영상을 매칭하여, 전체를 하나로 뭉뚱그려 요약하지 말고 슬라이드 번호 구간별로 (1) 슬라이드 핵심 도식/수식, (2) 강사의 구두 설명 행간 맥락, (3) 기술 면접 예상 질문 3개를 한국어로 정리해줘.`,
+      `위 강의 슬라이드와 영상을 매칭하여, 전체를 하나로 뭉뚱그려 요약하지 말고 슬라이드 번호 구간별로 (1) 슬라이드 핵심 도식/수식 한국어 재구성, (2) 강사의 구두 설명 행간 맥락, (3) 기술 면접 예상 질문 3개를 한국어로 정리해줘.`,
     ].join("\n");
 
     try {
@@ -91,9 +96,11 @@ export function LectureStudyView({ lectureId }: { lectureId: string }) {
           <div className="flex flex-wrap items-center gap-2">
             <Badge variant="default">{lecture.course}</Badge>
             <Badge variant="outline">{lecture.term}</Badge>
-            <Badge variant="info">
-              Lecture {lecture.syllabus.lectureNo} ({lecture.syllabus.date})
-            </Badge>
+            {syllabus && (
+              <Badge variant="info">
+                Lecture {syllabus.lectureNo} ({syllabus.date})
+              </Badge>
+            )}
             <Badge variant="success">
               📖 슬라이드 쪼개기 + 해설 글 학습 (NotebookLM 연동)
             </Badge>
@@ -102,7 +109,7 @@ export function LectureStudyView({ lectureId }: { lectureId: string }) {
             {lecture.title}
           </h1>
           <p className="text-xs text-slate-600 sm:text-sm">
-            강사: {lecture.syllabus.instructor} ·{" "}
+            {syllabus ? `강사: ${syllabus.instructor} · ` : null}
             <strong className="text-indigo-700">
               영상을 전부 시청하지 않아도, 쪼개진 슬라이드 카드와 짝지어진 해설 글을 한 장씩 넘기며 완독할 수 있습니다.
             </strong>
@@ -110,9 +117,9 @@ export function LectureStudyView({ lectureId }: { lectureId: string }) {
         </div>
 
         <div className="flex flex-wrap gap-2 shrink-0">
-          {lecture.syllabus.notebookLmUrl && (
+          {syllabus?.notebookLmUrl && (
             <a
-              href={lecture.syllabus.notebookLmUrl}
+              href={syllabus.notebookLmUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -132,201 +139,230 @@ export function LectureStudyView({ lectureId }: { lectureId: string }) {
               ? "✓ NotebookLM 소스+프롬프트 복사됨"
               : "📋 NotebookLM 소스 번들 복사"}
           </Button>
-          <a
-            href={lecture.syllabus.slidesUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button variant="outline" size="sm">
-              📑 공식 Slides PDF ↗
-            </Button>
-          </a>
+          {syllabus?.slidesUrl && (
+            <a
+              href={syllabus.slidesUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="outline" size="sm">
+                📑 공식 Slides PDF ↗
+              </Button>
+            </a>
+          )}
         </div>
       </div>
 
       {/* =====================================================================
           핵심: 슬라이드 쪼개기 + 교재형 해설 글 리더 (Slide-by-Slide Article Reader)
           ===================================================================== */}
-      <section
-        data-testid="slide-by-slide-reader"
-        className="space-y-4 rounded-2xl border-2 border-indigo-200 bg-white p-5 shadow-xs"
-      >
-        <div className="flex flex-col justify-between gap-3 border-b border-slate-200 pb-4 sm:flex-row sm:items-center">
-          <div className="space-y-1">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge variant="default">
-                현재 세그먼트: {activeSegment.slideRange}
-              </Badge>
-              <Badge variant="info">
-                슬라이드 카드 {selectedSlideIndex + 1} / {slideUnits.length}
-              </Badge>
-              <Badge variant="outline">
-                영상 대응 시각: {formatSecondsToTimestamp(activeSlideUnit.timestampSec)}
-              </Badge>
-            </div>
-            <h2 className="text-base font-bold text-slate-900 sm:text-lg">
-              📖 슬라이드 & 해설 글 한 장씩 학습하기 — {activeSegment.title}
-            </h2>
-            <p className="text-xs text-slate-500">
-              NotebookLM으로 공식 Slides PDF와 강사 발화를 교차 접지(Grounding)하여 슬라이드 묶음 단위로 쪼갠 학습 카드입니다.
-            </p>
-          </div>
-
-          {/* 슬라이드 유닛 선택 탭 / 이전·다음 스텝퍼 */}
-          <div className="flex flex-wrap items-center gap-1.5">
-            {slideUnits.map((unit, idx) => (
-              <button
-                key={unit.slideId}
-                type="button"
-                onClick={() => {
-                  setSelectedSlideIndex(idx);
-                  setCurrentStartSec(unit.timestampSec);
-                }}
-                data-testid={`slide-unit-tab-${idx + 1}`}
-                className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition-colors cursor-pointer ${
-                  idx === selectedSlideIndex
-                    ? "border-indigo-600 bg-indigo-600 text-white"
-                    : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
-                }`}
-              >
-                {unit.slideNumberLabel}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* 슬라이드 도식(좌) + 교재형 한국어 해설 글(우) 2단 카드 */}
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
-          {/* 좌측 5컬럼: 슬라이드 핵심 원문 도식 카드 */}
-          <div className="flex flex-col justify-between rounded-xl border border-slate-200 bg-slate-900 p-5 text-white lg:col-span-5">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between gap-2">
-                <Badge
-                  variant="info"
-                  className="border-indigo-400/40 bg-indigo-500/20 text-indigo-200"
-                >
-                  📊 {activeSlideUnit.slideNumberLabel}
+      {activeSlideUnit && (
+        <section
+          data-testid="slide-by-slide-reader"
+          className="space-y-4 rounded-2xl border-2 border-indigo-200 bg-white p-5 shadow-xs"
+        >
+          <div className="flex flex-col justify-between gap-3 border-b border-slate-200 pb-4 sm:flex-row sm:items-center">
+            <div className="space-y-1">
+              <div className="flex flex-wrap items-center gap-2">
+                {activeSegment.slideRange && (
+                  <Badge variant="default">
+                    현재 세그먼트: {activeSegment.slideRange}
+                  </Badge>
+                )}
+                <Badge variant="info">
+                  슬라이드 카드 {selectedSlideIndex + 1} / {slideUnits.length}
                 </Badge>
-                <span className="text-xs text-slate-400">
-                  Stanford {lecture.course} Deck
-                </span>
+                <Badge variant="outline">
+                  영상 대응 시각: {formatSecondsToTimestamp(activeSlideUnit.timestampSec)}
+                </Badge>
+                {activeSlideUnit.generatedBy === "notebooklm" && (
+                  <Badge
+                    variant="warning"
+                    data-testid="notebooklm-generated-badge"
+                  >
+                    NotebookLM 생성
+                  </Badge>
+                )}
               </div>
-
-              <h3 className="text-base font-bold leading-snug text-white sm:text-lg">
-                {activeSlideUnit.slideTitle}
-              </h3>
-
-              <div className="space-y-2 border-t border-slate-800 pt-3">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                  Slide Key Bullets & Formulas
-                </p>
-                <ul className="space-y-2 text-xs leading-relaxed text-slate-200 sm:text-sm">
-                  {activeSlideUnit.slideVisualBullets.map((b, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <span className="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-400" />
-                      <span className="break-words">{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="mt-5 flex flex-wrap items-center justify-between gap-2 border-t border-slate-800 pt-3 text-xs">
-              <button
-                type="button"
-                onClick={() => setCurrentStartSec(activeSlideUnit.timestampSec)}
-                className="font-semibold text-indigo-300 hover:text-indigo-200 hover:underline cursor-pointer"
-              >
-                ▶ 영상 {formatSecondsToTimestamp(activeSlideUnit.timestampSec)} 지점으로 플레이어 동기화
-              </button>
-              <a
-                href={lecture.syllabus.slidesUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-slate-300 hover:text-white hover:underline"
-              >
-                원본 슬라이드 ↗
-              </a>
-            </div>
-          </div>
-
-          {/* 우측 7컬럼: 슬라이드 짝꿍 한국어 해설 글 + NotebookLM 심화 프롬프트 */}
-          <div className="flex flex-col justify-between rounded-xl border border-indigo-100 bg-indigo-50/30 p-5 lg:col-span-7 space-y-4">
-            <div className="space-y-3">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <Badge variant="default">✍️ 슬라이드 행간 해설 글 (Companion Article)</Badge>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleCopySlidePrompt(activeSlideUnit)}
-                  data-testid="copy-slide-notebooklm-prompt"
-                >
-                  {copiedSlidePromptId === activeSlideUnit.slideId
-                    ? "✓ NotebookLM 질문 복사됨"
-                    : "📓 이 슬라이드 NotebookLM 질문 복사"}
-                </Button>
-              </div>
-
-              <p className="text-xs leading-relaxed text-slate-800 sm:text-sm">
-                {activeSlideUnit.explanationArticleMd.replace(/\*\*/g, "")}
+              <h2 className="text-base font-bold text-slate-900 sm:text-lg">
+                📖 슬라이드 & 해설 글 한 장씩 학습하기 — {activeSegment.title}
+              </h2>
+              <p className="text-xs text-slate-500">
+                NotebookLM으로 공식 Slides PDF와 강사 발화를 교차 접지(Grounding)하여 슬라이드 묶음 단위로 쪼갠 한국어 재구성 학습 카드입니다.
               </p>
-
-              <div className="rounded-lg border border-emerald-200 bg-emerald-50/80 p-3 text-xs text-emerald-950">
-                <span className="font-bold">💡 한 줄 핵심 (Key Takeaway): </span>
-                <span>{activeSlideUnit.keyTakeawayKo}</span>
-              </div>
-
-              <div className="rounded-lg border border-slate-200 bg-white p-3 text-xs text-slate-600">
-                <p className="font-semibold text-slate-800">
-                  📓 NotebookLM 심화 질문 프롬프트 (복사하여 강의 노트북에 질문해보세요):
-                </p>
-                <p className="mt-1 italic text-slate-700">
-                  &ldquo;{activeSlideUnit.notebookLmPrompt}&rdquo;
-                </p>
-              </div>
             </div>
 
-            {/* 이전/다음 슬라이드 이동 및 연결 문항 풀기 바 */}
-            <div className="flex flex-wrap items-center justify-between gap-2 border-t border-indigo-100 pt-3">
-              <div className="flex items-center gap-2">
-                <Button
+            {/* 슬라이드 유닛 선택 탭 / 이전·다음 스텝퍼 */}
+            <div className="flex flex-wrap items-center gap-1.5">
+              {slideUnits.map((unit, idx) => (
+                <button
+                  key={unit.slideId}
                   type="button"
-                  variant="outline"
-                  size="sm"
-                  disabled={selectedSlideIndex === 0}
-                  onClick={() =>
-                    setSelectedSlideIndex((i) => Math.max(0, i - 1))
-                  }
+                  onClick={() => {
+                    setSelectedSlideIndex(idx);
+                    setCurrentStartSec(unit.timestampSec);
+                  }}
+                  data-testid={`slide-unit-tab-${idx + 1}`}
+                  className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition-colors cursor-pointer ${
+                    idx === selectedSlideIndex
+                      ? "border-indigo-600 bg-indigo-600 text-white"
+                      : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100"
+                  }`}
                 >
-                  ← 이전 슬라이드
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  disabled={selectedSlideIndex >= slideUnits.length - 1}
-                  onClick={() =>
-                    setSelectedSlideIndex((i) =>
-                      Math.min(slideUnits.length - 1, i + 1)
-                    )
-                  }
-                >
-                  다음 슬라이드 →
-                </Button>
-              </div>
-
-              {activeSegment.questionIds[0] && (
-                <Link href={`/questions/${activeSegment.questionIds[0]}`}>
-                  <Button variant="primary" size="sm">
-                    이 슬라이드 연결 문항 (+꼬리질문 3) 풀기 →
-                  </Button>
-                </Link>
-              )}
+                  {unit.slideNumberLabel}
+                </button>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+
+          {/* 슬라이드 도식(좌) + 교재형 한국어 해설 글(우) 2단 카드 */}
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
+            {/* 좌측 5컬럼: 슬라이드 핵심 한국어 재구성 카드 */}
+            <div className="flex flex-col justify-between rounded-xl border border-slate-200 bg-slate-900 p-5 text-white lg:col-span-5">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between gap-2">
+                  <Badge
+                    variant="info"
+                    className="border-indigo-400/40 bg-indigo-500/20 text-indigo-200"
+                  >
+                    📊 {activeSlideUnit.slideNumberLabel}
+                  </Badge>
+                  <span className="text-xs text-slate-400">
+                    Stanford {lecture.course} Deck (한국어 재구성)
+                  </span>
+                </div>
+
+                <h3 className="text-base font-bold leading-snug text-white sm:text-lg">
+                  {activeSlideUnit.slideTitle}
+                </h3>
+
+                <div className="space-y-2 border-t border-slate-800 pt-3">
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                    슬라이드 핵심 요점 & 수식 (한국어 재구성)
+                  </p>
+                  <ul className="space-y-2 text-xs leading-relaxed text-slate-200 sm:text-sm">
+                    {activeSlideUnit.slideVisualBullets.map((b, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-400" />
+                        <span className="break-words">{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="mt-5 flex flex-wrap items-center justify-between gap-2 border-t border-slate-800 pt-3 text-xs">
+                <button
+                  type="button"
+                  onClick={() => setCurrentStartSec(activeSlideUnit.timestampSec)}
+                  className="font-semibold text-indigo-300 hover:text-indigo-200 hover:underline cursor-pointer"
+                >
+                  ▶ 영상 {formatSecondsToTimestamp(activeSlideUnit.timestampSec)} 지점으로 플레이어 동기화
+                </button>
+                {syllabus?.slidesUrl && (
+                  <a
+                    href={syllabus.slidesUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-slate-300 hover:text-white hover:underline"
+                  >
+                    원본 슬라이드 ↗
+                  </a>
+                )}
+              </div>
+            </div>
+
+            {/* 우측 7컬럼: 슬라이드 짝꿍 한국어 해설 글 + NotebookLM 심화 프롬프트 */}
+            <div className="flex flex-col justify-between rounded-xl border border-indigo-100 bg-indigo-50/30 p-5 lg:col-span-7 space-y-4">
+              <div className="space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Badge variant="default">
+                      ✍️ 슬라이드 행간 해설 글 (Companion Article)
+                    </Badge>
+                    {activeSlideUnit.generatedBy === "notebooklm" ? (
+                      <Badge variant="info" data-testid="article-generated-by-badge">
+                        NotebookLM 생성
+                      </Badge>
+                    ) : (
+                      <Badge variant="outline" data-testid="article-generated-by-badge">
+                        생성: {activeSlideUnit.generatedBy}
+                      </Badge>
+                    )}
+                  </div>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleCopySlidePrompt(activeSlideUnit)}
+                    data-testid="copy-slide-notebooklm-prompt"
+                  >
+                    {copiedSlidePromptId === activeSlideUnit.slideId
+                      ? "✓ NotebookLM 질문 복사됨"
+                      : "📓 이 슬라이드 NotebookLM 질문 복사"}
+                  </Button>
+                </div>
+
+                <p className="text-xs leading-relaxed text-slate-800 sm:text-sm">
+                  {activeSlideUnit.explanationArticleMd.replace(/\*\*/g, "")}
+                </p>
+
+                <div className="rounded-lg border border-emerald-200 bg-emerald-50/80 p-3 text-xs text-emerald-950">
+                  <span className="font-bold">💡 한 줄 핵심 (Key Takeaway): </span>
+                  <span>{activeSlideUnit.keyTakeawayKo}</span>
+                </div>
+
+                <div className="rounded-lg border border-slate-200 bg-white p-3 text-xs text-slate-600">
+                  <p className="font-semibold text-slate-800">
+                    📓 NotebookLM 심화 질문 프롬프트 (복사하여 강의 노트북에 질문해보세요):
+                  </p>
+                  <p className="mt-1 italic text-slate-700">
+                    &ldquo;{activeSlideUnit.notebookLmPrompt}&rdquo;
+                  </p>
+                </div>
+              </div>
+
+              {/* 이전/다음 슬라이드 이동 및 연결 문항 풀기 바 */}
+              <div className="flex flex-wrap items-center justify-between gap-2 border-t border-indigo-100 pt-3">
+                <div className="flex items-center gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    disabled={selectedSlideIndex === 0}
+                    onClick={() =>
+                      setSelectedSlideIndex((i) => Math.max(0, i - 1))
+                    }
+                  >
+                    ← 이전 슬라이드
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    disabled={selectedSlideIndex >= slideUnits.length - 1}
+                    onClick={() =>
+                      setSelectedSlideIndex((i) =>
+                        Math.min(slideUnits.length - 1, i + 1)
+                      )
+                    }
+                  >
+                    다음 슬라이드 →
+                  </Button>
+                </div>
+
+                {activeSegment.questionIds[0] && (
+                  <Link href={`/questions/${activeSegment.questionIds[0]}`}>
+                    <Button variant="primary" size="sm">
+                      이 슬라이드 연결 문항 (+꼬리질문 3) 풀기 →
+                    </Button>
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* 하단 워크스페이스: YouTube 임베드 플레이어 + 전체 세그먼트 타임라인 */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
@@ -364,55 +400,61 @@ export function LectureStudyView({ lectureId }: { lectureId: string }) {
           </Card>
 
           {/* Syllabus 필수 Reading 자료 카드 */}
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm sm:text-base">
-                📚 Syllabus 연동 리딩 & 슬라이드 메타데이터
-              </CardTitle>
-              <CardDescription className="text-xs">
-                NotebookLM에 함께 넣으면 좋은 공식 슬라이드 덱({lecture.syllabus.deckPageCount}p)과 필독 논문 링크입니다.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2.5 pt-0 text-xs">
-              <div className="flex flex-col justify-between gap-2 rounded-lg border border-indigo-200 bg-indigo-50/50 p-3 sm:flex-row sm:items-center">
-                <div>
-                  <p className="font-bold text-indigo-950">
-                    {lecture.syllabus.slidesTitle}
-                  </p>
-                  <p className="text-slate-600">
-                    현재 세그먼트 슬라이드 범위:{" "}
-                    <strong>{activeSegment.slideRange}</strong>
-                  </p>
-                </div>
-                <a
-                  href={lecture.syllabus.slidesUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-indigo-600 hover:underline shrink-0"
-                >
-                  슬라이드 PDF 열기 ↗
-                </a>
-              </div>
-
-              <div className="space-y-1.5">
-                <p className="font-semibold text-slate-700">
-                  Syllabus 지정 필독 자료 (Readings)
-                </p>
-                {lecture.syllabus.readingLinks.map((reading, i) => (
+          {syllabus && (
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm sm:text-base">
+                  📚 Syllabus 연동 리딩 & 슬라이드 메타데이터
+                </CardTitle>
+                <CardDescription className="text-xs">
+                  NotebookLM에 함께 넣으면 좋은 공식 슬라이드 덱({syllabus.deckPageCount}p)과 필독 논문 링크입니다.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-2.5 pt-0 text-xs">
+                <div className="flex flex-col justify-between gap-2 rounded-lg border border-indigo-200 bg-indigo-50/50 p-3 sm:flex-row sm:items-center">
+                  <div>
+                    <p className="font-bold text-indigo-950">
+                      {syllabus.slidesTitle}
+                    </p>
+                    {activeSegment.slideRange && (
+                      <p className="text-slate-600">
+                        현재 세그먼트 슬라이드 범위:{" "}
+                        <strong>{activeSegment.slideRange}</strong>
+                      </p>
+                    )}
+                  </div>
                   <a
-                    key={i}
-                    href={reading.url}
+                    href={syllabus.slidesUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-slate-700 hover:border-indigo-300 hover:text-indigo-700"
+                    className="font-semibold text-indigo-600 hover:underline shrink-0"
                   >
-                    <span className="truncate">{reading.title}</span>
-                    <span className="ml-2 shrink-0 text-indigo-600">원문 ↗</span>
+                    슬라이드 PDF 열기 ↗
                   </a>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                </div>
+
+                {syllabus.readingLinks && syllabus.readingLinks.length > 0 && (
+                  <div className="space-y-1.5">
+                    <p className="font-semibold text-slate-700">
+                      Syllabus 지정 필독 자료 (Readings)
+                    </p>
+                    {syllabus.readingLinks.map((reading, i) => (
+                      <a
+                        key={i}
+                        href={reading.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-slate-700 hover:border-indigo-300 hover:text-indigo-700"
+                      >
+                        <span className="truncate">{reading.title}</span>
+                        <span className="ml-2 shrink-0 text-indigo-600">원문 ↗</span>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         {/* 우측 5컬럼: 세그먼트 타임라인 리스트 (클릭 시 해당 슬라이드 묶음 & startSec 전환) */}
@@ -452,11 +494,13 @@ export function LectureStudyView({ lectureId }: { lectureId: string }) {
                           onClick={() => setCurrentStartSec(seg.startSec)}
                           data-testid={`segment-jump-${seg.startSec}`}
                         >
-                          📖 {seg.slideRange} ({formatSecondsToTimestamp(seg.startSec)})
+                          📖 {seg.slideRange ? `${seg.slideRange} ` : ""}({formatSecondsToTimestamp(seg.startSec)})
                         </Button>
-                        <Badge variant="secondary">
-                          슬라이드 카드 {seg.slideUnits.length}장
-                        </Badge>
+                        {seg.slideUnits && seg.slideUnits.length > 0 && (
+                          <Badge variant="secondary">
+                            슬라이드 카드 {seg.slideUnits.length}장
+                          </Badge>
+                        )}
                       </div>
 
                       {firstQ && (

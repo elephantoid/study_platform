@@ -263,7 +263,7 @@ export function RoleDashboardView({ initialRoleId }: { initialRoleId: RoleId }) 
                           재생시간 {formatSecondsToTimestamp(lec.durationSec)} (
                           {lec.durationSec}초)
                         </Badge>
-                        {fullLecture && (
+                        {fullLecture?.syllabus && (
                           <Badge variant="success">
                             Syllabus Slides ({fullLecture.syllabus.deckPageCount}p) 연동
                           </Badge>
@@ -272,7 +272,7 @@ export function RoleDashboardView({ initialRoleId }: { initialRoleId: RoleId }) 
                       <h3 className="text-base font-bold text-slate-900">
                         {lec.title}
                       </h3>
-                      {fullLecture && (
+                      {fullLecture?.syllabus && (
                         <p className="text-xs text-slate-600">
                           강사: {fullLecture.syllabus.instructor} · 슬라이드 자료:{" "}
                           <span className="font-medium text-slate-800">

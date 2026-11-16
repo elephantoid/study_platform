@@ -63,12 +63,14 @@ export function QuestionSolveView({ questionId }: { questionId: string }) {
   const [conceptRevealed, setConceptRevealed] = React.useState(false);
   const [mainSubmitted, setMainSubmitted] = React.useState(true);
 
-  // 3개의 꼬리질문 답변 및 채점 상태
+  // 3개의 꼬리질문 답변 및 채점 상태 (followUps 는 선택 항목)
+  const followUps = question.followUps ?? [];
+
   const [followUpStates, setFollowUpStates] = React.useState<
     Record<string, FollowUpSubmissionState>
   >(() => {
     const initial: Record<string, FollowUpSubmissionState> = {};
-    question.followUps.forEach((fu, idx) => {
+    followUps.forEach((fu, idx) => {
       initial[fu.id] = {
         answer:
           idx === 0
@@ -94,7 +96,7 @@ export function QuestionSolveView({ questionId }: { questionId: string }) {
     setMainSubmitted(true);
 
     const nextFu: Record<string, FollowUpSubmissionState> = {};
-    question.followUps.forEach((fu, idx) => {
+    (question.followUps ?? []).forEach((fu, idx) => {
       nextFu[fu.id] = {
         answer:
           idx === 0
@@ -149,7 +151,7 @@ export function QuestionSolveView({ questionId }: { questionId: string }) {
     }));
   };
 
-  const completedFollowUpCount = question.followUps.filter(
+  const completedFollowUpCount = followUps.filter(
     (fu) => followUpStates[fu.id]?.submitted
   ).length;
 
@@ -454,150 +456,154 @@ export function QuestionSolveView({ questionId }: { questionId: string }) {
       </Card>
 
       {/* =====================================================================
-          연쇄 꼬리질문 3개 섹션 (Follow-up Questions 1 -> 2 -> 3)
+          연쇄 꼬리질문 3개 섹션 (Follow-up Questions 1 -> 2 -> 3, 선택 항목)
           ===================================================================== */}
-      <section
-        data-testid="followup-questions-section"
-        className="space-y-4 rounded-2xl border-2 border-indigo-200 bg-white p-5 shadow-xs"
-      >
-        <div className="flex flex-col justify-between gap-2 border-b border-slate-200 pb-4 sm:flex-row sm:items-center">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <Badge variant="default" className="bg-indigo-600 text-white">
-                심층 압박 면접 모드
-              </Badge>
-              <Badge variant="info">
-                꼬리질문 완료 {completedFollowUpCount} / 3
-              </Badge>
+      {followUps.length > 0 && (
+        <section
+          data-testid="followup-questions-section"
+          className="space-y-4 rounded-2xl border-2 border-indigo-200 bg-white p-5 shadow-xs"
+        >
+          <div className="flex flex-col justify-between gap-2 border-b border-slate-200 pb-4 sm:flex-row sm:items-center">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <Badge variant="default" className="bg-indigo-600 text-white">
+                  심층 압박 면접 모드
+                </Badge>
+                <Badge variant="info">
+                  꼬리질문 완료 {completedFollowUpCount} / {followUps.length}
+                </Badge>
+              </div>
+              <h2 className="text-base font-bold text-slate-900 sm:text-lg">
+                연결된 3개의 꼬리질문 (Follow-up Questions 1 → 2 → 3)
+              </h2>
+              <p className="text-xs text-slate-600">
+                실제 기술 면접처럼 본 문항 답변에서 파생되는 3개의 심화 꼬리질문에 연이어 답변하고 루브릭 피드백을 확인하세요.
+              </p>
             </div>
-            <h2 className="text-base font-bold text-slate-900 sm:text-lg">
-              연결된 3개의 꼬리질문 (Follow-up Questions 1 → 2 → 3)
-            </h2>
-            <p className="text-xs text-slate-600">
-              실제 기술 면접처럼 본 문항 답변에서 파생되는 3개의 심화 꼬리질문에 연이어 답변하고 루브릭 피드백을 확인하세요.
-            </p>
           </div>
-        </div>
 
-        <div className="space-y-4">
-          {question.followUps.map((fu) => {
-            const st = followUpStates[fu.id] ?? {
-              answer: "",
-              submitted: false,
-              score: 0,
-              matchedKeywords: [],
-            };
+          <div className="space-y-4">
+            {followUps.map((fu) => {
+              const st = followUpStates[fu.id] ?? {
+                answer: "",
+                submitted: false,
+                score: 0,
+                matchedKeywords: [],
+              };
 
-            return (
-              <Card
-                key={fu.id}
-                data-testid={`followup-card-${fu.order}`}
-                className="border-slate-200 bg-slate-50/50"
-              >
-                <CardHeader className="pb-3">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div className="flex items-center gap-2">
-                      <Badge variant="default">꼬리질문 {fu.order} / 3</Badge>
-                      {st.submitted ? (
-                        <Badge variant="success">
-                          답변 완료 ({st.score} / {fu.maxScore}점)
-                        </Badge>
-                      ) : (
-                        <Badge variant="outline">답변 대기 중</Badge>
-                      )}
-                    </div>
-                    <div className="flex flex-wrap gap-1">
-                      {fu.rubricKeywords.map((kw) => (
-                        <Badge key={kw} variant="secondary" className="text-[11px]">
-                          핵심 키워드: {kw}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                  <CardTitle className="mt-2 text-sm leading-relaxed text-slate-900 sm:text-base">
-                    {fu.promptMd.replace(/\*\*/g, "")}
-                  </CardTitle>
-                  <CardDescription className="text-xs text-slate-600">
-                    💡 힌트: {fu.hintKo}
-                  </CardDescription>
-                </CardHeader>
-
-                <CardContent className="space-y-3 pt-0">
-                  {!isLoggedIn ? (
-                    <p className="text-xs font-medium text-amber-800">
-                      🔒 학습 모드로 전환하면 꼬리질문 {fu.order}번에 대한 답변을 제출하고 AI 채점을 받을 수 있습니다.
-                    </p>
-                  ) : (
-                    <>
-                      <Textarea
-                        value={st.answer}
-                        onChange={(e) =>
-                          setFollowUpStates((prev) => ({
-                            ...prev,
-                            [fu.id]: {
-                              ...st,
-                              answer: e.target.value,
-                            },
-                          }))
-                        }
-                        placeholder={`꼬리질문 ${fu.order}번에 대한 답변을 작성하세요...`}
-                        rows={3}
-                        data-testid={`followup-input-${fu.order}`}
-                      />
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleFillSampleFollowUp(fu)}
-                        >
-                          모범 답안 예시 채우기
-                        </Button>
-                        <Button
-                          type="button"
-                          variant="primary"
-                          size="sm"
-                          onClick={() => handleFollowUpSubmit(fu)}
-                          data-testid={`followup-submit-${fu.order}`}
-                        >
-                          꼬리질문 {fu.order} 답변 제출 & 채점
-                        </Button>
+              return (
+                <Card
+                  key={fu.id}
+                  data-testid={`followup-card-${fu.order}`}
+                  className="border-slate-200 bg-slate-50/50"
+                >
+                  <CardHeader className="pb-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <Badge variant="default">꼬리질문 {fu.order} / 3</Badge>
+                        {st.submitted ? (
+                          <Badge variant="success">
+                            답변 완료 ({st.score} / {fu.maxScore}점)
+                          </Badge>
+                        ) : (
+                          <Badge variant="outline">답변 대기 중</Badge>
+                        )}
                       </div>
-                    </>
-                  )}
+                      <div className="flex flex-wrap gap-1">
+                        {fu.rubricKeywords.map((kw) => (
+                          <Badge key={kw} variant="secondary" className="text-[11px]">
+                            핵심 키워드: {kw}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                    <CardTitle className="mt-2 text-sm leading-relaxed text-slate-900 sm:text-base">
+                      {fu.promptMd.replace(/\*\*/g, "")}
+                    </CardTitle>
+                    <CardDescription className="text-xs text-slate-600">
+                      💡 힌트: {fu.hintKo}
+                    </CardDescription>
+                  </CardHeader>
 
-                  {isLoggedIn && st.submitted && (
-                    <div
-                      data-testid={`followup-feedback-${fu.order}`}
-                      className="mt-3 space-y-2 rounded-xl border border-emerald-200 bg-white p-3.5 text-xs"
-                    >
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <span className="font-bold text-emerald-900">
-                          ✓ 꼬리질문 {fu.order} 채점 피드백: {st.score} / {fu.maxScore}점
-                        </span>
-                        <div className="flex flex-wrap gap-1">
-                          {st.matchedKeywords.map((kw) => (
-                            <Badge key={kw} variant="success">
-                              포함됨: {kw}
-                            </Badge>
-                          ))}
+                  <CardContent className="space-y-3 pt-0">
+                    {!isLoggedIn ? (
+                      <p className="text-xs font-medium text-amber-800">
+                        🔒 학습 모드로 전환하면 꼬리질문 {fu.order}번에 대한 답변을 제출하고 AI 채점을 받을 수 있습니다.
+                      </p>
+                    ) : (
+                      <>
+                        <Textarea
+                          value={st.answer}
+                          onChange={(e) =>
+                            setFollowUpStates((prev) => ({
+                              ...prev,
+                              [fu.id]: {
+                                ...st,
+                                answer: e.target.value,
+                              },
+                            }))
+                          }
+                          placeholder={`꼬리질문 ${fu.order}번에 대한 답변을 작성하세요...`}
+                          rows={3}
+                          data-testid={`followup-input-${fu.order}`}
+                        />
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleFillSampleFollowUp(fu)}
+                          >
+                            모범 답안 예시 채우기
+                          </Button>
+                          <Button
+                            type="button"
+                            variant="primary"
+                            size="sm"
+                            onClick={() => handleFollowUpSubmit(fu)}
+                            data-testid={`followup-submit-${fu.order}`}
+                          >
+                            꼬리질문 {fu.order} 답변 제출 & 채점
+                          </Button>
+                        </div>
+                      </>
+                    )}
+
+                    {isLoggedIn && st.submitted && (
+                      <div
+                        data-testid={`followup-feedback-${fu.order}`}
+                        className="mt-3 space-y-2 rounded-xl border border-emerald-200 bg-white p-3.5 text-xs"
+                      >
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <span className="font-bold text-emerald-900">
+                            ✓ 꼬리질문 {fu.order} 채점 피드백: {st.score} / {fu.maxScore}점
+                          </span>
+                          <div className="flex flex-wrap gap-1">
+                            {st.matchedKeywords.map((kw) => (
+                              <Badge key={kw} variant="success">
+                                포함됨: {kw}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                        {fu.sampleFeedbackKo && (
+                          <p className="text-slate-700">{fu.sampleFeedbackKo}</p>
+                        )}
+                        <div className="rounded-lg bg-slate-50 p-2.5 text-slate-700">
+                          <span className="font-semibold text-slate-900">
+                            모범 답안 요약:{" "}
+                          </span>
+                          {fu.modelAnswerKo}
                         </div>
                       </div>
-                      <p className="text-slate-700">{fu.sampleFeedbackKo}</p>
-                      <div className="rounded-lg bg-slate-50 p-2.5 text-slate-700">
-                        <span className="font-semibold text-slate-900">
-                          모범 답안 요약:{" "}
-                        </span>
-                        {fu.modelAnswerKo}
-                      </div>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-      </section>
+                    )}
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
