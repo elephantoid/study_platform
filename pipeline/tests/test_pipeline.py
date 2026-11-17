@@ -308,3 +308,41 @@ def test_transcript_fetch_refuses_untrusted_entries(monkeypatch, tmp_path, lid, 
     assert report[lid].startswith("failed") and expect in report[lid]
     assert list(tmp_path.iterdir()) == []
 
+
+def test_absolutize_leaves_angle_bracket_urls_alone():
+    from study_pipeline.extract_notes import absolutize
+    md = "[a](<https://x.io/p>) [b](./img/c.png) ![d](e.png)"
+    out = absolutize(md, "o/r", "Computer Science/Network")
+    assert "(<https://x.io/p>)" in out
+    assert "(https://raw.githubusercontent.com/o/r/HEAD/Computer%20Science/Network/img/c.png)" in out
+    assert "(https://raw.githubusercontent.com/o/r/HEAD/Computer%20Science/Network/e.png)" in out
+
+
+@pytest.mark.parametrize("raw,q", [
+    ("**[DB] Index**", "Index에 대해 설명하세요."),
+    ("2019.08.26.(월) [BYM] UDP란?", "UDP에 대해 설명하세요."),
+    ("운영 체제란 무엇인가?", "운영 체제란 무엇인가?"),
+    ("Sort_Radix", "Sort Radix에 대해 설명하세요."),
+])
+def test_note_titles_become_questions(raw, q):
+    from study_pipeline.extract_notes import clean_title, question
+    assert question(clean_title(raw)) == q
+
+
+def test_sections_split_on_h2_only():
+    from study_pipeline.extract_notes import cards_from_sections
+    text = "# Part\n* toc\n\n## A\n### a1\nbody a\n\n[뒤로](x)\n\n---\n## B\nbody b\n"
+    assert cards_from_sections(text) == [("A", "### a1\nbody a"), ("B", "body b")]
+
+
+def test_extract_notes_refuses_without_audited_license(monkeypatch, tmp_path):
+    from study_pipeline import extract_interview, extract_notes
+    monkeypatch.setattr(extract_interview, "MANIFEST_DIR", tmp_path)  # no audit.json
+    with pytest.raises(PermissionError):
+        extract_notes.extract({})
+
+
+def test_jobhope_author_block_dropped():
+    from study_pipeline.extract_notes import cards_from_file
+    text = "# **Dot**\n## 작성자\n[![a](https://x/a.png)](https://github.com/a)\n\n## 내적\n" + "본문 " * 5
+    assert cards_from_file(text, "f") == [("Dot", "## 내적\n" + ("본문 " * 5).strip())]

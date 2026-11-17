@@ -46,4 +46,4 @@ Local minima 문제를 피하는 방법으로는 **Momentum, Nesterov Accelerate
 
 **References**
 - [딥러닝 기초 Optimization-Gradient Descent Methods - Sally blog](https://bsm8734.github.io/posts/bc-d012-2-dlbasic-optimization-gradient-descent-methods/)
-- [NeuralNetwork (3) Optimazation2 - Cornor's Blog](https://raw.githubusercontent.com/boost-devs/ai-tech-interview/HEAD/answers/<https://wjddyd66.github.io/dl/NeuralNetwork-(3)-Optimazation2/>)
+- [NeuralNetwork (3) Optimazation2 - Cornor's Blog](<https://wjddyd66.github.io/dl/NeuralNetwork-(3)-Optimazation2/>)

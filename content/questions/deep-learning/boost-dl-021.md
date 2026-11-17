@@ -41,6 +41,6 @@ local minima 문제가 사실은 고차원(High Dimensional)의 공간에서는 
 - `saddle point`: 어느 방향에서 보면 극대값이지만 다른 방향에서 보면 극소값이 되는 점
 
 **References**
-- [NeuralNetwork (3) Optimazation2 - Cornor's Blog](https://raw.githubusercontent.com/boost-devs/ai-tech-interview/HEAD/answers/<https://wjddyd66.github.io/dl/NeuralNetwork-(3)-Optimazation2/>)
+- [NeuralNetwork (3) Optimazation2 - Cornor's Blog](<https://wjddyd66.github.io/dl/NeuralNetwork-(3)-Optimazation2/>)
 - [Local Minima 문제에 대한 새로운 시각 - 다크 프로그래머](https://darkpgmr.tistory.com/148)
 - [05-1.심층 신경망 학습-활성화 함수, 가중치 초기화 - EXCELSIOR](https://excelsior-cjh.tistory.com/177)

@@ -1,0 +1,135 @@
+---
+id: gyoogle-algo-015
+topicId: algorithm
+sourceId: gyoogle-tech-interview
+type: concept
+difficulty: intermediate
+roles:
+- mle
+- agent
+reviewTarget:
+  noteId: gyoogle-algo-index
+status: draft
+generation:
+  by: claude-code
+  model: rule-based/extract_notes@1
+  at: '2026-11-17'
+---
+
+## 문제
+
+순열 & 조합에 대해 설명하세요.
+
+## 해설
+
+### Java 코드
+
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class 순열조합 {
+	static char[] arr = { 'a', 'b', 'c', 'd' };
+	static int r = 2;
+
+	//arr배열에서 r개를 선택한다.
+	//선택된 요소들은 set배열에 저장.
+	public static void main(String[] args) {
+
+		set = new char[r];
+		
+		System.out.println("==조합==");
+		comb(0,0);
+
+		System.out.println("==중복조합==");
+		rcomb(0, 0);
+		
+		visit = new boolean[arr.length];
+		System.out.println("==순열==");
+		perm(0);
+
+		System.out.println("==중복순열==");
+		rperm(0);
+		
+		System.out.println("==부분집합==");
+		setList = new ArrayList<>();
+		subset(0,0);
+	}
+
+	static char[] set;
+
+	public static void comb(int len, int k) { // 조합
+		if (len == r) {
+			System.out.println(Arrays.toString(set));
+			return;
+		}
+		if (k == arr.length)
+			return;
+
+		set[len] = arr[k];
+
+		comb(len + 1, k + 1);
+		comb(len, k + 1);
+
+	}
+
+	public static void rcomb(int len, int k) { // 중복조합
+		if (len == r) {
+			System.out.println(Arrays.toString(set));
+			return;
+		}
+		if (k == arr.length)
+			return;
+
+		set[len] = arr[k];
+
+		rcomb(len + 1, k);
+		rcomb(len, k + 1);
+
+	}
+
+	static boolean[] visit;
+
+	public static void perm(int len) {// 순열
+		if (len == r) {
+			System.out.println(Arrays.toString(set));
+			return;
+		}
+
+		for (int i = 0; i < arr.length; i++) {
+			if (!visit[i]) {
+				set[len] = arr[i];
+				visit[i] = true;
+				perm(len + 1);
+				visit[i] = false;
+			}
+		}
+	}
+
+	public static void rperm(int len) {// 중복순열
+		if (len == r) {
+			System.out.println(Arrays.toString(set));
+			return;
+		}
+
+		for (int i = 0; i < arr.length; i++) {
+			set[len] = arr[i];
+			rperm(len + 1);
+		}
+	}
+
+	static ArrayList<Character> setList;
+
+	public static void subset(int len, int k) {// 부분집합
+		System.out.println(setList);
+		if (len == arr.length) {
+			return;
+		}
+		for (int i = k; i < arr.length; i++) {
+			setList.add(arr[i]);
+			subset(len + 1, i + 1);
+			setList.remove(setList.size() - 1);
+		}
+	}
+}
+```

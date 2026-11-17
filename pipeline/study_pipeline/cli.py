@@ -3,7 +3,7 @@ import json
 import os
 import sys
 
-from . import audit, check, extract_interview, gate, repos, sources, transcripts, youtube
+from . import audit, check, extract_interview, extract_notes, gate, repos, sources, transcripts, youtube
 from .config import MANIFEST_DIR
 from .failguard import Aborted, FailGuard
 
@@ -49,8 +49,10 @@ def main(argv: list[str] | None = None) -> int:
             print("  " + p)
         return 0 if ok else 1
     if args.step == "extract":
-        counts = extract_interview.extract(check.load_topics())
-        print("extract:", counts, "total", sum(counts.values()))
+        topics = check.load_topics()
+        for name, mod in (("interview", extract_interview), ("notes", extract_notes)):
+            counts = mod.extract(topics)
+            print(f"extract {name}:", counts, "total", sum(counts.values()))
         return 0
 
     srcs = sources.load()

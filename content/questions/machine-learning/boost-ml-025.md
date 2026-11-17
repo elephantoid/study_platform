@@ -41,9 +41,9 @@ $$
 > - **정형데이터**에서의 특징은 각 attribute(열)를 의미한다. 키, 나이, 국적 등이 특징으로 사용될 수 있다.
 
 **References**
-- [피쳐(기계학습) - 위키백과](https://raw.githubusercontent.com/boost-devs/ai-tech-interview/HEAD/answers/<https://ko.wikipedia.org/wiki/%ED%94%BC%EC%B3%90_(%EA%B8%B0%EA%B3%84_%ED%95%99%EC%8A%B5)>)
+- [피쳐(기계학습) - 위키백과](<https://ko.wikipedia.org/wiki/%ED%94%BC%EC%B3%90_(%EA%B8%B0%EA%B3%84_%ED%95%99%EC%8A%B5)>)
 - [4)머신러닝이란? - TCPschool.com](http://www.tcpschool.com/deep2018/deep2018_machine_learning)
 - [머신러닝-다차원 특징공간과 차원의 저주 - 예비 개발자](http://blog.naver.com/PostView.nhn?blogId=qbxlvnf11&logNo=221323034856)
-- [OpenCV-특징검출, 디스크립터, 매칭 - JeongYongHwang](https://raw.githubusercontent.com/boost-devs/ai-tech-interview/HEAD/answers/<https://wjddyd66.github.io/opencv/OpenCV(8)/>)
+- [OpenCV-특징검출, 디스크립터, 매칭 - JeongYongHwang](<https://wjddyd66.github.io/opencv/OpenCV(8)/>)
 - [자연어처리 Bag of Words](https://bsm8734.github.io/posts/bc-d016-2-nlp-bag-of-words/)
 - [자연어의 피처와 전처리 - GeumjaeLee](https://brunch.co.kr/@geumjaelee/4)

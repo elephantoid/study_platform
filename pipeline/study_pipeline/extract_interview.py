@@ -35,7 +35,7 @@ _BLOCK = re.compile(r"^## #\d+(?:-\d+)*\s*$", re.M)  # "#3", also sub-blocks "#2
 MIN_ANSWER_CHARS = 40  # parent blocks like "#6 Graph" only introduce "#6-1.."; not a card
 _QHEAD = re.compile(r"^#{3,4} (?!References\s*$)(.+?)\s*$", re.M)
 # Relative image/link targets would 404 outside the repo; point them at the raw file.
-_REL_MD = re.compile(r"(!?\[[^\]]*\]\()(?!https?://|#|mailto:)\.?/?([^)\s]+)")
+_REL_MD = re.compile(r"(!?\[[^\]]*\]\()(?!<|https?://|#|mailto:)\.?/?([^)\s]+)")
 _REL_IMG = re.compile(r'(<img[^>]+src=")(?!https?://)\.?/?([^"]+)')
 
 
@@ -75,19 +75,19 @@ def _write(path: Path, front: dict, body: str) -> None:
     path.write_text(f"---\n{fm}\n---\n\n{body.strip()}\n")
 
 
-def _require_verbatim_license() -> None:
+def require_verbatim_license(source_id: str) -> None:
     """Fail closed unless sources.yaml allows verbatim and the last audit confirmed the license."""
-    src = {s.id: s for s in load_sources()}.get(SOURCE_ID)
+    src = {s.id: s for s in load_sources()}.get(source_id)
     audit_path = MANIFEST_DIR / "audit.json"
-    audited = json.loads(audit_path.read_text()).get(SOURCE_ID, {}) if audit_path.exists() else {}
+    audited = json.loads(audit_path.read_text()).get(source_id, {}) if audit_path.exists() else {}
     if src is None or src.reuse != "verbatim":
-        raise PermissionError(f"{SOURCE_ID}: sources.yaml does not allow verbatim reuse")
+        raise PermissionError(f"{source_id}: sources.yaml does not allow verbatim reuse")
     if audited.get("status") != "ok" or audited.get("license") != src.license:
-        raise PermissionError(f"{SOURCE_ID}: license not confirmed by `ingest audit` ({audited or 'no audit'})")
+        raise PermissionError(f"{source_id}: license not confirmed by `ingest audit` ({audited or 'no audit'})")
 
 
 def extract(topics: dict[str, dict], today: str | None = None) -> dict[str, int]:
-    _require_verbatim_license()
+    require_verbatim_license(SOURCE_ID)
     today = today or date.today().isoformat()
     src_dir = RAW_DIR / "repo" / SOURCE_ID / "answers"
     gen = {"by": "claude-code", "model": GENERATOR, "at": today}

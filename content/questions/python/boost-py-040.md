@@ -48,4 +48,4 @@ re.subn('\d{4}', 'XXXX', '010-1234-5678')
 
 **References**
 - [파이썬 – 정규식표현식(Regular Expression) 모듈 - devanix](https://devanix.tistory.com/296)
-- [파이썬 정규표현식(re) 사용법 - 05. 주석, 치환, 분리 - YW & YY's Python, Machine & Deep Learning](https://raw.githubusercontent.com/boost-devs/ai-tech-interview/HEAD/answers/<https://greeksharifa.github.io/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D(re)/2018/08/04/regex-usage-05-intermediate/>)
+- [파이썬 정규표현식(re) 사용법 - 05. 주석, 치환, 분리 - YW & YY's Python, Machine & Deep Learning](<https://greeksharifa.github.io/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D(re)/2018/08/04/regex-usage-05-intermediate/>)

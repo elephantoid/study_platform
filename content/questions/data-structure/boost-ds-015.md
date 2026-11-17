@@ -44,4 +44,4 @@ heap의 종류에는 [min heap](#7-1), [max heap](#7-2)이 있다.
 이진 힙의 시간복잡도는 $O(\log n)$이다.
 
 **References**
-- [힙 (자료 구조) - 위키백과](https://raw.githubusercontent.com/boost-devs/ai-tech-interview/HEAD/answers/<https://ko.wikipedia.org/wiki/%ED%9E%99_(%EC%9E%90%EB%A3%8C_%EA%B5%AC%EC%A1%B0)>)
+- [힙 (자료 구조) - 위키백과](<https://ko.wikipedia.org/wiki/%ED%9E%99_(%EC%9E%90%EB%A3%8C_%EA%B5%AC%EC%A1%B0)>)
