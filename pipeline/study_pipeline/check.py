@@ -11,21 +11,20 @@ from pathlib import Path
 import jsonschema
 import yaml
 
-from .config import CONTENT, MANIFEST_DIR, RAW_DIR, SCHEMA
+from .config import CONTENT, LECTURE_ID, MANIFEST_DIR, RAW_DIR, SCHEMA
 from .sources import load as load_sources
 
 KINDS = {"questions": "question", "notes": "studyNote", "lectures": "lecture"}
 LINK_ONLY_BODY_LIMIT = 600  # chars; link_only sources may carry a short summary plus links only
 QUOTE_WORDS = 12  # contract allows at most one quoted sentence; 12 identical words in a row is copying
 _WORD = re.compile(r"[a-z0-9']+")
-_LECTURE_ID = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*-l[0-9]{2}")
 
 
 @lru_cache(maxsize=None)
 def _transcript_shingles(lecture_id: str) -> frozenset[tuple[str, ...]] | None:
     # Ids come from unvalidated frontmatter (schema errors don't stop the loop); never let one
     # become a path outside RAW_DIR/yt.
-    if not _LECTURE_ID.fullmatch(lecture_id):
+    if not LECTURE_ID.fullmatch(lecture_id):
         return None
     p = RAW_DIR / "yt" / f"{lecture_id}.json"
     if not p.exists():
@@ -111,9 +110,12 @@ def check(content: Path = CONTENT, require_transcripts: bool = False) -> tuple[l
                 lid = fid if kind == "lectures" else seg.rsplit("-s", 1)[0]
                 # Whole frontmatter: rubric, followUps and NotebookLM-written slideUnits live there, not in the body.
                 text = body + "\n" + yaml.safe_dump(f, allow_unicode=True)
-                if lid and (hit := copied_span(text, lid)):
+                if not lid:
+                    # No lecture to compare against means no copy check; don't let that pass silently.
+                    errors.append(f"{rel}: source {src.id} is summary_link; needs reviewTarget.segmentId for the copy check")
+                elif hit := copied_span(text, lid):
                     errors.append(f"{rel}: copies {QUOTE_WORDS}+ consecutive transcript words: \"{hit}\"")
-                elif lid and require_transcripts and _transcript_shingles(lid) is None:
+                elif require_transcripts and _transcript_shingles(lid) is None:
                     # Fail closed where transcripts are expected (local hook); CI has none and skips.
                     errors.append(f"{rel}: no transcript for {lid}; copy check could not run")
             elif src.reuse != "verbatim":

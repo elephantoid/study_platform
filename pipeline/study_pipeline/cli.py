@@ -84,7 +84,7 @@ def main(argv: list[str] | None = None) -> int:
                     f" | unavailable {sum('unavailable' in v for v in vids)}"
                     f" | errors {sum('error' in v for v in vids)}"
                 )
-                failed |= any("error" in v for v in vids)
+                failed |= any("error" in v or v.get("uploaderOk") is False for v in vids)
         if args.step in ("transcripts", "all"):
             report = transcripts.fetch(_read("videos.json"), guard, refresh=args.refresh, only=set(args.only or []) or None)
             for lid, status in report.items():

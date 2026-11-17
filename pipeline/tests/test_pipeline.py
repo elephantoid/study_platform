@@ -279,3 +279,32 @@ def test_gate_tty_unavailable_means_rejected(monkeypatch):
         raise OSError("no tty")
     monkeypatch.setattr(builtins, "open", no_tty)
     assert gate.confirm_on_tty(["content/a.md"]) is False
+
+
+def test_summary_link_without_lecture_fails_closed(tmp_path):
+    from study_pipeline import check
+    (tmp_path / "questions").mkdir()
+    (tmp_path / "questions" / "q9.md").write_text(
+        "---\nid: q9\nsourceId: cs329z-2026au\nreviewTarget: {noteId: n1}\n---\n## 문제\nx\n")
+    errs, _ = check.check(content=tmp_path)
+    assert any("needs reviewTarget.segmentId" in e for e in errs)
+
+
+@pytest.mark.parametrize("lid,vid,extra,expect", [
+    ("../../x-l01", "abcdefghijk", {}, "invalid"),
+    ("x-l01", "abc/../../xx", {}, "invalid"),
+    ("x-l01", "abcdefghijk", {"uploaderOk": False, "uploader": "Mirror"}, "uploader"),
+    ("x-l01", "abcdefghijk", {}, "uploader"),  # never verified: fail closed too
+])
+def test_transcript_fetch_refuses_untrusted_entries(monkeypatch, tmp_path, lid, vid, extra, expect):
+    from study_pipeline import transcripts
+
+    def boom(*a, **k):
+        raise AssertionError("must not download")
+    monkeypatch.setattr(transcripts, "yt_dir", lambda: tmp_path)
+    monkeypatch.setattr(transcripts, "_via_ytdlp", boom)
+    manifest = {"s": {"videos": {vid: {"lectureId": lid, "track": ["manual", "en"], **extra}}}}
+    report = transcripts.fetch(manifest, FailGuard())
+    assert report[lid].startswith("failed") and expect in report[lid]
+    assert list(tmp_path.iterdir()) == []
+

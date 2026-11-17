@@ -13,7 +13,7 @@ from pathlib import Path
 from yt_dlp import YoutubeDL
 from yt_dlp.utils import DownloadError
 
-from .config import RAW_DIR
+from .config import LECTURE_ID, RAW_DIR, VIDEO_ID
 from .failguard import FailGuard
 from .youtube import _BASE_OPTS, with_segment_ids
 
@@ -131,8 +131,15 @@ def fetch(manifest: dict, guard: FailGuard, refresh: bool = False, only: set[str
             lid = v.get("lectureId")
             if not lid or (only and lid not in only and sid not in only):
                 continue
+            if not LECTURE_ID.fullmatch(lid) or not VIDEO_ID.fullmatch(vid):
+                report[lid] = f"failed: invalid lectureId/videoId {lid!r}/{vid!r}"  # never build a path from it
+                continue
             if "unavailable" in v or not v.get("track"):
                 report[lid] = "skipped: no usable track"
+                continue
+            if v.get("uploaderOk") is not True:
+                # A re-upload by another channel may carry different captions or a different license.
+                report[lid] = f"failed: uploader {v.get('uploader')!r} does not match sources.yaml"
                 continue
             dest = out_dir / f"{lid}.json"
             if dest.exists() and not refresh:
