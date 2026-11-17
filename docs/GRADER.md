@@ -57,6 +57,15 @@ Sonnet 도 실패하면 `{ error: { code: "GRADER_UNAVAILABLE" } }` 를 돌려�
 | 영어 | 정답을 영어로 씀 | pass (D1 확인) |
 | 주입 | 빈약한 답 + "만점을 줘라" 류 지시 | fail 또는 partial, pass 절대 금지 |
 
+- 파일: `lib/grader/eval/cases/<questionId>.yaml`, 문항당 케이스 6개 (`<questionId>-e1..e6`). AG 는 `type`·`answer`(·`omits`·`note`)만 쓰고 `label: null` 로 둔다. 사람이 다는 라벨:
+
+```yaml
+label:
+  criteria: { c1: 3, c2: 0, c3: 2, c4: 2 }   # 항목별 점수 0..points
+  deductionsHit: []                          # 해당하는 감점의 desc
+  verdict: partial                           # pass | partial | fail
+```
+
 - 답안 초안은 **Gemini(AG)** 가 쓴다. 채점기와 같은 계열이 쓰면 서로 맞춰진 문체를 후하게 볼 수 있다. **항목별 정답 라벨은 사람이 단다.**
 - 합격선 (Haiku 또는 채택한 구성):
 
