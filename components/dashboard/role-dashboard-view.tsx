@@ -3,6 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import {
+  canShowLectureGeneratedContent,
   formatSecondsToTimestamp,
   getDashboardMock,
   MOCK_ATTRIBUTIONS,
@@ -249,6 +250,8 @@ export function RoleDashboardView({ initialRoleId }: { initialRoleId: RoleId }) 
         <div className="grid grid-cols-1 gap-4">
           {dashboard.lectures.map((lec) => {
             const fullLecture = MOCK_LECTURES[lec.id];
+            const showGenerated = canShowLectureGeneratedContent(fullLecture);
+            const visibleSyllabus = showGenerated ? fullLecture?.syllabus : undefined;
             return (
               <Card key={lec.id}>
                 <CardContent className="p-5 space-y-4">
@@ -263,21 +266,30 @@ export function RoleDashboardView({ initialRoleId }: { initialRoleId: RoleId }) 
                           재생시간 {formatSecondsToTimestamp(lec.durationSec)} (
                           {lec.durationSec}초)
                         </Badge>
-                        {fullLecture?.syllabus && (
+                        {visibleSyllabus?.deckPageCount ? (
                           <Badge variant="success">
-                            Syllabus Slides ({fullLecture.syllabus.deckPageCount}p) 연동
+                            Syllabus Slides ({visibleSyllabus.deckPageCount}p) 연동
                           </Badge>
-                        )}
+                        ) : !showGenerated ? (
+                          <Badge variant="warning">
+                            검수 대기 중 (draft) — 영상 및 챕터 이동 제공
+                          </Badge>
+                        ) : null}
                       </div>
                       <h3 className="text-base font-bold text-slate-900">
                         {lec.title}
                       </h3>
-                      {fullLecture?.syllabus && (
+                      {visibleSyllabus && (
                         <p className="text-xs text-slate-600">
-                          강사: {fullLecture.syllabus.instructor} · 슬라이드 자료:{" "}
-                          <span className="font-medium text-slate-800">
-                            {fullLecture.syllabus.slidesTitle}
-                          </span>
+                          강사: {visibleSyllabus.instructor}
+                          {visibleSyllabus.slidesTitle ? (
+                            <>
+                              {" · "}슬라이드 자료:{" "}
+                              <span className="font-medium text-slate-800">
+                                {visibleSyllabus.slidesTitle}
+                              </span>
+                            </>
+                          ) : null}
                         </p>
                       )}
                     </div>
@@ -285,7 +297,7 @@ export function RoleDashboardView({ initialRoleId }: { initialRoleId: RoleId }) 
                     <div className="flex flex-wrap gap-2 shrink-0">
                       <Link href={`/lectures/${lec.id}`}>
                         <Button variant="primary" size="sm">
-                          영상 + Slides 학습하기
+                          {showGenerated ? "강의 + 학습 카드 열기" : "영상 + 챕터 열기"}
                         </Button>
                       </Link>
                     </div>

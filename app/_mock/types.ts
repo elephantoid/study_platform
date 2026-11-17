@@ -102,10 +102,10 @@ export type LectureSyllabus = {
   date: string;
   instructor: string;
   syllabusUrl: string;
-  slidesTitle: string;
-  slidesUrl: string;
-  deckPageCount: number;
-  notebookLmUrl?: string; // 공유된 강의 전용 NotebookLM URL
+  slidesTitle?: string; // 아래 셋은 실제 덱 PDF 가 있을 때만, 함께 있다
+  slidesUrl?: string; // .pdf
+  deckPageCount?: number;
+  notebookLmUrl?: string; // 공유된 강의 전용 NotebookLM URL (…/notebook/<id>)
   readingLinks: { title: string; url: string }[];
 };
 
@@ -121,6 +121,8 @@ export type LectureSegmentView = {
   questionIds: string[];
 };
 
+export type ContentStatus = "draft" | "reviewed" | "published";
+
 // GET /api/lectures/:id   (강의 전체 요약 summaryMd 없음. syllabus 슬라이드와 구간을 함께 공부)
 export type LectureView = {
   id: string;
@@ -129,6 +131,7 @@ export type LectureView = {
   title: string;
   videoId: string;
   durationSec: number;
+  status?: ContentStatus; // CONTRACT §5: draft 강의는 학습자 화면에서 summaryKo, syllabus, slideUnits 숨김
   syllabus?: LectureSyllabus; // IBM 등 강의계획서가 없는 재생목록은 없음
   segments: LectureSegmentView[];
   attribution: Attribution;

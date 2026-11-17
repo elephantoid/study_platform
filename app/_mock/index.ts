@@ -38,4 +38,19 @@ export function formatSecondsToTimestamp(sec: number): string {
   return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 }
 
+/**
+ * CONTRACT §5:
+ * status: draft 강의 파일의 생성 콘텐츠(summaryKo, syllabus, slideUnits)는 학습자 화면에 보이지 않는다.
+ * 영상과 YouTube 챕터 이동만 남긴다. 검수를 통과한 reviewed 이상만 노출한다.
+ * 개발 미리보기는 명시적 플래그(NEXT_PUBLIC_SHOW_DRAFT=1)로만 켠다.
+ */
+export function canShowLectureGeneratedContent(
+  lecture?: Pick<LectureView, "status"> | null
+): boolean {
+  if (!lecture) return false;
+  const status = lecture.status ?? "draft";
+  if (status === "reviewed" || status === "published") return true;
+  return process.env.NEXT_PUBLIC_SHOW_DRAFT === "1";
+}
+
 export { MOCK_REVIEW_QUEUE };
