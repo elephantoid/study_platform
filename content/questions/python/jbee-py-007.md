@@ -37,10 +37,14 @@ def foo(a=[]):
 
 다른 경우로 웹 애플리케이션에서 timeout 이 없는 캐시 데이터를 생각해 볼 수 있다. 요청이 들어올수록 캐시 데이터는 쌓여만 가는데 이를 해제할 루틴을 따로 만들어두지 않는다면 이도 메모리 누수를 초래한다.
 
-클래스 내 `__del__` 메서드를 재정의하는 행위도 메모리 누수를 일으킬 수 있다. 순환 참조 중인 클래스가 `__del__` 메서드를 재정의하고 있다면 가비지 컬렉터로 해제되지 않는다.
+클래스 내 `__del__` 메서드를 재정의하는 행위도 메모리 누수를 일으킬 수 있다. Python 3.4 이전에는 순환 참조 중인 클래스가 `__del__` 메서드를 재정의하고 있다면 가비지 컬렉터로 해제되지 않았다(PEP 442 이후에는 대부분 해제된다).
 
 #### Reference
 
 * [Is it possible to have an actual memory leak?](https://stackoverflow.com/questions/2017381/is-it-possible-to-have-an-actual-memory-leak-in-python-because-of-your-code)
 * [파이썬에서 메모리 누수가 발생할 수 있는 경우 - memorable](https://memorable.link/link/189)
 * [약한 참조 사용하기](https://soooprmx.com/archives/5074)
+
+---
+
+_검수에서 원문의 오류를 바로잡았다. 원문은 위 출처에 있다._

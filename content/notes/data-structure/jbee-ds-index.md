@@ -19,7 +19,3 @@ generation:
 - [Array vs Linked List](https://github.com/jbee37142/Interview_Question_for_Beginner/blob/HEAD/DataStructure/README.md) — `jbee-ds-001`
 - [Stack and Queue](https://github.com/jbee37142/Interview_Question_for_Beginner/blob/HEAD/DataStructure/README.md) — `jbee-ds-002`
 - [Tree](https://github.com/jbee37142/Interview_Question_for_Beginner/blob/HEAD/DataStructure/README.md) — `jbee-ds-003`
-- [Binary Heap](https://github.com/jbee37142/Interview_Question_for_Beginner/blob/HEAD/DataStructure/README.md) — `jbee-ds-004`
-- [Red Black Tree](https://github.com/jbee37142/Interview_Question_for_Beginner/blob/HEAD/DataStructure/README.md) — `jbee-ds-005`
-- [Hash Table](https://github.com/jbee37142/Interview_Question_for_Beginner/blob/HEAD/DataStructure/README.md) — `jbee-ds-006`
-- [Graph](https://github.com/jbee37142/Interview_Question_for_Beginner/blob/HEAD/DataStructure/README.md) — `jbee-ds-007`

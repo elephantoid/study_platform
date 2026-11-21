@@ -17,14 +17,14 @@ generation:
 
 ## 문제
 
-DB 자주 쓰이는 쿼리문 정리에 대해 설명하세요.
+자주 쓰이는 DB 쿼리문에 대해 설명하세요.
 
 ## 해설
 
 ## 찾고 싶은 SQL문을 Ctrl+F로 검색
 
 ## 쿼리의 수행 순서
-- select -> from -> where -> group by -> having -> column -> order by -> limit
+- from -> where -> group by -> having -> select -> order by -> limit
 - 30, 40, 50번 부서 사원의 업무별 급여 합계와 평균을 구하시오.
   단, 급여가 2000 이상이면서 업무의 최소 급여합계가 1000 이상인 부서만 구합니다.
 ```sql
@@ -111,12 +111,12 @@ select distinct salary from employees
 ## IN, NOT IN
 - 부서 번호가 101, 102, 103 인 것들
 ```sql
-where employee_id in(101, 102, 103);
+where department_id in(101, 102, 103);
 ```
 
 - 부서 번호가 101, 102, 103 이 아닌 것들
 ```sql
-where employee_id not in(101, 102, 103);
+where department_id not in(101, 102, 103);
 ```
 
 ## 숫자에서 문자로
@@ -185,3 +185,7 @@ select ename, sal, sum(sal) over(order by sal rows
 between unbounded preceding and unbounded following)
 from emp;
 ```
+
+---
+
+_검수에서 원문의 오류를 바로잡았다. 원문은 위 출처에 있다._

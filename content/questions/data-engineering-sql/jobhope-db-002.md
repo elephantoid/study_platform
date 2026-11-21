@@ -138,8 +138,8 @@ WHERE (ename, sal) NOT IN (
 SELECT A.DNAME
 FROM DEPT A
 WHERE A.DEPTNO IN ( -- OR EXISTS
-                SELECT B.EMPNO
-                FROM EMP B WHERE B.EMPNO = A.DEPTNO
+                SELECT B.DEPTNO
+                FROM EMP B WHERE B.DEPTNO = A.DEPTNO
                 );
 ```
 
@@ -150,3 +150,7 @@ WHERE A.DEPTNO IN ( -- OR EXISTS
 [참고블로그4](http://ojc.asia/bbs/board.php?bo_table=LecSQLnPlSql&wr_id=390)  
 [참고블로그5](https://wisoft.tistory.com/entry/database-sql-join-method)  
 [참고블로그6](http://blog.naver.com/PostView.nhn?blogId=typeofb&logNo=221452913670&parentCategoryNo=&categoryNo=39&viewDate=&isShowPopularPosts=true&from=search)
+
+---
+
+_검수에서 원문의 오류를 바로잡았다. 원문은 위 출처에 있다._

@@ -15,8 +15,6 @@ generation:
 
 ## 문항 목록
 
-- [DNS (Domain Name Server)](https://github.com/gyoogle/tech-interview-for-developer/blob/HEAD/Computer%20Science/Network/DNS.md) — `gyoogle-net-001`
-- [HTTP & HTTPS](https://github.com/gyoogle/tech-interview-for-developer/blob/HEAD/Computer%20Science/Network/HTTP%20%26%20HTTPS.md) — `gyoogle-net-002`
 - [OSI 7 계층](https://github.com/gyoogle/tech-interview-for-developer/blob/HEAD/Computer%20Science/Network/OSI%207%20%EA%B3%84%EC%B8%B5.md) — `gyoogle-net-003`
 - [TCP (흐름제어/혼잡제어)](https://github.com/gyoogle/tech-interview-for-developer/blob/HEAD/Computer%20Science/Network/TCP%20%28%ED%9D%90%EB%A6%84%EC%A0%9C%EC%96%B4%ED%98%BC%EC%9E%A1%EC%A0%9C%EC%96%B4%29.md) — `gyoogle-net-004`
 - [3 way handshake & 4 way handshake](https://github.com/gyoogle/tech-interview-for-developer/blob/HEAD/Computer%20Science/Network/TCP%203%20way%20handshake%20%26%204%20way%20handshake.md) — `gyoogle-net-005`

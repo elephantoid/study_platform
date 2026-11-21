@@ -39,8 +39,8 @@ Deque에 대해 설명하세요.
 - addLast : tail에 자료 삽입
 - removeFirst : head의 자료 제거
 - removeLast : tail의 자료 제거
-- peekHead : 맨 뒤에 있는 자료 반환
-- peekTail : 맨 앞에 있는 자로 반환
+- peekHead : head(맨 앞)에 있는 자료 반환
+- peekTail : tail(맨 뒤)에 있는 자료 반환
 
 ### Deque의 시간복잡도
 - 삽입, 삭제, 조회(TOP) : O(1)
@@ -132,6 +132,11 @@ Deque{
         head null check;
         T data = head.data;
         head = head.next;
+        if head is null{
+            tail = null;
+        }else{
+            head.before = null;
+        }
         size--;
         return data;
     }    
@@ -140,6 +145,11 @@ Deque{
         tail null check;
         T data = tail.data;
         tail = tail.before;
+        if tail is null{
+            head = null;
+        }else{
+            tail.next = null;
+        }
         size--;
         return data;
     }
@@ -159,3 +169,7 @@ Deque{
     }
 }
 ```
+
+---
+
+_검수에서 원문의 오류를 바로잡았다. 원문은 위 출처에 있다._

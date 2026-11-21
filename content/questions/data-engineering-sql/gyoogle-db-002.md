@@ -36,7 +36,7 @@ SELECT * FROM USER WHERE ID = "abc" AND PASSWORD = "1234";
 SQL Injection으로 공격할 때, input 창에 비밀번호를 입력함과 동시에 다른 쿼리문을 함께 입력하는 것이다.
 
 ```
-1234; DELETE * USER FROM ID = "1";
+1234; DELETE FROM USER WHERE ID = "1";
 ```
 
 보안이 완벽하지 않은 경우, 이처럼 비밀번호가 아이디와 일치해서 True가 되고 뒤에 작성한 DELETE 문도 데이터베이스에 영향을 줄 수도 있게 되는 치명적인 상황이다.
@@ -62,3 +62,7 @@ SQL Injection으로 공격할 때, input 창에 비밀번호를 입력함과 동
 ##### 3) preparestatement 사용하기
 
 > preparestatement를 사용하면, 특수문자를 자동으로 escaping 해준다. (statement와는 다르게 쿼리문에서 전달인자 값을 `?`로 받는 것) 이를 활용해 서버 측에서 필터링 과정을 통해서 공격을 방어한다.
+
+---
+
+_검수에서 원문의 오류를 바로잡았다. 원문은 위 출처에 있다._

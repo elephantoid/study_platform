@@ -35,7 +35,7 @@ GIL 은 스레드에서 사용되는 Lock 을 인터프리터 레벨로 확장�
 
 ### GIL 의 장점
 
-코어 개수는 점점 늘어만 가는데 이 GIL 때문에 그 장점을 제대로 살리지 못하기만 하는 것 같으나 이 GIL 로 인한 장점도 존재한다. GIL 을 활용한 멀티 스레드가 그렇지 않은 멀티 스레드보다 구현이 쉬우며, 레퍼런스 카운팅을 사용하는 메모리 관리 방식에서 GIL 덕분에 오버헤드가 적어 싱글 스레드일 때 [fine grained lock 방식](https://fileadmin.cs.lth.se/cs/Education/EDA015F/2013/Herlihy4-5-presentation.pdf)보다 성능이 우월하다. 또한 C extension 을 활용할 때 GIL 은 해제되므로 C library 를 사용하는 CPU bound 프로그램을 멀티 스레드로 실행하는 경우 더 빠를 수 있다.
+코어 개수는 점점 늘어만 가는데 이 GIL 때문에 그 장점을 제대로 살리지 못하기만 하는 것 같으나 이 GIL 로 인한 장점도 존재한다. GIL 을 활용한 멀티 스레드가 그렇지 않은 멀티 스레드보다 구현이 쉬우며, 레퍼런스 카운팅을 사용하는 메모리 관리 방식에서 GIL 덕분에 오버헤드가 적어 싱글 스레드일 때 [fine grained lock 방식](https://fileadmin.cs.lth.se/cs/Education/EDA015F/2013/Herlihy4-5-presentation.pdf)보다 성능이 우월하다. 또한 C extension 이 GIL 을 해제하도록 구현된 경우 GIL 이 해제되므로 C library 를 사용하는 CPU bound 프로그램을 멀티 스레드로 실행하는 경우 더 빠를 수 있다.
 
 #### Reference
 
@@ -44,3 +44,7 @@ GIL 은 스레드에서 사용되는 Lock 을 인터프리터 레벨로 확장�
 * [Threads and the GIL](http://jessenoller.com/blog/2009/02/01/python-threads-and-the-global-interpreter-lock)
 * [Python GIL](https://medium.com/@mjhans83/python-gil-f940eac0bef9)
 * [Old GIL 과 New GIL](https://blog.naver.com/parkjy76/30167429369)
+
+---
+
+_검수에서 원문의 오류를 바로잡았다. 원문은 위 출처에 있다._

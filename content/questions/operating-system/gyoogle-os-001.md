@@ -85,7 +85,7 @@ CPU Scheduling에 대해 설명하세요.
         - 작업들을 여러 종류의 그룹으로 나누어 여러 개의 큐를 이용하는 기법
         ![Untitled](https://user-images.githubusercontent.com/13609011/91695480-2a4e5b00-eba9-11ea-8dbf-390bf0a73c10.png)
 
-        - 우선순위가 낮은 큐들이 실행 못하는 걸 방지하고자 각 큐마다 다른 `Time Quantum`을 설정 해주는 방식 사용
+        - 우선순위가 낮은 큐들이 실행 못하는 걸 완화하고자(완전한 방지는 아니며 Aging 등이 필요) 각 큐마다 다른 `Time Quantum`을 설정 해주는 방식 사용
         - 우선순위가 높은 큐는 작은 `Time Quantum` 할당. 우선순위가 낮은 큐는 큰 `Time Quantum` 할당.
     4. Multilevel-Feedback-Queue (다단계 피드백 큐)
 
@@ -112,3 +112,7 @@ CPU Scheduling에 대해 설명하세요.
 - CPU 스케줄링 종류 및 정의 참고 : [링크](https://m.blog.naver.com/PostView.nhn?blogId=so_fragrant&logNo=80056608452&proxyReferer=https:%2F%2Fwww.google.com%2F)
 - 다단계큐 참고 : [링크](https://jhnyang.tistory.com/28)
 - 다단계 피드백 큐 참고 : [링크](https://jhnyang.tistory.com/156)
+
+---
+
+_검수에서 원문의 오류를 바로잡았다. 원문은 위 출처에 있다._

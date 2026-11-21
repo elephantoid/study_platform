@@ -18,7 +18,7 @@ generation:
 
 ## 문제
 
-LIS (Longest Increasing Sequence)에 대해 설명하세요.
+LIS (Longest Increasing Subsequence)에 대해 설명하세요.
 
 ## 해설
 
@@ -55,4 +55,8 @@ for (int i = 0; i < dp.length; i++) {
 
 하지만, N^2으로 해결할 수 없는 문제라면? (ex. 배열의 길이가 최대 10만일 때..)
 
-이때는 Lower Bound를 활용한 LIS 구현을 진행해야한다.
+이때는 Lower Bound를 활용한 LIS 구현을 진행해야한다. 길이별 LIS의 마지막 값을 담은 정렬된 배열에서 각 원소를 lower bound 위치에 덮어쓰거나 끝에 붙이면 되고, 이 배열의 최종 길이가 LIS 길이다.
+
+---
+
+_검수에서 원문의 오류를 바로잡았다. 원문은 위 출처에 있다._

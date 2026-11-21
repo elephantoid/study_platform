@@ -73,7 +73,7 @@ EXEC test('규글');
 CREATE OR REPLACE PROCEDURE test( name OUT VARCHAR2 ) 
 IS
 BEGIN 
-	name := 'Gyoogle'
+	name := 'Gyoogle';
 END;
 
 DECLARE
@@ -132,3 +132,7 @@ END;
 
 - [링크](https://ko.wikipedia.org/wiki/%EC%A0%80%EC%9E%A5_%ED%94%84%EB%A1%9C%EC%8B%9C%EC%A0%80)
 - [링크](https://itability.tistory.com/51)
+
+---
+
+_검수에서 원문의 오류를 바로잡았다. 원문은 위 출처에 있다._

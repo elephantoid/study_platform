@@ -58,7 +58,7 @@ UDP에 대해 설명하세요.
   - 3 way handshaking으로 연결을 유지할 필요가 없다. (오버헤드 발생)
   - Request에 대한 손실은 Application Layer에서 제어가 가능하다.
   - DNS : port 53번
-  - But, TCP를 사용할 때가 있다! 크기가 512(UDP 제한)이 넘을 때, TCP를 사용해야한다. 
+  - But, TCP를 사용할 때가 있다! 크기가 512(전통적인 DNS UDP 제한, EDNS 사용 시 더 큼)이 넘을 때, TCP를 사용해야한다. 
 
 #### 1. UDP Header
 
@@ -116,3 +116,7 @@ Zone transfer 을 사용해야하는 경우에는 TCP를 사용해야 함.
 - <https://www.geeksforgeeks.org/why-does-dns-use-udp-and-not-tcp/>
 - <https://support.microsoft.com/en-us/help/556000>
 - <https://www.scaler.com/topics/domain-name-system/>
+
+---
+
+_검수에서 원문의 오류를 바로잡았다. 원문은 위 출처에 있다._

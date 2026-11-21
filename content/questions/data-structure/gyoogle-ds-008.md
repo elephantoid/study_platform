@@ -124,7 +124,7 @@ public void push(Object o) {
         MAX_SIZE *= 2; // 2배로 증가
     }
     
-    stack[sp++] = o;
+    stack[++sp] = o;
 }
 ```
 
@@ -284,9 +284,9 @@ public Object deQueue(Object o) {
         return null;
     }
     
-    Object o = queue[front];
-    queue[front++] = null;
-    return o;
+    Object item = queue[++front];
+    queue[front] = null;
+    return item;
 }
 ```
 
@@ -371,8 +371,8 @@ public Object deQueue(Object o) {
     }
     
     front = (++front) % size;
-    Object o = queue[front];
-    return o;
+    Object item = queue[front];
+    return item;
 }
 ```
 
@@ -448,3 +448,7 @@ public T dequeue() {
 > - 저장해둔 데이터를 return 해서 값을 빼온다.
 
 이처럼 삽입은 tail, 제거는 head로 하면서 삽입/삭제를 스택처럼 O(1)에 가능하도록 구현이 가능하다.
+
+---
+
+_검수에서 원문의 오류를 바로잡았다. 원문은 위 출처에 있다._

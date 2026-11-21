@@ -55,7 +55,7 @@ void preorder(node* n)
 ```
 ## 중위 순회(Inorder)
 - L -> V -> R
-- **트리의 값이 순차적으로 정렬된다.**
+- **이진 탐색 트리(BST)라면 값이 오름차순으로 정렬되어 방문된다.**
 1. 왼쪽 서브 트리를 순회한다.
 2. 노드를 방문한다.
 3. 오른쪽 서브트리를 순회한다.
@@ -109,7 +109,8 @@ void levelorder(node* root)
     while (!q.empty())
     {
         node* front = q.front();
-        visit[front->data] = 1;
+        q.pop();
+        visit[front->val] = 1;
         if (front->left != NULL)
         {
             q.push(front->left);
@@ -148,3 +149,7 @@ void levelorder(node* root)
 
 ## 참조
 - [Wiki](https://ko.wikipedia.org/wiki/%ED%8A%B8%EB%A6%AC_%EC%88%9C%ED%9A%8C)
+
+---
+
+_검수에서 원문의 오류를 바로잡았다. 원문은 위 출처에 있다._

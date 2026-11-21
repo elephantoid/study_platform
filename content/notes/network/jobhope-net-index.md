@@ -15,10 +15,8 @@ generation:
 
 ## 문항 목록
 
-- [HTTP와 HTTPS](https://github.com/jobhope/TechnicalNote/blob/HEAD/network/HTTPAndHTTPS.md) — `jobhope-net-001`
 - [NAGLE 알고리즘](https://github.com/jobhope/TechnicalNote/blob/HEAD/network/Nagle.md) — `jobhope-net-002`
 - [OSI 7 Layer](https://github.com/jobhope/TechnicalNote/blob/HEAD/network/OSI7layer.md) — `jobhope-net-003`
 - [포트와 소켓](https://github.com/jobhope/TechnicalNote/blob/HEAD/network/PortAndSocket.md) — `jobhope-net-004`
-- [Subnet Mask](https://github.com/jobhope/TechnicalNote/blob/HEAD/network/SubnetMask.md) — `jobhope-net-005`
 - [TCP와 UDP의 차이](https://github.com/jobhope/TechnicalNote/blob/HEAD/network/TCPAndUDP.md) — `jobhope-net-006`
 - [URI, URL, URN 개념](https://github.com/jobhope/TechnicalNote/blob/HEAD/network/URIAndURLAndURN.md) — `jobhope-net-007`

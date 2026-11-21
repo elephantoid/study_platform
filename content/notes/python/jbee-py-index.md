@@ -17,7 +17,6 @@ generation:
 
 ## 문항 목록
 
-- [Generator](https://github.com/jbee37142/Interview_Question_for_Beginner/blob/HEAD/Python/README.md) — `jbee-py-001`
 - [클래스를 상속했을 때 메서드 실행 방식](https://github.com/jbee37142/Interview_Question_for_Beginner/blob/HEAD/Python/README.md) — `jbee-py-002`
 - [GIL 과 그로 인한 성능 문제](https://github.com/jbee37142/Interview_Question_for_Beginner/blob/HEAD/Python/README.md) — `jbee-py-003`
 - [GC 작동 방식](https://github.com/jbee37142/Interview_Question_for_Beginner/blob/HEAD/Python/README.md) — `jbee-py-004`

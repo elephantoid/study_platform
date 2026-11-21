@@ -67,7 +67,7 @@ TCP (흐름제어/혼잡제어)에 대해 설명하세요.
 
     - <img src='https://t1.daumcdn.net/cfile/tistory/263B7D4E5715ECEB32'>
 
-  - Sliding Window (Go Back N ARQ) 
+  - Sliding Window 
 
     - 수신측에서 설정한 윈도우 크기만큼 송신측에서 확인응답없이 세그먼트를 전송할 수 있게 하여 데이터 흐름을 동적으로 조절하는 제어기법
 
@@ -83,7 +83,7 @@ TCP (흐름제어/혼잡제어)에 대해 설명하세요.
 
     - <img src='https://t1.daumcdn.net/cfile/tistory/253F7E485715ED5F27'>
 
-  - Window : TCP/IP를 사용하는 모든 호스트들은 송신하기 위한 것과 수신하기 위한 2개의 Window를 가지고 있다. 호스트들은 실제 데이터를 보내기 전에 '3 way handshaking'을 통해 수신 호스트의 receive window size에 자신의 send window size를 맞추게 된다.
+  - Window : TCP/IP를 사용하는 모든 호스트들은 송신하기 위한 것과 수신하기 위한 2개의 Window를 가지고 있다. 호스트들은 실제 데이터를 보내기 전에 '3 way handshaking'을 통해 수신 호스트의 receive window size를 알게 되고, 이후에는 ACK에 실려 오는 수신 윈도우 값에 맞춰 send window size를 동적으로 조절한다.
 
   - 세부구조
 
@@ -133,3 +133,7 @@ TCP (흐름제어/혼잡제어)에 대해 설명하세요.
 
 - <https://www.brianstorti.com/tcp-flow-control/>
 - <https://www.brianstorti.com/tcp-flow-control/>
+
+---
+
+_검수에서 원문의 오류를 바로잡았다. 원문은 위 출처에 있다._

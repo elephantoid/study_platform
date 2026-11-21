@@ -141,7 +141,7 @@ SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;
 ### 그 외 문제
 
 - **모순성(Inconsistency)** : 트랜잭션이 동시에 실행되면서 갱신 전의 값, 갱신 후의 값이 실행 순서에 따라 다르게 읽히면서 데이터가 불일치 하는 문제
-- **연쇄복귀(Cascading Rollback)** : 트랜잭선이 동시에 실행되면서 같은 데이터를 공유 할 때 해당 데이터에 대해 한 트랜잭션이 commit을 한 결과에 대해 다른 트랜잭션이 rollback을 할 수 없는 문제
+- **연쇄복귀(Cascading Rollback)** : 트랜잭선이 동시에 실행되면서 같은 데이터를 공유 할 때 한 트랜잭션이 rollback되면 그 변경 내용을 읽은 다른 트랜잭션도 연쇄적으로 rollback해야 하는 문제
 
 ## 사전 지식
 <a id="lock"></a>
@@ -182,3 +182,7 @@ SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;
 2)  [잠금(Lock)](http://www.jidum.com/jidums/view.do?jidumId=283)
 
 3) [JPA 트랜잭션과 락](http://wonwoo.ml/index.php/post/983)
+
+---
+
+_검수에서 원문의 오류를 바로잡았다. 원문은 위 출처에 있다._

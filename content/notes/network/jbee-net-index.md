@@ -15,8 +15,5 @@ generation:
 
 ## 문항 목록
 
-- [HTTP의 GET과 POST 비교](https://github.com/jbee37142/Interview_Question_for_Beginner/blob/HEAD/Network/README.md) — `jbee-net-001`
-- [TCP와 UDP의 비교](https://github.com/jbee37142/Interview_Question_for_Beginner/blob/HEAD/Network/README.md) — `jbee-net-002`
 - [HTTP와 HTTPS](https://github.com/jbee37142/Interview_Question_for_Beginner/blob/HEAD/Network/README.md) — `jbee-net-003`
 - [DNS round robin 방식](https://github.com/jbee37142/Interview_Question_for_Beginner/blob/HEAD/Network/README.md) — `jbee-net-004`
-- [웹 통신의 큰 흐름](https://github.com/jbee37142/Interview_Question_for_Beginner/blob/HEAD/Network/README.md) — `jbee-net-005`
