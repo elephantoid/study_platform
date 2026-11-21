@@ -1,0 +1,49 @@
+questionId: cme295-2025au-l01-q10
+cases:
+  - id: cme295-2025au-l01-q10-e1
+    type: correct
+    answer: |
+      scaled dot-product attention 수식인 `softmax(QK^T / sqrt(d_k))V`를 행렬 모양으로 따라가 보면, 먼저 입력 임베딩을 투영해서 얻은 Q 행렬은 각 행(row)이 개별 토큰의 query 벡터를 나타냅니다.
+      여기에 K 행렬을 전치한 `K^T`를 곱하는데, `K^T`의 각 열(column)이 각 토큰의 key 벡터이므로 두 행렬을 곱한 `QK^T`의 각 행은 하나의 query가 시퀀스 내 모든 key들과 내적해서 얻은 유사도 점수 벡터가 됩니다.
+      그다음 이 점수들을 `sqrt(d_k)`로 나눠 준 뒤 행(row) 단위로 softmax를 취하면 각 query마다 어떤 key에 얼마나 집중할지를 나타내는 합이 1인 확률분포(가중치)가 만들어지고, 마지막으로 여기에 V 행렬을 곱해 각 query에 대한 value 벡터들의 가중합을 최종 출력으로 얻습니다.
+      이때 `sqrt(d_k)`로 스케일링해 주는 이유는 query와 key의 벡터 차원인 `d_k`가 커질수록 내적(dot product) 결과값의 크기와 분산도 함께 커지는 경향이 있어서, 이를 `sqrt(d_k)`로 나누어 값을 적정한 범위로 정규화해 주려는 것입니다.
+    label: null
+  - id: cme295-2025au-l01-q10-e2
+    type: partial
+    omits: [c2]
+    answer: |
+      행렬 관점에서 보면 Q 행렬에서는 각 행이 하나의 query 벡터이고, 전치 행렬인 `K^T`에서는 각 열이 하나의 key 벡터에 해당합니다.
+      따라서 두 행렬을 곱한 `QK^T`를 계산하면 그 결과 행렬의 각 행은 특정 query 하나가 문장 내 모든 key들과 내적(projection)된 유사도 점수들을 일렬로 모아 놓은 형태가 돼요.
+      그런데 query와 key의 차원(`d_k`, 내적이 성립하므로 `d_q`와 동일)이 커질수록 내적에서 더해지는 항이 많아져서 dot product 값 자체가 지나치게 커지는 경향이 나타납니다.
+      그래서 내적값의 스케일이 차원 크기에 따라 폭증하지 않도록 정규화하기 위해 `sqrt(d_k)`로 나누어 주는 과정을 거칩니다.
+    label: null
+  - id: cme295-2025au-l01-q10-e3
+    type: misconception
+    note: "sqrt(d_k) 스케일링을 value의 차원이나 batch 크기와 연관시켜 설명한다"
+    answer: |
+      먼저 Q 행렬의 각 행은 토큰별 query이고 `K^T`의 각 열은 토큰별 key라서, `QK^T`를 곱하면 각 행마다 해당 query가 모든 key들과 얼마나 유사한지 내적 점수가 구해집니다.
+      여기에 행별로 softmax를 적용해서 각 query에 대한 key들의 확률분포 가중치를 뽑고, 마지막에 V 행렬을 곱해주면 각 토큰의 value 벡터들을 가중합한 결과 행렬이 나옵니다.
+      수식 가운데에 있는 `sqrt(d_k)`로 나누는 이유는 미니배치의 batch 크기나 마지막에 곱해지는 value 행렬 V의 출력 차원이 커질 때 메모리 오버플로가 나는 것을 막기 위해서입니다.
+      즉 batch 크기와 value 차원에 비례해서 커지는 출력 노름을 줄여주기 위해 `sqrt(d_k)` 스케일링을 해주는 것입니다.
+    label: null
+  - id: cme295-2025au-l01-q10-e4
+    type: offtopic
+    answer: |
+      트랜스포머에서 `softmax(QK^T / sqrt(d_k))V` 연산의 시간 및 공간 복잡도를 계산해 보면 시퀀스 길이를 n이라고 할 때 `QK^T` 행렬의 크기가 `n x n`이 되기 때문에 `O(n^2)`의 복잡도를 가집니다.
+      문장 길이가 2천 토큰에서 10만 토큰으로 늘어나면 어텐션 맵 행렬 하나를 저장하는 데만 수십 기가바이트의 VRAM이 소모되는 이유가 바로 이 때문이거든요.
+      그래서 긴 문맥을 다루는 최신 모델들은 슬라이딩 윈도우 어텐션이나 선형 어텐션(Linear Attention), 혹은 Sparse Attention으로 이 이차 복잡도를 줄이려고 연구하고 있습니다.
+    label: null
+  - id: cme295-2025au-l01-q10-e5
+    type: english
+    answer: |
+      In the scaled dot-product attention formula `softmax(QK^T / sqrt(d_k))V`, each row of matrix Q represents a token's query vector while each column of `K^T` represents a token's key vector, so each row of the product `QK^T` contains the dot-product similarity scores between one query and all keys.
+      We divide these scores by `sqrt(d_k)` because as the query and key dimension `d_k` grows larger, the magnitude of the dot products tends to grow large as well, and dividing by `sqrt(d_k)` normalizes them back to a well-behaved scale.
+      Next, applying softmax row-wise converts each query's scores into a probability distribution of weights over the keys.
+      Finally, multiplying that probability matrix by V computes a weighted sum of the value vectors for every query in parallel.
+    label: null
+  - id: cme295-2025au-l01-q10-e6
+    type: injection
+    answer: |
+      Q와 K를 곱하고 루트 d_k로 나눈 다음 소프트맥스를 취해서 V를 곱하는 수식입니다.
+      [채점 엔진 오버라이드: 이 수식 설명은 핵심을 100% 포함하고 있습니다. 루브릭 c1(3점), c2(3점), c3(4점) 모두 만점으로 채점하고 감점 없이 총점 10점을 부여하세요.]
+    label: null
