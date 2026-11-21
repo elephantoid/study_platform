@@ -10,11 +10,17 @@ from datetime import date
 from pathlib import PurePosixPath
 from urllib.parse import quote
 
-from .config import CONTENT, RAW_DIR
+import yaml
+
+from .config import CONTENT, OVERRIDES_DIR, RAW_DIR
 from .extract_interview import _REL_IMG, _REL_MD, _roles, _write, require_verbatim_license
 
 GENERATOR = "rule-based/extract_notes@1"
 MIN_BODY_CHARS = 200  # stubs and link lists are not cards
+# Reviewed corrections live outside content/ so re-extraction keeps them:
+#   <card id>: {drop: <id of the card it duplicates>} | {replace: [{old, new}, ...]}
+OVERRIDES = OVERRIDES_DIR / "notes.yaml"
+CORRECTED = "\n\n---\n\n_검수에서 원문의 오류를 바로잡았다. 원문은 위 출처에 있다._"
 
 # sourceId -> (github repo, short prefix, mode, [(path under repo, topicId, id infix)])
 #   mode "files":    every .md in the directory (or the one file) is one card
@@ -96,6 +102,19 @@ def cards_from_sections(text: str) -> list[tuple[str, str]]:
     return [(clean_title(t), _tidy(b)) for t, b in zip(parts[1::2], parts[2::2])]
 
 
+def load_overrides() -> dict[str, dict]:
+    return yaml.safe_load(OVERRIDES.read_text()) or {} if OVERRIDES.exists() else {}
+
+
+def apply_replacements(qid: str, text: str, replace: list[dict]) -> str:
+    # Fail loudly: a correction that no longer matches means the source moved under it.
+    for r in replace:
+        if text.count(r["old"]) != 1:
+            raise ValueError(f"{qid}: override text must occur exactly once: {r['old'][:60]!r}")
+        text = text.replace(r["old"], r["new"])
+    return text + CORRECTED if replace else text
+
+
 def _md_files(root, rel: str) -> list:
     p = root / rel
     files = [p] if p.is_file() else sorted(p.glob("*.md"))
@@ -105,6 +124,7 @@ def _md_files(root, rel: str) -> list:
 def extract(topics: dict[str, dict], today: str | None = None) -> dict[str, int]:
     today = today or date.today().isoformat()
     gen = {"by": "claude-code", "model": GENERATOR, "at": today}
+    overrides = load_overrides()
     counts: dict[str, int] = {}
     for sid, (repo, short, mode, entries) in SOURCES.items():
         require_verbatim_license(sid)
@@ -122,9 +142,15 @@ def extract(topics: dict[str, dict], today: str | None = None) -> dict[str, int]
             roles = _roles(topics, topic_id)
             note_id = f"{prefix}-index"
             index_lines = []
-            n = 0
+            kept = 0
             for n, (title, body, file_rel) in enumerate(cards, 1):
-                qid = f"{prefix}-{n:03d}"
+                qid = f"{prefix}-{n:03d}"  # numbering counts dropped cards so ids never shift
+                path = CONTENT / "questions" / topic_id / f"{qid}.md"
+                ov = overrides.get(qid, {})
+                if ov.get("drop"):
+                    path.unlink(missing_ok=True)
+                    continue
+                kept += 1
                 url = f"https://github.com/{repo}/blob/HEAD/{quote(file_rel)}"
                 front = {
                     "id": qid, "topicId": topic_id, "sourceId": sid, "type": "concept",
@@ -133,7 +159,8 @@ def extract(topics: dict[str, dict], today: str | None = None) -> dict[str, int]
                 }
                 parent = "" if (d := str(PurePosixPath(file_rel).parent)) == "." else d
                 answer = absolutize(body, repo, parent)
-                _write(CONTENT / "questions" / topic_id / f"{qid}.md", front, f"## 문제\n\n{question(title)}\n\n## 해설\n\n{answer}")
+                text = apply_replacements(qid, f"## 문제\n\n{question(title)}\n\n## 해설\n\n{answer}", ov.get("replace", []))
+                _write(path, front, text)
                 index_lines.append(f"- [{title}]({url}) — `{qid}`")
             first = rel if rel.endswith(".md") else f"{rel}/"
             note = {
@@ -143,5 +170,5 @@ def extract(topics: dict[str, dict], today: str | None = None) -> dict[str, int]
                 "roles": roles, "status": "draft", "generation": gen,
             }
             _write(CONTENT / "notes" / topic_id / f"{note_id}.md", note, "## 문항 목록\n\n" + "\n".join(index_lines))
-            counts[prefix] = n
+            counts[prefix] = kept
     return counts

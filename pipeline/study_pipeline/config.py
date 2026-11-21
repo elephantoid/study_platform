@@ -12,6 +12,7 @@ TOPICS = CONTENT / "topics.yaml"
 # CC and AG worktrees share one copy and nothing here can be committed by accident.
 RAW_DIR = Path(os.environ.get("STUDY_RAW_DIR", Path.home() / ".cache" / "study-platform" / "raw"))
 MANIFEST_DIR = ROOT / "pipeline" / "manifests"
+OVERRIDES_DIR = ROOT / "pipeline" / "overrides"
 
 # Per-source cap on playlist size. IBM playlists are long; the MVP takes the first 20.
 PLAYLIST_LIMITS = {"ibm-ai-agents": 20}

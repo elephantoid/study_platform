@@ -346,3 +346,17 @@ def test_jobhope_author_block_dropped():
     from study_pipeline.extract_notes import cards_from_file
     text = "# **Dot**\n## 작성자\n[![a](https://x/a.png)](https://github.com/a)\n\n## 내적\n" + "본문 " * 5
     assert cards_from_file(text, "f") == [("Dot", "## 내적\n" + ("본문 " * 5).strip())]
+
+
+def test_note_override_replaces_once_and_marks_card():
+    from study_pipeline.extract_notes import CORRECTED, apply_replacements
+    out = apply_replacements("x", "u·v = 12", [{"old": "= 12", "new": "= 14"}])
+    assert out == "u·v = 14" + CORRECTED
+    assert apply_replacements("x", "same", []) == "same"
+
+
+@pytest.mark.parametrize("text", ["no match here", "= 12 and = 12"])
+def test_note_override_fails_when_text_moved(text):
+    from study_pipeline.extract_notes import apply_replacements
+    with pytest.raises(ValueError):
+        apply_replacements("x", text, [{"old": "= 12", "new": "= 14"}])
