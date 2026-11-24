@@ -39,7 +39,8 @@
 - [x] 노트 카드 1·2차 검수 (2026-11-20): codex `gpt-5.6-luna` 가 지적(high 148건, 중복 83건) → antigravity `claude-sonnet-5-5` 가 확인(치환 71건 채택, 61건 반려, drop 57건: boost 중복 48 + 노트 간 9) → CC가 치환문을 원문과 대조. 고친 카드 46개에는 본문 끝에 수정 표시가 붙는다
 - [x] 검수 결과 보완 (2026-11-25): `gyoogle-os-002`(은행원 등)·`gyoogle-os-015`(데커·피터슨 등) 되살리고 교정, `gyoogle-db-002`·`gyoogle-ds-008` 치환 보완
 - [x] algorithm 중복 17쌍 재대조 (2026-11-25): `jobhope-algo-009` 되살림, 유지 카드 11장 보강 + 꼬리질문 33개, 코드 결함 5건 수정 (`pipeline/overrides/interview.yaml`, 코드는 `tests/test_card_code.py` 로 실행)
-- [ ] 위 보강·꼬리질문 교차 검수 (생성: `claude-opus-5-5` → AG 또는 사람)
+- [x] 위 보강·꼬리질문 교차 검수 (2026-11-25): `gemini-4-argon` 2회, 지적 33건을 확인 후 반영. `review` 필드와 status 는 그대로 `draft`
+- [ ] 위 보강·꼬리질문 사람 확인
 - [ ] 노트 카드 검수 결과 사람 확인: `pipeline/overrides/notes.yaml` (drop·치환 목록)
 - [ ] ai-harness `review` role 이 고장: policy 의 `antigravity/claude-sonnet-4-6`·`gemini-3.1-pro` 가 Antigravity에서 사라짐. 이번 검수는 `--model claude-sonnet-5-5` 로 우회함
 - [x] CI: `.githooks/pre-commit` (테스트 + `ingest check --require-transcripts` + `ingest gate`) + `.github/workflows/content.yml` (원격 생기면 동작). `core.hooksPath` 설정됨
