@@ -1,5 +1,11 @@
-"""Runs the Python code printed on algorithm cards that review had to fix or add."""
+"""Runs the Python code printed on algorithm cards that review had to fix or add.
 
+Most of that code comes from an upstream repo and the pre-commit hook runs these tests, so a
+re-extraction must not be able to execute code nobody has read. Each block is pinned by hash; after
+a change, read the new block and update its pin by hand.
+"""
+
+import hashlib
 import random
 import re
 import subprocess
@@ -10,14 +16,74 @@ import pytest
 from study_pipeline.config import CONTENT
 
 
+PINS = {
+    "boost-algo-002": [
+        "c87d3ff102e52a89f54f7036c3512227411d758dd86d3c7a1bffcb9ffccb9329",
+    ],
+    "boost-algo-003": [
+        "a84a1ad8d63174db68b85e25b473f163453b9bcdd8a2236bfe5993ba011ac385",
+    ],
+    "boost-algo-004": [
+        "ede60e185ab5c29e5ca849a7a4a1b67eae487ea155fabebe251b1c7848f5abc2",
+    ],
+    "boost-algo-005": [
+        "da66f6234ebedea3f35d9739278e33596227aea8705f9e633b99ab48c27921e1",
+    ],
+    "boost-algo-006": [
+        "0514ef8161bcb0eb1585254df209b635cbb0042fc58b8c2580e72a182f1b8d32",
+    ],
+    "boost-algo-007": [
+        "a60962b75bb9f6ce639456650d0412f40b2a6b938f6c59733ccbda7fe3a1b3e9",
+    ],
+    "boost-algo-008": [
+        "35d293dc56cad35fc61cc0ef707c8d25f2747061962647daf2374615ea2e49c1",
+    ],
+    "boost-algo-009": [
+        "bff579e4e18f22e4610e3ebd24e34c2cb2e5c25b2c9c3dc615c0a2c695888657",
+    ],
+    "boost-algo-011": [
+        "d0417f96bf17cd7b82d02df1db26dd3bb9ebf3997eee30e6c47b522a3b11cd1c",
+        "bf577edb84c6071cefff9cf2e4dde8a207623bb3d21ff1d4d44fb689286f7ceb",
+    ],
+    "boost-algo-014": [
+        "3f404a2278165d4e9d5798687d913105ca27557fa74a4827871b2be448af834f",
+    ],
+    "boost-algo-016": [
+        "f48e7969ab944f37724ab5752dd461204c9116b216b58078896598fdd7264c9d",
+    ],
+    "boost-algo-021": [
+        "b409e57bb4e95518d57ae33ecf7dfc50da2f74080c0e64497381bbb4615fec57",
+    ],
+    "boost-algo-022": [
+        "3f234413369e5c767b385287276a2ad1282a22914d0a86c1c9fe0f545ce7f07b",
+    ],
+    "boost-algo-023": [
+        "3e514acda990ea7dcc60fd7ab4043d193e1d089896bfaf0543db2564a9f35383",
+    ],
+}
+
+
 def blocks(card: str) -> list[str]:
-    return re.findall(r"```python\n(.*?)```", (CONTENT / "questions" / "algorithm" / f"{card}.md").read_text(), re.S)
+    text = (CONTENT / "questions" / "algorithm" / f"{card}.md").read_text()
+    found = re.findall(r"```python\n(.*?)```", text, re.S)
+    hashes = [hashlib.sha256(b.encode()).hexdigest() for b in found]
+    assert hashes == PINS[card], f"{card}: code changed; read it, then update PINS: {hashes}"
+    return found
 
 
 def run(card: str, i: int = 0) -> dict:
     ns: dict = {}
     exec(compile(blocks(card)[i], card, "exec"), ns)
     return ns
+
+
+def test_changed_code_is_not_executed(monkeypatch, tmp_path):
+    d = tmp_path / "questions" / "algorithm"
+    d.mkdir(parents=True)
+    (d / "boost-algo-005.md").write_text("```python\nraise SystemExit('executed')\n```\n")
+    monkeypatch.setitem(globals(), "CONTENT", tmp_path)
+    with pytest.raises(AssertionError, match="code changed"):
+        run("boost-algo-005")
 
 
 SORTS = {
