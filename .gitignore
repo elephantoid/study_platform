@@ -1,3 +1,4 @@
+# 기존 항목
 tmp/
 .venv/
 __pycache__/
@@ -5,3 +6,57 @@ __pycache__/
 node_modules/
 .next/
 .env*
+
+# OS
+.DS_Store
+# 이미 추적 중인 파일이라 무시 대상에서 뺀다. 추적 해제는 별도 PR 에서 정한다.
+!/content/questions/.DS_Store
+Thumbs.db
+Desktop.ini
+
+# 에디터, 개인 도구 설정 (.claude/agents/ 는 공유하므로 무시하지 않는다)
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.claude/settings.local.json
+
+# Python 캐시, 빌드
+*.py[cod]
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+/pipeline/build/
+/pipeline/dist/
+
+# Next/TS 빌드 (next-env.d.ts 는 feat/ui-ag 가 추적하므로 무시하지 않는다)
+/out/
+*.tsbuildinfo
+.vercel/
+
+# 커버리지
+.coverage
+.coverage.*
+htmlcov/
+coverage/
+
+# 로그
+*.log
+
+# 저작권이 있거나 큰 원본. 자막 전문과 슬라이드는 커밋하지 않는다 (docs/CONTRACT.md §3.1).
+# 기본 저장 위치는 저장소 밖 ~/.cache/study-platform/raw 이고, 아래는 저장소 안에 떨어졌을 때의 방어선이다.
+*.vtt
+*.srt
+*.ttml
+*.json3
+*.pdf
+*.ppt
+*.pptx
+*.key
+*.mp4
+*.mkv
+*.webm
+*.mp3
+*.m4a
+*.wav
