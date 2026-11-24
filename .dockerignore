@@ -1,0 +1,52 @@
+# web 이미지 빌드 컨텍스트 (pipeline 은 pipeline/.dockerignore 를 쓴다)
+
+# VCS, 로컬 도구
+.git
+.github
+.githooks
+.claude
+.agents
+.vscode
+.idea
+**/.DS_Store
+
+# 시크릿
+.env*
+**/*.pem
+**/*.key
+**/secret.yaml
+
+# 빌드 산출물, 의존성
+node_modules
+.next
+out
+coverage
+*.tsbuildinfo
+**/.venv
+**/__pycache__
+**/.pytest_cache
+
+# 저작권 원본(자막, 슬라이드, 영상)과 임시 파일, 로컬 데이터
+tmp
+raw
+data
+**/*.vtt
+**/*.srt
+**/*.pdf
+**/*.ppt
+**/*.pptx
+**/*.mp4
+**/*.webm
+**/*.mp3
+**/*.m4a
+
+# 앱 빌드에 필요 없는 것
+pipeline
+docs
+k8s
+mk
+Makefile
+Dockerfile
+.dockerignore
+docker-compose*.yml
+README*

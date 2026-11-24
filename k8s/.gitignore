@@ -1,0 +1,3 @@
+# 실제 값이 든 Secret 은 커밋하지 않는다
+secret.yaml
+*.secret.yaml

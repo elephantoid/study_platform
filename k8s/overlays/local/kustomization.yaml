@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: study-platform
+resources:
+  - namespace.yaml
+  - ../../base
+images:
+  - name: ghcr.io/elephantoid/study_platform-web
+    newTag: local
+patches:
+  # 로컬에서 빌드한 이미지만 쓴다. 없으면 레지스트리를 찾지 않고 바로 실패한다.
+  - target:
+      kind: Deployment
+      name: study-platform-web
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/imagePullPolicy
+        value: Never
