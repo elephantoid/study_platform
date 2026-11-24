@@ -17,7 +17,7 @@ cases:
     label: null
   - id: cs329z-2026au-l01-q09-e3
     type: misconception
-    note: "[rubric에 deductions 없음] Gorilla와 Toolformer가 외부 API를 호출하지 않고 이미지 생성이나 계산 기능을 LLM 가중치 내부에 직접 내재화해 환각을 줄인다고 설명함"
+    note: "Gorilla와 Toolformer가 외부 API를 호출하지 않고 이미지 생성이나 계산 기능을 LLM 가중치 내부에 직접 내재화해 환각을 줄인다고 설명함"
     answer: |
       Toolformer와 Gorilla의 핵심 목표는 추론 시점에 번거롭게 외부 API나 검색기(retrieval)를 실제로 호출하지 않고도, 계산기·달력 기능이나 Hugging Face·Torch Hub·TensorFlow Hub의 1,600개 모델 기능을 LLM 가중치 내부에 통째로 흡수해 내재화하는 것입니다.
       즉 Stable Diffusion 같은 외부 이미지 생성 도구나 외부 계산기에 작업을 위임하는 것이 아니라, 7B 언어모델 자체가 학습을 통해 직접 픽셀 이미지를 그리고 모든 계산을 자기 파라미터 안에서 단독으로 끝내도록 만듭니다.

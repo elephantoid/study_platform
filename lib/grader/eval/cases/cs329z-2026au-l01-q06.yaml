@@ -18,7 +18,7 @@ cases:
     label: null
   - id: cs329z-2026au-l01-q06-e3
     type: misconception
-    note: "[rubric에 deductions 없음] 기초 모델이 강력해질수록 단일 추론 정확도를 높이기 위해 multi-agent debate가 더욱 필수적이라고 주장함"
+    note: "기초 모델이 강력해질수록 단일 추론 정확도를 높이기 위해 multi-agent debate가 더욱 필수적이라고 주장함"
     answer: |
       과거 모델이 약할 때보다 오히려 오늘날처럼 기반 모델이 초고성능으로 강력해졌을 때 순수 추론 정확도(benchmark accuracy) 점수를 끌어올리기 위해 multi-agent debate를 쓰는 효과가 훨씬 더 폭발적으로 커집니다.
       즉 데이터 접근 제어나 역할 분담 같은 부수적인 시스템 이유 때문이 아니라, 단일 최신 모델이 혼자 추론할 때보다 똑같은 최신 모델 여러 개를 붙여 무한 토론을 시키는 것이 언제나 가장 큰 폭의 성능 향상 보너스를 보장한다는 점이 멀티 에이전트 도입의 유일하고도 가장 핵심적인 이유입니다.
