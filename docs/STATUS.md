@@ -2,7 +2,7 @@
 
 프로젝트 진행 상태의 정본. 계획은 `PLAN.md`, 규칙은 `CONTRACT.md`.
 
-갱신: 2026-11-20 (CC, `fix/notes-review`)
+갱신: 2026-11-25 (CC, `fix/notes-review`)
 
 ## 마일스톤
 
@@ -18,7 +18,7 @@
 | 기준 (PLAN.md) | 상태 |
 |---|---|
 | boost-devs 에서 ≥200 문항 draft, 전부 `sourceId`·`roles` 보유 | ✅ 268개, `ingest check` 0 errors |
-| (추가) jbee·gyoogle·jobhope (MIT) | ✅ 93개 (`extract_notes`, 주제 범위 안의 글만 150개 → 중복 57개 제외). 원문 오류 71곳을 `pipeline/overrides/notes.yaml` 로 바로잡음. 사람 확인 대기 |
+| (추가) jbee·gyoogle·jobhope (MIT) | ✅ 95개 (`extract_notes`, 주제 범위 안의 글만 150개 → 중복 55개 제외). 원문 오류 80곳(카드 48개)을 `pipeline/overrides/notes.yaml` 로 바로잡음. 사람 확인 대기 |
 | CME295 1편 → 세그먼트 ≥5 + 문항 ≥10 | ✅ 세그먼트 9개 (YouTube 챕터, manifest), 서술형 문항 11개 (`cme295-2025au-l01-q01..11`). 한국어 요약 강의 파일은 AG 담당 |
 | (추가) Agent 직무 보강 시범 | ✅ CS329Z 1강 → 서술형 12개 (ai-agents 7, agent-tools-mcp 2, self-improving 2, llm-eval 1) |
 | `link_only` 원문이 섞이면 빌드 실패 | ✅ `ingest check` 가 본문 600자 초과 시 error. CI 연결은 M3 레포 구성 후 |
@@ -37,6 +37,7 @@
 - [ ] concept 카드 268개의 `difficulty` 는 전부 자리표시자(`intermediate`). critic 또는 사람이 정한다
 - [x] jbee·gyoogle·jobhope (MIT) 추출: 150개 draft
 - [x] 노트 카드 1·2차 검수 (2026-11-20): codex `gpt-5.6-luna` 가 지적(high 148건, 중복 83건) → antigravity `claude-sonnet-5-5` 가 확인(치환 71건 채택, 61건 반려, drop 57건: boost 중복 48 + 노트 간 9) → CC가 치환문을 원문과 대조. 고친 카드 46개에는 본문 끝에 수정 표시가 붙는다
+- [x] 검수 결과 보완 (2026-11-25): `gyoogle-os-002`(은행원 등)·`gyoogle-os-015`(데커·피터슨 등) 되살리고 교정, `gyoogle-db-002`·`gyoogle-ds-008` 치환 보완
 - [ ] 노트 카드 검수 결과 사람 확인: `pipeline/overrides/notes.yaml` (drop·치환 목록)
 - [ ] ai-harness `review` role 이 고장: policy 의 `antigravity/claude-sonnet-4-6`·`gemini-3.1-pro` 가 Antigravity에서 사라짐. 이번 검수는 `--model claude-sonnet-5-5` 로 우회함
 - [x] CI: `.githooks/pre-commit` (테스트 + `ingest check --require-transcripts` + `ingest gate`) + `.github/workflows/content.yml` (원격 생기면 동작). `core.hooksPath` 설정됨

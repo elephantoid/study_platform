@@ -42,7 +42,7 @@ generation:
 
 push와 pop할 때는 해당 위치를 알고 있어야 하므로 기억하고 있는 '스택 포인터(SP)'가 필요함
 
-스택 포인터는 다음 값이 들어갈 위치를 가리키고 있음 (처음 기본값은 -1)
+스택 포인터는 최상위 값의 위치를 가리키고 있음 (비어 있을 때의 기본값은 -1)
 
 ```java
 private int sp = -1;
@@ -60,7 +60,7 @@ public void push(Object o) {
 }
 ```
 
-스택 포인터가 최대 크기와 같으면 return
+스택 포인터 + 1이 최대 크기와 같으면 return
 
 아니면 스택의 최상위 위치에 값을 넣음
 
@@ -79,7 +79,7 @@ public Object pop() {
 }
 ```
 
-스택 포인터가 0이 되면 null로 return;
+스택 포인터가 -1이면(비어 있으면) null로 return;
 
 아니면 스택의 최상위 위치 값을 꺼내옴
 
@@ -273,7 +273,7 @@ public void enQueue(Object o) {
 
 enQueue 시, 가득 찼다면 꽉 차 있는 상태에서 enQueue를 했기 때문에 overflow
 
-아니면 rear에 값 넣고 1 증가
+아니면 rear를 1 증가시키고 그 위치에 값을 넣음
 
 ##### deQueue
 
