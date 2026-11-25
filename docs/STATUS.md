@@ -2,7 +2,7 @@
 
 프로젝트 진행 상태의 정본. 계획은 `PLAN.md`, 규칙은 `CONTRACT.md`.
 
-갱신: 2026-11-25 (CC, `fix/notes-review`)
+갱신: 2026-11-25 (CC, `fix/algo-card-quality`)
 
 ## 마일스톤
 
@@ -18,7 +18,7 @@
 | 기준 (PLAN.md) | 상태 |
 |---|---|
 | boost-devs 에서 ≥200 문항 draft, 전부 `sourceId`·`roles` 보유 | ✅ 268개, `ingest check` 0 errors |
-| (추가) jbee·gyoogle·jobhope (MIT) | ✅ 95개 (`extract_notes`, 주제 범위 안의 글만 150개 → 중복 55개 제외). 원문 오류 80곳(카드 48개)을 `pipeline/overrides/notes.yaml` 로 바로잡음. 사람 확인 대기 |
+| (추가) jbee·gyoogle·jobhope (MIT) | ✅ 96개 (`extract_notes`, 주제 범위 안의 글만 150개 → 중복 54개 제외). 원문 오류 94곳(카드 50개)을 `pipeline/overrides/notes.yaml` 로 바로잡음. 사람 확인 대기 |
 | CME295 1편 → 세그먼트 ≥5 + 문항 ≥10 | ✅ 세그먼트 9개 (YouTube 챕터, manifest), 서술형 문항 11개 (`cme295-2025au-l01-q01..11`). 한국어 요약 강의 파일은 AG 담당 |
 | (추가) Agent 직무 보강 시범 | ✅ CS329Z 1강 → 서술형 12개 (ai-agents 7, agent-tools-mcp 2, self-improving 2, llm-eval 1) |
 | `link_only` 원문이 섞이면 빌드 실패 | ✅ `ingest check` 가 본문 600자 초과 시 error. CI 연결은 M3 레포 구성 후 |
@@ -38,12 +38,15 @@
 - [x] jbee·gyoogle·jobhope (MIT) 추출: 150개 draft
 - [x] 노트 카드 1·2차 검수 (2026-11-20): codex `gpt-5.6-luna` 가 지적(high 148건, 중복 83건) → antigravity `claude-sonnet-5-5` 가 확인(치환 71건 채택, 61건 반려, drop 57건: boost 중복 48 + 노트 간 9) → CC가 치환문을 원문과 대조. 고친 카드 46개에는 본문 끝에 수정 표시가 붙는다
 - [x] 검수 결과 보완 (2026-11-25): `gyoogle-os-002`(은행원 등)·`gyoogle-os-015`(데커·피터슨 등) 되살리고 교정, `gyoogle-db-002`·`gyoogle-ds-008` 치환 보완
+- [x] algorithm 중복 17쌍 재대조 (2026-11-25): `jobhope-algo-009` 되살림, 유지 카드 11장 보강 + 꼬리질문 33개, 코드 결함 5건 수정 (`pipeline/overrides/interview.yaml`, 코드는 `tests/test_card_code.py` 로 실행)
+- [x] 위 보강·꼬리질문 교차 검수 (2026-11-25): `gemini-4-argon` 2회, 지적 33건을 확인 후 반영. `review` 필드와 status 는 그대로 `draft`
+- [ ] 위 보강·꼬리질문 사람 확인
 - [ ] 노트 카드 검수 결과 사람 확인: `pipeline/overrides/notes.yaml` (drop·치환 목록)
 - [ ] ai-harness `review` role 이 고장: policy 의 `antigravity/claude-sonnet-4-6`·`gemini-3.1-pro` 가 Antigravity에서 사라짐. 이번 검수는 `--model claude-sonnet-5-5` 로 우회함
 - [x] CI: `.githooks/pre-commit` (테스트 + `ingest check --require-transcripts` + `ingest gate`) + `.github/workflows/content.yml` (원격 생기면 동작). `core.hooksPath` 설정됨
 - [x] M4 채점기 설계: `docs/GRADER.md`
 - [ ] M4 평가 세트 132건 (AG 답안 초안 → 사람 라벨) → `lib/grader/` 순수 함수 → 모델 구성 확정
-- [ ] 서술형 꼬리질문 3개씩: **추후** (사용자 결정 2026-11-16)
+- [ ] 서술형 꼬리질문 3개씩: **추후** (사용자 결정 2026-11-16). algorithm 개념 카드 11장에는 먼저 달았다 (2026-11-25). CONTRACT §3 의 "기존 concept 카드에는 없다" 는 계약 변경 PR 에서 고쳐야 한다
 - [ ] 비공개 CS329Z 6편: 공개되면 `ingest videos` 재실행으로 자동 편입
 
 ## 운영 메모

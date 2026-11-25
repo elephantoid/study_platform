@@ -349,7 +349,7 @@ def test_jobhope_author_block_dropped():
 
 
 def test_note_override_replaces_once_and_marks_card():
-    from study_pipeline.extract_notes import CORRECTED, apply_replacements
+    from study_pipeline.overrides import CORRECTED, apply_replacements
     out = apply_replacements("x", "u·v = 12", [{"old": "= 12", "new": "= 14"}])
     assert out == "u·v = 14" + CORRECTED
     assert apply_replacements("x", "same", []) == "same"
@@ -357,6 +357,83 @@ def test_note_override_replaces_once_and_marks_card():
 
 @pytest.mark.parametrize("text", ["no match here", "= 12 and = 12"])
 def test_note_override_fails_when_text_moved(text):
-    from study_pipeline.extract_notes import apply_replacements
+    from study_pipeline.overrides import apply_replacements
     with pytest.raises(ValueError):
         apply_replacements("x", text, [{"old": "= 12", "new": "= 14"}])
+
+
+AUTHOR = {"model": "m", "at": "2026-11-25"}
+
+
+def test_override_append_is_set_apart_and_after_the_correction_note():
+    from study_pipeline.overrides import APPENDED, CORRECTED, apply_body
+    ov = {"replace": [{"old": "a", "new": "b"}], "append": "extra\n", "author": AUTHOR}
+    assert apply_body("x", "a", ov) == "b" + CORRECTED + APPENDED + "extra"
+    assert apply_body("x", "a", {}) == "a"
+
+
+def test_override_follow_ups_get_ids_and_record_their_author():
+    from study_pipeline.overrides import apply_front
+    front = {"id": "q1", "generation": {"by": "claude-code", "model": "rule@1", "at": "2026-11-15"}}
+    out = apply_front("q1", front, {"followUps": [{"promptMd": "a"}, {"promptMd": "b"}], "author": AUTHOR})
+    assert out["followUps"] == [{"id": "q1-f1", "order": 1, "promptMd": "a"}, {"id": "q1-f2", "order": 2, "promptMd": "b"}]
+    assert out["generation"] == {"by": "claude-code", "model": "rule@1 + m", "at": "2026-11-25"}
+    assert front["generation"]["model"] == "rule@1"  # shared dict of every card must not change
+    assert apply_front("q1", front, {"replace": []}) is front
+
+
+@pytest.mark.parametrize("ov", [
+    "{}", "{oops: 1}", "{drop: y, replace: []}", "{append: t}", "{followUps: []}",
+    "{author: {model: m, at: 2026-11-25}}", "{append: t, author: {model: m}}",
+])
+def test_override_file_rejects_malformed_entries(tmp_path, ov):
+    from study_pipeline import overrides
+    (tmp_path / "o.yaml").write_text(f"x: {ov}\n")
+    with pytest.raises(ValueError):
+        overrides.load(tmp_path / "o.yaml")
+
+
+def _interview(monkeypatch, tmp_path, override_yaml):
+    from study_pipeline import extract_interview as ex
+    src_dir = tmp_path / "raw" / "repo" / ex.SOURCE_ID / "answers"
+    src_dir.mkdir(parents=True)
+    blocks = "".join(f"## #{n}\n\n#### Q{n}\n\nbody{n} {'w' * 50}\n\n---\n\n" for n in (1, 2, 3))
+    (src_dir / "f.md").write_text("# T\n\n" + blocks)
+    (tmp_path / "interview.yaml").write_text(override_yaml)
+    monkeypatch.setattr(ex, "RAW_DIR", tmp_path / "raw")
+    monkeypatch.setattr(ex, "CONTENT", tmp_path / "content")
+    monkeypatch.setattr(ex, "OVERRIDES", tmp_path / "interview.yaml")
+    monkeypatch.setattr(ex, "FILES", {"f.md": ("algorithm", "b-algo")})
+    monkeypatch.setattr(ex, "require_verbatim_license", lambda sid: None)
+    run = lambda: ex.extract({"algorithm": {"name": "A", "roles": {"mle": 2}}}, "2026-11-15")
+    return run, tmp_path / "content"
+
+
+def test_extract_interview_applies_overrides_on_every_run(monkeypatch, tmp_path):
+    from study_pipeline.check import split_front
+    run, content = _interview(monkeypatch, tmp_path, """
+b-algo-001: {drop: b-algo-002}
+b-algo-002:
+  author: {model: m, at: 2026-11-25}
+  replace: [{old: body2, new: fixed}]
+  append: more
+  followUps: [{promptMd: why}]
+""")
+    stale = content / "questions" / "algorithm" / "b-algo-001.md"
+    stale.parent.mkdir(parents=True)
+    stale.write_text("dropped card from an earlier run")
+    assert run() == run() == {"f.md": 2}
+    assert not stale.exists()
+    front, body = split_front((stale.parent / "b-algo-002.md").read_text())
+    assert front["followUps"] == [{"id": "b-algo-002-f1", "order": 1, "promptMd": "why"}]
+    assert "fixed" in body and "body2" not in body and body.endswith("more")
+    front3, body3 = split_front((stale.parent / "b-algo-003.md").read_text())  # ids never shift
+    assert "body3" in body3 and "followUps" not in front3 and front3["generation"]["at"] == "2026-11-15"
+    index = (content / "notes" / "algorithm" / "b-algo-index.md").read_text()
+    assert "b-algo-001" not in index and "b-algo-002" in index
+
+
+def test_extract_interview_rejects_override_for_unknown_card(monkeypatch, tmp_path):
+    run, _ = _interview(monkeypatch, tmp_path, "b-algo-009: {drop: b-algo-001}\n")
+    with pytest.raises(ValueError, match="b-algo-009"):
+        run()

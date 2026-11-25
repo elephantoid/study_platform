@@ -11,12 +11,14 @@ from pathlib import Path
 
 import yaml
 
-from .config import CONTENT, MANIFEST_DIR, RAW_DIR
+from . import overrides
+from .config import CONTENT, MANIFEST_DIR, OVERRIDES_DIR, RAW_DIR
 from .sources import load as load_sources
 
 SOURCE_ID = "boost-ai-tech-interview"
 REPO = "boost-devs/ai-tech-interview"
 GENERATOR = "rule-based/extract_interview@1"
+OVERRIDES = OVERRIDES_DIR / "interview.yaml"
 
 # answers/<file> -> (topicId, id prefix)
 FILES = {
@@ -91,6 +93,8 @@ def extract(topics: dict[str, dict], today: str | None = None) -> dict[str, int]
     today = today or date.today().isoformat()
     src_dir = RAW_DIR / "repo" / SOURCE_ID / "answers"
     gen = {"by": "claude-code", "model": GENERATOR, "at": today}
+    ovs = overrides.load(OVERRIDES)
+    seen: set[str] = set()
     counts: dict[str, int] = {}
     for fname, (topic_id, prefix) in FILES.items():
         qa = split_qa((src_dir / fname).read_text())
@@ -99,18 +103,26 @@ def extract(topics: dict[str, dict], today: str | None = None) -> dict[str, int]
         roles = _roles(topics, topic_id)
         index_lines = []
         for n, (q, a) in enumerate(qa, 1):
-            qid = f"{prefix}-{n:03d}"
+            qid = f"{prefix}-{n:03d}"  # numbering counts dropped cards so ids never shift
+            path = CONTENT / "questions" / topic_id / f"{qid}.md"
+            seen.add(qid)
+            ov = ovs.get(qid, {})
+            if ov.get("drop"):
+                path.unlink(missing_ok=True)
+                continue
             front = {
                 "id": qid, "topicId": topic_id, "sourceId": SOURCE_ID, "type": "concept",
                 "difficulty": "intermediate", "roles": roles, "reviewTarget": {"noteId": note_id},
                 "status": "draft", "generation": gen,
             }
-            _write(CONTENT / "questions" / topic_id / f"{qid}.md", front, f"## 문제\n\n{q}\n\n## 해설\n\n{absolutize(a, 'answers')}")
+            text = overrides.apply_body(qid, f"## 문제\n\n{q}\n\n## 해설\n\n{absolutize(a, 'answers')}", ov)
+            _write(path, overrides.apply_front(qid, front, ov), text)
             index_lines.append(f"- [{q}]({canonical}) — `{qid}`")
         note = {
             "id": note_id, "topicId": topic_id, "sourceId": SOURCE_ID, "title": f"{topics[topic_id]['name']} 면접 문항 모음 (boost-devs)",
             "canonicalUrl": canonical, "roles": roles, "status": "draft", "generation": gen,
         }
         _write(CONTENT / "notes" / topic_id / f"{note_id}.md", note, "## 문항 목록\n\n" + "\n".join(index_lines))
-        counts[fname] = len(qa)
+        counts[fname] = len(index_lines)
+    overrides.require_all_used(ovs, seen)
     return counts
