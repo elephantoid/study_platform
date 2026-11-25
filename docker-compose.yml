@@ -1,0 +1,46 @@
+# 기동: docker compose up -d --build     안내: docs/SELF_HOSTING.md
+name: study-platform
+
+services:
+  web:
+    image: ghcr.io/elephantoid/study_platform-web:${IMAGE_TAG:-local}
+    build:
+      context: .
+      target: web
+      args:
+        NEXT_PUBLIC_SHOW_DRAFT: ${NEXT_PUBLIC_SHOW_DRAFT:-0}
+        REVISION: ${REVISION:-unknown}
+    ports:
+      # 로그인이 없는 앱이라 기본은 이 컴퓨터에서만 열린다.
+      - "${WEB_BIND:-127.0.0.1}:${WEB_PORT:-8090}:3000"
+    # 이미지의 HEALTHCHECK 를 그대로 쓴다 (정의는 Dockerfile 한 곳).
+    restart: unless-stopped
+    init: true
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /app/.next/cache:uid=1000,gid=1000
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 512m
+
+  # 일회성 CLI: docker compose run --rm pipeline check
+  pipeline:
+    profiles: [tools]
+    image: ghcr.io/elephantoid/study_platform-pipeline:${IMAGE_TAG:-local}
+    build:
+      context: ./pipeline
+      target: pipeline
+      args:
+        REVISION: ${REVISION:-unknown}
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    volumes:
+      - ./content:/app/content
+      - ./pipeline/manifests:/app/pipeline/manifests
+      # 자막 원본. 커밋 사고를 막기 위해 레포 밖에 둔다 (CONTRACT §3.1).
+      - ${STUDY_RAW_HOST_DIR:-${HOME}/.cache/study-platform/raw}:/data/raw
+    init: true
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]

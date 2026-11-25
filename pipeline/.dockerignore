@@ -1,0 +1,17 @@
+.venv
+**/__pycache__
+.pytest_cache
+tests
+tmp
+raw
+.env*
+**/.DS_Store
+Dockerfile
+.dockerignore
+# compose 가 호스트 것을 마운트한다
+manifests
+# 저작권 원본
+**/*.vtt
+**/*.srt
+**/*.pdf
+**/*.pptx

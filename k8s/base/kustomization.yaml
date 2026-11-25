@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: study-platform
+resources:
+  - deployment.yaml
+  - service.yaml
+# 이름에 내용 해시가 붙어, 값이 바뀌면 파드가 자동으로 교체된다.
+configMapGenerator:
+  - name: study-platform-web
+    literals:
+      - PORT=3000
+      # k8s 가 HOSTNAME 을 파드 이름으로 덮어써 Next 가 127.0.0.1 로 접근되지 않는 일을 막는다.
+      - HOSTNAME=0.0.0.0
