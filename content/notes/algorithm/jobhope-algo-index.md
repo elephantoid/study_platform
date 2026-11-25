@@ -1,0 +1,22 @@
+---
+id: jobhope-algo-index
+topicId: algorithm
+sourceId: jobhope-technicalnote
+title: 알고리즘 개념 정리 (jobhope)
+canonicalUrl: https://github.com/jobhope/TechnicalNote/tree/HEAD/algorithm
+roles:
+- mle
+- agent
+status: draft
+generation:
+  by: claude-code
+  model: rule-based/extract_notes@1
+  at: '2026-11-17'
+---
+
+## 문항 목록
+
+- [좌표 압축 기법](https://github.com/jobhope/TechnicalNote/blob/HEAD/algorithm/CoordinateCompression.md) — `jobhope-algo-002`
+- [DiceProblem](https://github.com/jobhope/TechnicalNote/blob/HEAD/algorithm/DiceProblem.md) — `jobhope-algo-004`
+- [스택으로 큐 구현](https://github.com/jobhope/TechnicalNote/blob/HEAD/algorithm/QueueImplementationWithStack.md) — `jobhope-algo-008`
+- [하노이의 탑](https://github.com/jobhope/TechnicalNote/blob/HEAD/algorithm/TowerOfHanoi.md) — `jobhope-algo-013`

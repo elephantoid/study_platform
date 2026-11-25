@@ -1,0 +1,11 @@
+#!/bin/sh
+# Enabled with: git config core.hooksPath .githooks  (shared by all worktrees of this repo)
+set -e
+root=$(git rev-parse --show-toplevel)
+[ -d "$root/pipeline" ] || exit 0   # worktree without the pipeline yet (AG before rebase)
+cd "$root/pipeline"
+# Tests build throwaway repos; git exports GIT_DIR/GIT_INDEX_FILE to hooks, so drop them first.
+(unset $(env | sed -n 's/^\(GIT_[A-Z_]*\)=.*/\1/p'); uv run --quiet pytest -q -p no:cacheprovider >/dev/null) || { echo "pre-commit: pipeline tests failed (uv run pytest)"; exit 1; }
+out=$(uv run --quiet ingest check --require-transcripts 2>&1) || { echo "$out"; exit 1; }
+echo "$out" | tail -1
+uv run --quiet ingest gate

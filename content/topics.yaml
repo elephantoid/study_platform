@@ -1,0 +1,37 @@
+# 공용 계약 파일 (docs/CONTRACT.md §1). 형식은 content/schema.json#/$defs/topic.
+# roles: 직무별 가중치 1~3 (3 = 핵심). 모의 면접 출제와 문항의 roles 기본값이 이 값을 따른다.
+# 직무: mle = ML Engineer, rs = Research Scientist, agent = Agent Engineer, ds = Data Scientist
+
+# --- 상위 분류 ---
+- id: cs-core
+  name: CS 기초
+  roles: { mle: 2, agent: 2, ds: 1, rs: 1 }
+- id: ml-foundations
+  name: ML 기초
+  roles: { mle: 3, rs: 3, ds: 3, agent: 1 }
+- id: llm-agents
+  name: LLM과 에이전트
+  roles: { agent: 3, mle: 3, rs: 3, ds: 1 }
+
+# --- CS 기초 ---
+- { id: python, name: Python, parentId: cs-core, roles: { mle: 2, ds: 2, agent: 2 } }
+- { id: data-structure, name: 자료구조, parentId: cs-core, roles: { mle: 2, agent: 2, ds: 1, rs: 1 } }
+- { id: algorithm, name: 알고리즘, parentId: cs-core, roles: { mle: 2, agent: 2, ds: 1, rs: 1 } }
+- { id: operating-system, name: 운영체제, parentId: cs-core, roles: { mle: 2, agent: 2 } }
+- { id: network, name: 네트워크, parentId: cs-core, roles: { agent: 2, mle: 1 } }
+- { id: data-engineering-sql, name: 데이터 엔지니어링과 SQL, parentId: cs-core, roles: { ds: 3, mle: 1 } }
+
+# --- ML 기초 ---
+- { id: statistics-math, name: 통계와 수학, parentId: ml-foundations, roles: { ds: 3, rs: 3, mle: 2 } }
+- { id: linear-algebra, name: 선형대수, parentId: ml-foundations, roles: { rs: 3, mle: 2, ds: 2 } }
+- { id: machine-learning, name: 머신러닝, parentId: ml-foundations, roles: { mle: 3, ds: 3, rs: 3 } }
+- { id: deep-learning, name: 딥러닝, parentId: ml-foundations, roles: { mle: 3, rs: 3, ds: 2, agent: 1 } }
+
+# --- LLM과 에이전트 ---
+- { id: transformers-llm, name: 트랜스포머와 LLM, parentId: llm-agents, roles: { mle: 3, rs: 3, agent: 3, ds: 1 } }
+- { id: llm-training-eval, name: LLM 학습과 평가, parentId: llm-agents, roles: { rs: 3, mle: 3, agent: 2 } }
+- { id: ai-agents, name: AI 에이전트 설계, parentId: llm-agents, roles: { agent: 3, mle: 2, rs: 2 } }
+- { id: agent-tools-mcp, name: 도구 호출과 MCP, parentId: llm-agents, roles: { agent: 3, mle: 1 } }
+- { id: rag-retrieval, name: RAG와 검색, parentId: llm-agents, roles: { agent: 3, mle: 2, ds: 1 } }
+- { id: self-improving-agents, name: 자기개선 에이전트와 검증, parentId: llm-agents, roles: { rs: 3, agent: 3 } }
+- { id: ml-systems, name: ML 시스템과 인프라, parentId: llm-agents, roles: { mle: 3, agent: 2 } }

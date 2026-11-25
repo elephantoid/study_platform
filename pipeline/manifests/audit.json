@@ -1,0 +1,38 @@
+{
+  "baeharam-frontend": {
+    "declared": "NONE",
+    "license": "NONE",
+    "pushedAt": "2024-03-16T07:16:27Z",
+    "status": "ok"
+  },
+  "boost-ai-tech-interview": {
+    "declared": "MIT",
+    "license": "MIT",
+    "pushedAt": "2026-03-17T15:34:11Z",
+    "status": "ok"
+  },
+  "gyoogle-tech-interview": {
+    "declared": "MIT",
+    "license": "MIT",
+    "pushedAt": "2025-06-04T08:16:06Z",
+    "status": "ok"
+  },
+  "jbee-interview-beginner": {
+    "declared": "MIT",
+    "license": "MIT",
+    "pushedAt": "2024-08-09T07:53:33Z",
+    "status": "ok"
+  },
+  "jobhope-technicalnote": {
+    "declared": "MIT",
+    "license": "MIT",
+    "pushedAt": "2023-12-27T13:40:49Z",
+    "status": "ok"
+  },
+  "wearesoft-tech-interview": {
+    "declared": "NONE",
+    "license": "NONE",
+    "pushedAt": "2022-11-17T12:20:42Z",
+    "status": "ok"
+  }
+}

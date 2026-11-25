@@ -1,0 +1,6504 @@
+{
+  "cme295-2025au": {
+    "checkedAt": "2026-11-15",
+    "order": [
+      "Ub3GoFaUcds",
+      "yT84Y5zCnaA",
+      "Q5baLehv5So",
+      "VlA_jt_3Qc4",
+      "PmW_TMQ3l0I",
+      "k5Fh-UgTuCo",
+      "h-7S6HNq0Vg",
+      "8fNP4N46RRo",
+      "Q86qzJ1K1Ss"
+    ],
+    "videos": {
+      "8fNP4N46RRo": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "startSec": 428,
+            "title": "Inter-rater agreement metrics"
+          },
+          {
+            "startSec": 1104,
+            "title": "Rule-based metrics"
+          },
+          {
+            "startSec": 1260,
+            "title": "METEOR, BLEU ROUGE"
+          },
+          {
+            "startSec": 1680,
+            "title": "LLM-as-a-judge"
+          },
+          {
+            "startSec": 2024,
+            "title": "Structured outputs"
+          },
+          {
+            "startSec": 2208,
+            "title": "Variants"
+          },
+          {
+            "startSec": 2327,
+            "title": "Position, verbosity, self-enhancement bias"
+          },
+          {
+            "startSec": 2842,
+            "title": "Best practices"
+          },
+          {
+            "startSec": 3246,
+            "title": "Factuality"
+          },
+          {
+            "startSec": 3615,
+            "title": "Agent evaluation"
+          },
+          {
+            "startSec": 5030,
+            "title": "Benchmarks"
+          },
+          {
+            "startSec": 5112,
+            "title": "Knowledge with MMLU"
+          },
+          {
+            "startSec": 5374,
+            "title": "Reasoning AIME, PIQA"
+          },
+          {
+            "startSec": 5637,
+            "title": "Coding with SWE-bench"
+          },
+          {
+            "startSec": 5775,
+            "title": "Safety with HarmBench"
+          },
+          {
+            "startSec": 6051,
+            "title": "Agents with Tau-Bench"
+          }
+        ],
+        "chapters": 17,
+        "durationSec": 6565,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cme295-2025au-l08",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [
+          {
+            "endSec": 428,
+            "id": "cme295-2025au-l08-s01",
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "endSec": 1104,
+            "id": "cme295-2025au-l08-s02",
+            "startSec": 428,
+            "title": "Inter-rater agreement metrics"
+          },
+          {
+            "endSec": 1260,
+            "id": "cme295-2025au-l08-s03",
+            "startSec": 1104,
+            "title": "Rule-based metrics"
+          },
+          {
+            "endSec": 1680,
+            "id": "cme295-2025au-l08-s04",
+            "startSec": 1260,
+            "title": "METEOR, BLEU ROUGE"
+          },
+          {
+            "endSec": 2024,
+            "id": "cme295-2025au-l08-s05",
+            "startSec": 1680,
+            "title": "LLM-as-a-judge"
+          },
+          {
+            "endSec": 2208,
+            "id": "cme295-2025au-l08-s06",
+            "startSec": 2024,
+            "title": "Structured outputs"
+          },
+          {
+            "endSec": 2327,
+            "id": "cme295-2025au-l08-s07",
+            "startSec": 2208,
+            "title": "Variants"
+          },
+          {
+            "endSec": 2842,
+            "id": "cme295-2025au-l08-s08",
+            "startSec": 2327,
+            "title": "Position, verbosity, self-enhancement bias"
+          },
+          {
+            "endSec": 3246,
+            "id": "cme295-2025au-l08-s09",
+            "startSec": 2842,
+            "title": "Best practices"
+          },
+          {
+            "endSec": 3615,
+            "id": "cme295-2025au-l08-s10",
+            "startSec": 3246,
+            "title": "Factuality"
+          },
+          {
+            "endSec": 5030,
+            "id": "cme295-2025au-l08-s11",
+            "startSec": 3615,
+            "title": "Agent evaluation"
+          },
+          {
+            "endSec": 5112,
+            "id": "cme295-2025au-l08-s12",
+            "startSec": 5030,
+            "title": "Benchmarks"
+          },
+          {
+            "endSec": 5374,
+            "id": "cme295-2025au-l08-s13",
+            "startSec": 5112,
+            "title": "Knowledge with MMLU"
+          },
+          {
+            "endSec": 5637,
+            "id": "cme295-2025au-l08-s14",
+            "startSec": 5374,
+            "title": "Reasoning AIME, PIQA"
+          },
+          {
+            "endSec": 5775,
+            "id": "cme295-2025au-l08-s15",
+            "startSec": 5637,
+            "title": "Coding with SWE-bench"
+          },
+          {
+            "endSec": 6051,
+            "id": "cme295-2025au-l08-s16",
+            "startSec": 5775,
+            "title": "Safety with HarmBench"
+          },
+          {
+            "endSec": 6565,
+            "id": "cme295-2025au-l08-s17",
+            "startSec": 6051,
+            "title": "Agents with Tau-Bench"
+          }
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 8 - LLM Evaluation",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251202",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "8fNP4N46RRo"
+      },
+      "PmW_TMQ3l0I": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "startSec": 290,
+            "title": "Preference tuning"
+          },
+          {
+            "startSec": 691,
+            "title": "Data collection"
+          },
+          {
+            "startSec": 1063,
+            "title": "RLHF overview"
+          },
+          {
+            "startSec": 1704,
+            "title": "Reward model"
+          },
+          {
+            "startSec": 1786,
+            "title": "Bradley-Terry formulation"
+          },
+          {
+            "startSec": 2762,
+            "title": "Reinforcement learning"
+          },
+          {
+            "startSec": 3234,
+            "title": "PPO"
+          },
+          {
+            "startSec": 3476,
+            "title": "Advantage, value function"
+          },
+          {
+            "startSec": 3819,
+            "title": "PPO variants: Clip, KL-penalty"
+          },
+          {
+            "startSec": 4580,
+            "title": "Challenges"
+          },
+          {
+            "startSec": 4798,
+            "title": "On-policy vs off-policy"
+          },
+          {
+            "startSec": 4963,
+            "title": "Best-of-N"
+          },
+          {
+            "startSec": 5387,
+            "title": "DPO"
+          }
+        ],
+        "chapters": 14,
+        "durationSec": 6461,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "cme295-2025au-l05",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [
+          {
+            "endSec": 290,
+            "id": "cme295-2025au-l05-s01",
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "endSec": 691,
+            "id": "cme295-2025au-l05-s02",
+            "startSec": 290,
+            "title": "Preference tuning"
+          },
+          {
+            "endSec": 1063,
+            "id": "cme295-2025au-l05-s03",
+            "startSec": 691,
+            "title": "Data collection"
+          },
+          {
+            "endSec": 1704,
+            "id": "cme295-2025au-l05-s04",
+            "startSec": 1063,
+            "title": "RLHF overview"
+          },
+          {
+            "endSec": 1786,
+            "id": "cme295-2025au-l05-s05",
+            "startSec": 1704,
+            "title": "Reward model"
+          },
+          {
+            "endSec": 2762,
+            "id": "cme295-2025au-l05-s06",
+            "startSec": 1786,
+            "title": "Bradley-Terry formulation"
+          },
+          {
+            "endSec": 3234,
+            "id": "cme295-2025au-l05-s07",
+            "startSec": 2762,
+            "title": "Reinforcement learning"
+          },
+          {
+            "endSec": 3476,
+            "id": "cme295-2025au-l05-s08",
+            "startSec": 3234,
+            "title": "PPO"
+          },
+          {
+            "endSec": 3819,
+            "id": "cme295-2025au-l05-s09",
+            "startSec": 3476,
+            "title": "Advantage, value function"
+          },
+          {
+            "endSec": 4580,
+            "id": "cme295-2025au-l05-s10",
+            "startSec": 3819,
+            "title": "PPO variants: Clip, KL-penalty"
+          },
+          {
+            "endSec": 4798,
+            "id": "cme295-2025au-l05-s11",
+            "startSec": 4580,
+            "title": "Challenges"
+          },
+          {
+            "endSec": 4963,
+            "id": "cme295-2025au-l05-s12",
+            "startSec": 4798,
+            "title": "On-policy vs off-policy"
+          },
+          {
+            "endSec": 5387,
+            "id": "cme295-2025au-l05-s13",
+            "startSec": 4963,
+            "title": "Best-of-N"
+          },
+          {
+            "endSec": 6461,
+            "id": "cme295-2025au-l05-s14",
+            "startSec": 5387,
+            "title": "DPO"
+          }
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 5 - LLM tuning",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251114",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "PmW_TMQ3l0I"
+      },
+      "Q5baLehv5So": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "startSec": 62,
+            "title": "Recap of Transformers-based models"
+          },
+          {
+            "startSec": 223,
+            "title": "LLM definition"
+          },
+          {
+            "startSec": 457,
+            "title": "Mixture of Experts"
+          },
+          {
+            "startSec": 763,
+            "title": "Dense & Sparse MoE"
+          },
+          {
+            "startSec": 947,
+            "title": "MoE in LLMs"
+          },
+          {
+            "startSec": 2195,
+            "title": "Response generation"
+          },
+          {
+            "startSec": 2314,
+            "title": "Greedy decoding & beam search"
+          },
+          {
+            "startSec": 2796,
+            "title": "Sampling-based methods"
+          },
+          {
+            "startSec": 3144,
+            "title": "Impact of temperature on predictions"
+          },
+          {
+            "startSec": 3893,
+            "title": "Guided decoding"
+          },
+          {
+            "startSec": 4027,
+            "title": "Prompting strategies"
+          },
+          {
+            "startSec": 4449,
+            "title": "In-context learning"
+          },
+          {
+            "startSec": 4715,
+            "title": "Chain-of-thought, self-consistency"
+          },
+          {
+            "startSec": 5100,
+            "title": "Inference optimizations with KV cache"
+          },
+          {
+            "startSec": 5589,
+            "title": "PagedAttention, MLA"
+          }
+        ],
+        "chapters": 16,
+        "durationSec": 6525,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cme295-2025au-l03",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [
+          {
+            "endSec": 62,
+            "id": "cme295-2025au-l03-s01",
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "endSec": 223,
+            "id": "cme295-2025au-l03-s02",
+            "startSec": 62,
+            "title": "Recap of Transformers-based models"
+          },
+          {
+            "endSec": 457,
+            "id": "cme295-2025au-l03-s03",
+            "startSec": 223,
+            "title": "LLM definition"
+          },
+          {
+            "endSec": 763,
+            "id": "cme295-2025au-l03-s04",
+            "startSec": 457,
+            "title": "Mixture of Experts"
+          },
+          {
+            "endSec": 947,
+            "id": "cme295-2025au-l03-s05",
+            "startSec": 763,
+            "title": "Dense & Sparse MoE"
+          },
+          {
+            "endSec": 2195,
+            "id": "cme295-2025au-l03-s06",
+            "startSec": 947,
+            "title": "MoE in LLMs"
+          },
+          {
+            "endSec": 2314,
+            "id": "cme295-2025au-l03-s07",
+            "startSec": 2195,
+            "title": "Response generation"
+          },
+          {
+            "endSec": 2796,
+            "id": "cme295-2025au-l03-s08",
+            "startSec": 2314,
+            "title": "Greedy decoding & beam search"
+          },
+          {
+            "endSec": 3144,
+            "id": "cme295-2025au-l03-s09",
+            "startSec": 2796,
+            "title": "Sampling-based methods"
+          },
+          {
+            "endSec": 3893,
+            "id": "cme295-2025au-l03-s10",
+            "startSec": 3144,
+            "title": "Impact of temperature on predictions"
+          },
+          {
+            "endSec": 4027,
+            "id": "cme295-2025au-l03-s11",
+            "startSec": 3893,
+            "title": "Guided decoding"
+          },
+          {
+            "endSec": 4449,
+            "id": "cme295-2025au-l03-s12",
+            "startSec": 4027,
+            "title": "Prompting strategies"
+          },
+          {
+            "endSec": 4715,
+            "id": "cme295-2025au-l03-s13",
+            "startSec": 4449,
+            "title": "In-context learning"
+          },
+          {
+            "endSec": 5100,
+            "id": "cme295-2025au-l03-s14",
+            "startSec": 4715,
+            "title": "Chain-of-thought, self-consistency"
+          },
+          {
+            "endSec": 5589,
+            "id": "cme295-2025au-l03-s15",
+            "startSec": 5100,
+            "title": "Inference optimizations with KV cache"
+          },
+          {
+            "endSec": 6525,
+            "id": "cme295-2025au-l03-s16",
+            "startSec": 5589,
+            "title": "PagedAttention, MLA"
+          }
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 3 - Tranformers & Large Language Models",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251017",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "Q5baLehv5So"
+      },
+      "Q86qzJ1K1Ss": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "startSec": 72,
+            "title": "Transformer"
+          },
+          {
+            "startSec": 395,
+            "title": "Transformer-based models & tricks"
+          },
+          {
+            "startSec": 677,
+            "title": "Large Language Models"
+          },
+          {
+            "startSec": 905,
+            "title": "LLM training"
+          },
+          {
+            "startSec": 1449,
+            "title": "LLM tuning"
+          },
+          {
+            "startSec": 1781,
+            "title": "LLM reasoning"
+          },
+          {
+            "startSec": 2317,
+            "title": "Agentic LLMs (RAG, tool calling)"
+          },
+          {
+            "startSec": 2649,
+            "title": "LLM evaluation"
+          },
+          {
+            "startSec": 2937,
+            "title": "Vision Transformer"
+          },
+          {
+            "startSec": 3842,
+            "title": "Diffusion-based LLMs"
+          },
+          {
+            "startSec": 5018,
+            "title": "Closing thoughts"
+          },
+          {
+            "startSec": 6616,
+            "title": "Thank you!"
+          }
+        ],
+        "chapters": 13,
+        "durationSec": 6691,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cme295-2025au-l09",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [
+          {
+            "endSec": 72,
+            "id": "cme295-2025au-l09-s01",
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "endSec": 395,
+            "id": "cme295-2025au-l09-s02",
+            "startSec": 72,
+            "title": "Transformer"
+          },
+          {
+            "endSec": 677,
+            "id": "cme295-2025au-l09-s03",
+            "startSec": 395,
+            "title": "Transformer-based models & tricks"
+          },
+          {
+            "endSec": 905,
+            "id": "cme295-2025au-l09-s04",
+            "startSec": 677,
+            "title": "Large Language Models"
+          },
+          {
+            "endSec": 1449,
+            "id": "cme295-2025au-l09-s05",
+            "startSec": 905,
+            "title": "LLM training"
+          },
+          {
+            "endSec": 1781,
+            "id": "cme295-2025au-l09-s06",
+            "startSec": 1449,
+            "title": "LLM tuning"
+          },
+          {
+            "endSec": 2317,
+            "id": "cme295-2025au-l09-s07",
+            "startSec": 1781,
+            "title": "LLM reasoning"
+          },
+          {
+            "endSec": 2649,
+            "id": "cme295-2025au-l09-s08",
+            "startSec": 2317,
+            "title": "Agentic LLMs (RAG, tool calling)"
+          },
+          {
+            "endSec": 2937,
+            "id": "cme295-2025au-l09-s09",
+            "startSec": 2649,
+            "title": "LLM evaluation"
+          },
+          {
+            "endSec": 3842,
+            "id": "cme295-2025au-l09-s10",
+            "startSec": 2937,
+            "title": "Vision Transformer"
+          },
+          {
+            "endSec": 5018,
+            "id": "cme295-2025au-l09-s11",
+            "startSec": 3842,
+            "title": "Diffusion-based LLMs"
+          },
+          {
+            "endSec": 6616,
+            "id": "cme295-2025au-l09-s12",
+            "startSec": 5018,
+            "title": "Closing thoughts"
+          },
+          {
+            "endSec": 6691,
+            "id": "cme295-2025au-l09-s13",
+            "startSec": 6616,
+            "title": "Thank you!"
+          }
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 9 - Recap & Current Trends",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251209",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "Q86qzJ1K1Ss"
+      },
+      "Ub3GoFaUcds": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "startSec": 234,
+            "title": "Class logistics"
+          },
+          {
+            "startSec": 580,
+            "title": "NLP overview"
+          },
+          {
+            "startSec": 1377,
+            "title": "Tokenization"
+          },
+          {
+            "startSec": 1828,
+            "title": "Word representation"
+          },
+          {
+            "startSec": 3203,
+            "title": "Recurrent neural networks"
+          },
+          {
+            "startSec": 4007,
+            "title": "Self-attention mechanism"
+          },
+          {
+            "startSec": 4433,
+            "title": "Transformer architecture"
+          },
+          {
+            "startSec": 5393,
+            "title": "Detailed example"
+          }
+        ],
+        "chapters": 9,
+        "durationSec": 6119,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cme295-2025au-l01",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [
+          {
+            "endSec": 234,
+            "id": "cme295-2025au-l01-s01",
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "endSec": 580,
+            "id": "cme295-2025au-l01-s02",
+            "startSec": 234,
+            "title": "Class logistics"
+          },
+          {
+            "endSec": 1377,
+            "id": "cme295-2025au-l01-s03",
+            "startSec": 580,
+            "title": "NLP overview"
+          },
+          {
+            "endSec": 1828,
+            "id": "cme295-2025au-l01-s04",
+            "startSec": 1377,
+            "title": "Tokenization"
+          },
+          {
+            "endSec": 3203,
+            "id": "cme295-2025au-l01-s05",
+            "startSec": 1828,
+            "title": "Word representation"
+          },
+          {
+            "endSec": 4007,
+            "id": "cme295-2025au-l01-s06",
+            "startSec": 3203,
+            "title": "Recurrent neural networks"
+          },
+          {
+            "endSec": 4433,
+            "id": "cme295-2025au-l01-s07",
+            "startSec": 4007,
+            "title": "Self-attention mechanism"
+          },
+          {
+            "endSec": 5393,
+            "id": "cme295-2025au-l01-s08",
+            "startSec": 4433,
+            "title": "Transformer architecture"
+          },
+          {
+            "endSec": 6119,
+            "id": "cme295-2025au-l01-s09",
+            "startSec": 5393,
+            "title": "Detailed example"
+          }
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 1 - Transformer",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251017",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "Ub3GoFaUcds"
+      },
+      "VlA_jt_3Qc4": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "startSec": 439,
+            "title": "Pretraining"
+          },
+          {
+            "startSec": 806,
+            "title": "FLOPs, FLOPS"
+          },
+          {
+            "startSec": 994,
+            "title": "Scaling laws, Chinchilla law"
+          },
+          {
+            "startSec": 1489,
+            "title": "Training optimizations overview"
+          },
+          {
+            "startSec": 1869,
+            "title": "Data parallelism with ZeRO"
+          },
+          {
+            "startSec": 2151,
+            "title": "Model parallelism"
+          },
+          {
+            "startSec": 2306,
+            "title": "Flash Attention"
+          },
+          {
+            "startSec": 3157,
+            "title": "Quantization"
+          },
+          {
+            "startSec": 3360,
+            "title": "Mixed precision training"
+          },
+          {
+            "startSec": 3751,
+            "title": "Supervised finetuning"
+          },
+          {
+            "startSec": 4161,
+            "title": "Instruction tuning"
+          },
+          {
+            "startSec": 5873,
+            "title": "Parameter-efficient finetuning with LoRA"
+          },
+          {
+            "startSec": 6316,
+            "title": "QLoRA"
+          }
+        ],
+        "chapters": 14,
+        "durationSec": 6447,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cme295-2025au-l04",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [
+          {
+            "endSec": 439,
+            "id": "cme295-2025au-l04-s01",
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "endSec": 806,
+            "id": "cme295-2025au-l04-s02",
+            "startSec": 439,
+            "title": "Pretraining"
+          },
+          {
+            "endSec": 994,
+            "id": "cme295-2025au-l04-s03",
+            "startSec": 806,
+            "title": "FLOPs, FLOPS"
+          },
+          {
+            "endSec": 1489,
+            "id": "cme295-2025au-l04-s04",
+            "startSec": 994,
+            "title": "Scaling laws, Chinchilla law"
+          },
+          {
+            "endSec": 1869,
+            "id": "cme295-2025au-l04-s05",
+            "startSec": 1489,
+            "title": "Training optimizations overview"
+          },
+          {
+            "endSec": 2151,
+            "id": "cme295-2025au-l04-s06",
+            "startSec": 1869,
+            "title": "Data parallelism with ZeRO"
+          },
+          {
+            "endSec": 2306,
+            "id": "cme295-2025au-l04-s07",
+            "startSec": 2151,
+            "title": "Model parallelism"
+          },
+          {
+            "endSec": 3157,
+            "id": "cme295-2025au-l04-s08",
+            "startSec": 2306,
+            "title": "Flash Attention"
+          },
+          {
+            "endSec": 3360,
+            "id": "cme295-2025au-l04-s09",
+            "startSec": 3157,
+            "title": "Quantization"
+          },
+          {
+            "endSec": 3751,
+            "id": "cme295-2025au-l04-s10",
+            "startSec": 3360,
+            "title": "Mixed precision training"
+          },
+          {
+            "endSec": 4161,
+            "id": "cme295-2025au-l04-s11",
+            "startSec": 3751,
+            "title": "Supervised finetuning"
+          },
+          {
+            "endSec": 5873,
+            "id": "cme295-2025au-l04-s12",
+            "startSec": 4161,
+            "title": "Instruction tuning"
+          },
+          {
+            "endSec": 6316,
+            "id": "cme295-2025au-l04-s13",
+            "startSec": 5873,
+            "title": "Parameter-efficient finetuning with LoRA"
+          },
+          {
+            "endSec": 6447,
+            "id": "cme295-2025au-l04-s14",
+            "startSec": 6316,
+            "title": "QLoRA"
+          }
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 4 - LLM Training",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251021",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "VlA_jt_3Qc4"
+      },
+      "h-7S6HNq0Vg": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "startSec": 398,
+            "title": "RAG overview"
+          },
+          {
+            "startSec": 1659,
+            "title": "Similarity search with SBERT and bi-encoders"
+          },
+          {
+            "startSec": 2065,
+            "title": "Heuristic search with BM25"
+          },
+          {
+            "startSec": 2274,
+            "title": "HyDE and contextual retrieval"
+          },
+          {
+            "startSec": 2460,
+            "title": "Prompt caching"
+          },
+          {
+            "startSec": 2724,
+            "title": "Re-ranking with cross-encoders"
+          },
+          {
+            "startSec": 2869,
+            "title": "Retrieval evaluation with NDCG, MRR"
+          },
+          {
+            "startSec": 3568,
+            "title": "Tool calling"
+          },
+          {
+            "startSec": 5182,
+            "title": "Tool selection"
+          },
+          {
+            "startSec": 5357,
+            "title": "Model Context Protocol (MCP)"
+          },
+          {
+            "startSec": 5516,
+            "title": "Agents with ReAct"
+          },
+          {
+            "startSec": 6136,
+            "title": "Safety and closing thoughts"
+          }
+        ],
+        "chapters": 13,
+        "durationSec": 6562,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cme295-2025au-l07",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [
+          {
+            "endSec": 398,
+            "id": "cme295-2025au-l07-s01",
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "endSec": 1659,
+            "id": "cme295-2025au-l07-s02",
+            "startSec": 398,
+            "title": "RAG overview"
+          },
+          {
+            "endSec": 2065,
+            "id": "cme295-2025au-l07-s03",
+            "startSec": 1659,
+            "title": "Similarity search with SBERT and bi-encoders"
+          },
+          {
+            "endSec": 2274,
+            "id": "cme295-2025au-l07-s04",
+            "startSec": 2065,
+            "title": "Heuristic search with BM25"
+          },
+          {
+            "endSec": 2460,
+            "id": "cme295-2025au-l07-s05",
+            "startSec": 2274,
+            "title": "HyDE and contextual retrieval"
+          },
+          {
+            "endSec": 2724,
+            "id": "cme295-2025au-l07-s06",
+            "startSec": 2460,
+            "title": "Prompt caching"
+          },
+          {
+            "endSec": 2869,
+            "id": "cme295-2025au-l07-s07",
+            "startSec": 2724,
+            "title": "Re-ranking with cross-encoders"
+          },
+          {
+            "endSec": 3568,
+            "id": "cme295-2025au-l07-s08",
+            "startSec": 2869,
+            "title": "Retrieval evaluation with NDCG, MRR"
+          },
+          {
+            "endSec": 5182,
+            "id": "cme295-2025au-l07-s09",
+            "startSec": 3568,
+            "title": "Tool calling"
+          },
+          {
+            "endSec": 5357,
+            "id": "cme295-2025au-l07-s10",
+            "startSec": 5182,
+            "title": "Tool selection"
+          },
+          {
+            "endSec": 5516,
+            "id": "cme295-2025au-l07-s11",
+            "startSec": 5357,
+            "title": "Model Context Protocol (MCP)"
+          },
+          {
+            "endSec": 6136,
+            "id": "cme295-2025au-l07-s12",
+            "startSec": 5516,
+            "title": "Agents with ReAct"
+          },
+          {
+            "endSec": 6562,
+            "id": "cme295-2025au-l07-s13",
+            "startSec": 6136,
+            "title": "Safety and closing thoughts"
+          }
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 7 - Agentic LLMs",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251118",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "h-7S6HNq0Vg"
+      },
+      "k5Fh-UgTuCo": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "startSec": 763,
+            "title": "Reasoning models"
+          },
+          {
+            "startSec": 1669,
+            "title": "Benchmarks"
+          },
+          {
+            "startSec": 1924,
+            "title": "Pass@k metric"
+          },
+          {
+            "startSec": 2887,
+            "title": "Scaling with RL"
+          },
+          {
+            "startSec": 3464,
+            "title": "GRPO"
+          },
+          {
+            "startSec": 3963,
+            "title": "Comparison between GRPO and PPO"
+          },
+          {
+            "startSec": 4574,
+            "title": "Length bias"
+          },
+          {
+            "startSec": 5100,
+            "title": "DAPO, Dr. GRPO"
+          },
+          {
+            "startSec": 5378,
+            "title": "DeepSeek R1 recipe"
+          }
+        ],
+        "chapters": 10,
+        "durationSec": 6430,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cme295-2025au-l06",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [
+          {
+            "endSec": 763,
+            "id": "cme295-2025au-l06-s01",
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "endSec": 1669,
+            "id": "cme295-2025au-l06-s02",
+            "startSec": 763,
+            "title": "Reasoning models"
+          },
+          {
+            "endSec": 1924,
+            "id": "cme295-2025au-l06-s03",
+            "startSec": 1669,
+            "title": "Benchmarks"
+          },
+          {
+            "endSec": 2887,
+            "id": "cme295-2025au-l06-s04",
+            "startSec": 1924,
+            "title": "Pass@k metric"
+          },
+          {
+            "endSec": 3464,
+            "id": "cme295-2025au-l06-s05",
+            "startSec": 2887,
+            "title": "Scaling with RL"
+          },
+          {
+            "endSec": 3963,
+            "id": "cme295-2025au-l06-s06",
+            "startSec": 3464,
+            "title": "GRPO"
+          },
+          {
+            "endSec": 4574,
+            "id": "cme295-2025au-l06-s07",
+            "startSec": 3963,
+            "title": "Comparison between GRPO and PPO"
+          },
+          {
+            "endSec": 5100,
+            "id": "cme295-2025au-l06-s08",
+            "startSec": 4574,
+            "title": "Length bias"
+          },
+          {
+            "endSec": 5378,
+            "id": "cme295-2025au-l06-s09",
+            "startSec": 5100,
+            "title": "DAPO, Dr. GRPO"
+          },
+          {
+            "endSec": 6430,
+            "id": "cme295-2025au-l06-s10",
+            "startSec": 5378,
+            "title": "DeepSeek R1 recipe"
+          }
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 6 - LLM Reasoning",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251114",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "k5Fh-UgTuCo"
+      },
+      "yT84Y5zCnaA": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "startSec": 90,
+            "title": "Recap of Transformers"
+          },
+          {
+            "startSec": 637,
+            "title": "Overview of position embeddings"
+          },
+          {
+            "startSec": 936,
+            "title": "Sinusoidal embeddings"
+          },
+          {
+            "startSec": 1556,
+            "title": "T5 bias, ALiBi"
+          },
+          {
+            "startSec": 1862,
+            "title": "RoPE"
+          },
+          {
+            "startSec": 2622,
+            "title": "Layer normalization"
+          },
+          {
+            "startSec": 3039,
+            "title": "Sparse attention"
+          },
+          {
+            "startSec": 3338,
+            "title": "Sharing attention heads"
+          },
+          {
+            "startSec": 3762,
+            "title": "Transformer-based models"
+          },
+          {
+            "startSec": 4298,
+            "title": "BERT deep dive"
+          },
+          {
+            "startSec": 5604,
+            "title": "BERT finetuning"
+          },
+          {
+            "startSec": 6210,
+            "title": "Extensions of BERT"
+          }
+        ],
+        "chapters": 13,
+        "durationSec": 6439,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cme295-2025au-l02",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [
+          {
+            "endSec": 90,
+            "id": "cme295-2025au-l02-s01",
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "endSec": 637,
+            "id": "cme295-2025au-l02-s02",
+            "startSec": 90,
+            "title": "Recap of Transformers"
+          },
+          {
+            "endSec": 936,
+            "id": "cme295-2025au-l02-s03",
+            "startSec": 637,
+            "title": "Overview of position embeddings"
+          },
+          {
+            "endSec": 1556,
+            "id": "cme295-2025au-l02-s04",
+            "startSec": 936,
+            "title": "Sinusoidal embeddings"
+          },
+          {
+            "endSec": 1862,
+            "id": "cme295-2025au-l02-s05",
+            "startSec": 1556,
+            "title": "T5 bias, ALiBi"
+          },
+          {
+            "endSec": 2622,
+            "id": "cme295-2025au-l02-s06",
+            "startSec": 1862,
+            "title": "RoPE"
+          },
+          {
+            "endSec": 3039,
+            "id": "cme295-2025au-l02-s07",
+            "startSec": 2622,
+            "title": "Layer normalization"
+          },
+          {
+            "endSec": 3338,
+            "id": "cme295-2025au-l02-s08",
+            "startSec": 3039,
+            "title": "Sparse attention"
+          },
+          {
+            "endSec": 3762,
+            "id": "cme295-2025au-l02-s09",
+            "startSec": 3338,
+            "title": "Sharing attention heads"
+          },
+          {
+            "endSec": 4298,
+            "id": "cme295-2025au-l02-s10",
+            "startSec": 3762,
+            "title": "Transformer-based models"
+          },
+          {
+            "endSec": 5604,
+            "id": "cme295-2025au-l02-s11",
+            "startSec": 4298,
+            "title": "BERT deep dive"
+          },
+          {
+            "endSec": 6210,
+            "id": "cme295-2025au-l02-s12",
+            "startSec": 5604,
+            "title": "BERT finetuning"
+          },
+          {
+            "endSec": 6439,
+            "id": "cme295-2025au-l02-s13",
+            "startSec": 6210,
+            "title": "Extensions of BERT"
+          }
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 2 - Transformer-Based Models & Tricks",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20251017",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "yT84Y5zCnaA"
+      }
+    }
+  },
+  "cme295-2026au": {
+    "checkedAt": "2026-11-15",
+    "order": [
+      "114i2Kz-LZA",
+      "GaIeu3npx04",
+      "S3bCDcJhz4s",
+      "3Vaj0Oka_t4",
+      "25KIyaeI_Fg",
+      "nU2a2lm6vDE"
+    ],
+    "videos": {
+      "114i2Kz-LZA": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Welcome"
+          },
+          {
+            "startSec": 223,
+            "title": "Difference from last year’s edition"
+          },
+          {
+            "startSec": 301,
+            "title": "Class logistics"
+          },
+          {
+            "startSec": 762,
+            "title": "Timeline"
+          },
+          {
+            "startSec": 1016,
+            "title": "Tokenization"
+          },
+          {
+            "startSec": 2247,
+            "title": "Word2vec (CBOW, Skip-gram)"
+          },
+          {
+            "startSec": 2906,
+            "title": "RNN, LSTM"
+          },
+          {
+            "startSec": 3318,
+            "title": "Attention"
+          },
+          {
+            "startSec": 3436,
+            "title": "Self-attention mechanism"
+          },
+          {
+            "startSec": 3594,
+            "title": "Query, key, value"
+          },
+          {
+            "startSec": 4175,
+            "title": "Transformer architecture"
+          },
+          {
+            "startSec": 4339,
+            "title": "Input"
+          },
+          {
+            "startSec": 4587,
+            "title": "Transformer Encoder"
+          },
+          {
+            "startSec": 4699,
+            "title": "Transformer Decoder"
+          },
+          {
+            "startSec": 4936,
+            "title": "Computational tricks"
+          },
+          {
+            "startSec": 5255,
+            "title": "End-to-end example"
+          }
+        ],
+        "chapters": 16,
+        "durationSec": 6268,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cme295-2026au-l01",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [
+          {
+            "endSec": 223,
+            "id": "cme295-2026au-l01-s01",
+            "startSec": 0,
+            "title": "Welcome"
+          },
+          {
+            "endSec": 301,
+            "id": "cme295-2026au-l01-s02",
+            "startSec": 223,
+            "title": "Difference from last year’s edition"
+          },
+          {
+            "endSec": 762,
+            "id": "cme295-2026au-l01-s03",
+            "startSec": 301,
+            "title": "Class logistics"
+          },
+          {
+            "endSec": 1016,
+            "id": "cme295-2026au-l01-s04",
+            "startSec": 762,
+            "title": "Timeline"
+          },
+          {
+            "endSec": 2247,
+            "id": "cme295-2026au-l01-s05",
+            "startSec": 1016,
+            "title": "Tokenization"
+          },
+          {
+            "endSec": 2906,
+            "id": "cme295-2026au-l01-s06",
+            "startSec": 2247,
+            "title": "Word2vec (CBOW, Skip-gram)"
+          },
+          {
+            "endSec": 3318,
+            "id": "cme295-2026au-l01-s07",
+            "startSec": 2906,
+            "title": "RNN, LSTM"
+          },
+          {
+            "endSec": 3436,
+            "id": "cme295-2026au-l01-s08",
+            "startSec": 3318,
+            "title": "Attention"
+          },
+          {
+            "endSec": 3594,
+            "id": "cme295-2026au-l01-s09",
+            "startSec": 3436,
+            "title": "Self-attention mechanism"
+          },
+          {
+            "endSec": 4175,
+            "id": "cme295-2026au-l01-s10",
+            "startSec": 3594,
+            "title": "Query, key, value"
+          },
+          {
+            "endSec": 4339,
+            "id": "cme295-2026au-l01-s11",
+            "startSec": 4175,
+            "title": "Transformer architecture"
+          },
+          {
+            "endSec": 4587,
+            "id": "cme295-2026au-l01-s12",
+            "startSec": 4339,
+            "title": "Input"
+          },
+          {
+            "endSec": 4699,
+            "id": "cme295-2026au-l01-s13",
+            "startSec": 4587,
+            "title": "Transformer Encoder"
+          },
+          {
+            "endSec": 4936,
+            "id": "cme295-2026au-l01-s14",
+            "startSec": 4699,
+            "title": "Transformer Decoder"
+          },
+          {
+            "endSec": 5255,
+            "id": "cme295-2026au-l01-s15",
+            "startSec": 4936,
+            "title": "Computational tricks"
+          },
+          {
+            "endSec": 6268,
+            "id": "cme295-2026au-l01-s16",
+            "startSec": 5255,
+            "title": "End-to-end example"
+          }
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2026 | Lecture 1 - Transformers",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260928",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "114i2Kz-LZA"
+      },
+      "25KIyaeI_Fg": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "startSec": 552,
+            "title": "Flash attention"
+          },
+          {
+            "startSec": 3048,
+            "title": "Distributed training"
+          },
+          {
+            "startSec": 3265,
+            "title": "Data parallelism (DP)"
+          },
+          {
+            "startSec": 3330,
+            "title": "Zero Redundancy Optimizer (ZeRO)"
+          },
+          {
+            "startSec": 3629,
+            "title": "Tensor parallelism (TP)"
+          },
+          {
+            "startSec": 3725,
+            "title": "Pipeline parallelism (PP)"
+          },
+          {
+            "startSec": 3852,
+            "title": "Context parallelism (CP)"
+          },
+          {
+            "startSec": 3970,
+            "title": "Expert parallelism (EP)"
+          },
+          {
+            "startSec": 4192,
+            "title": "Inference optimizations"
+          },
+          {
+            "startSec": 4969,
+            "title": "KV caching"
+          },
+          {
+            "startSec": 5070,
+            "title": "Paged attention"
+          },
+          {
+            "startSec": 5281,
+            "title": "Grouped-query attention (GQA)"
+          },
+          {
+            "startSec": 5443,
+            "title": "Multi-head latent attention (MLA)"
+          },
+          {
+            "startSec": 5560,
+            "title": "Speculative decoding"
+          },
+          {
+            "startSec": 6327,
+            "title": "Multi-token prediction (MTP)"
+          }
+        ],
+        "chapters": 16,
+        "durationSec": 6421,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cme295-2026au-l05",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [
+          {
+            "endSec": 552,
+            "id": "cme295-2026au-l05-s01",
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "endSec": 3048,
+            "id": "cme295-2026au-l05-s02",
+            "startSec": 552,
+            "title": "Flash attention"
+          },
+          {
+            "endSec": 3265,
+            "id": "cme295-2026au-l05-s03",
+            "startSec": 3048,
+            "title": "Distributed training"
+          },
+          {
+            "endSec": 3330,
+            "id": "cme295-2026au-l05-s04",
+            "startSec": 3265,
+            "title": "Data parallelism (DP)"
+          },
+          {
+            "endSec": 3629,
+            "id": "cme295-2026au-l05-s05",
+            "startSec": 3330,
+            "title": "Zero Redundancy Optimizer (ZeRO)"
+          },
+          {
+            "endSec": 3725,
+            "id": "cme295-2026au-l05-s06",
+            "startSec": 3629,
+            "title": "Tensor parallelism (TP)"
+          },
+          {
+            "endSec": 3852,
+            "id": "cme295-2026au-l05-s07",
+            "startSec": 3725,
+            "title": "Pipeline parallelism (PP)"
+          },
+          {
+            "endSec": 3970,
+            "id": "cme295-2026au-l05-s08",
+            "startSec": 3852,
+            "title": "Context parallelism (CP)"
+          },
+          {
+            "endSec": 4192,
+            "id": "cme295-2026au-l05-s09",
+            "startSec": 3970,
+            "title": "Expert parallelism (EP)"
+          },
+          {
+            "endSec": 4969,
+            "id": "cme295-2026au-l05-s10",
+            "startSec": 4192,
+            "title": "Inference optimizations"
+          },
+          {
+            "endSec": 5070,
+            "id": "cme295-2026au-l05-s11",
+            "startSec": 4969,
+            "title": "KV caching"
+          },
+          {
+            "endSec": 5281,
+            "id": "cme295-2026au-l05-s12",
+            "startSec": 5070,
+            "title": "Paged attention"
+          },
+          {
+            "endSec": 5443,
+            "id": "cme295-2026au-l05-s13",
+            "startSec": 5281,
+            "title": "Grouped-query attention (GQA)"
+          },
+          {
+            "endSec": 5560,
+            "id": "cme295-2026au-l05-s14",
+            "startSec": 5443,
+            "title": "Multi-head latent attention (MLA)"
+          },
+          {
+            "endSec": 6327,
+            "id": "cme295-2026au-l05-s15",
+            "startSec": 5560,
+            "title": "Speculative decoding"
+          },
+          {
+            "endSec": 6421,
+            "id": "cme295-2026au-l05-s16",
+            "startSec": 6327,
+            "title": "Multi-token prediction (MTP)"
+          }
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2026 | Lecture 5 -  LLM Systems",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20261105",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "25KIyaeI_Fg"
+      },
+      "3Vaj0Oka_t4": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "startSec": 395,
+            "title": "RL setup"
+          },
+          {
+            "startSec": 572,
+            "title": "Reward design"
+          },
+          {
+            "startSec": 743,
+            "title": "Policy gradient"
+          },
+          {
+            "startSec": 1032,
+            "title": "Derivation of the gradient"
+          },
+          {
+            "startSec": 1430,
+            "title": "REINFORCE"
+          },
+          {
+            "startSec": 1551,
+            "title": "Importance sampling ratio"
+          },
+          {
+            "startSec": 2002,
+            "title": "Challenges of policy gradients"
+          },
+          {
+            "startSec": 2434,
+            "title": "Proximal Policy Optimization (PPO)"
+          },
+          {
+            "startSec": 2569,
+            "title": "Value function and advantage"
+          },
+          {
+            "startSec": 3076,
+            "title": "Policy ratio"
+          },
+          {
+            "startSec": 3183,
+            "title": "Ratio clipping"
+          },
+          {
+            "startSec": 3465,
+            "title": "KL Penalty"
+          },
+          {
+            "startSec": 3588,
+            "title": "Connection with DPO"
+          },
+          {
+            "startSec": 4049,
+            "title": "Group Relative Policy Optimization (GRPO)"
+          },
+          {
+            "startSec": 4182,
+            "title": "Comparison of GRPO and PPO"
+          },
+          {
+            "startSec": 4705,
+            "title": "Limitations of GRPO"
+          },
+          {
+            "startSec": 4961,
+            "title": "DAPO, Dr. GRPO"
+          },
+          {
+            "startSec": 5117,
+            "title": "On-Policy Distillation (OPD)"
+          },
+          {
+            "startSec": 5972,
+            "title": "Self (OPSD) and Multi-Teacher (OPD) variants"
+          }
+        ],
+        "chapters": 20,
+        "durationSec": 6206,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cme295-2026au-l04",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [
+          {
+            "endSec": 395,
+            "id": "cme295-2026au-l04-s01",
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "endSec": 572,
+            "id": "cme295-2026au-l04-s02",
+            "startSec": 395,
+            "title": "RL setup"
+          },
+          {
+            "endSec": 743,
+            "id": "cme295-2026au-l04-s03",
+            "startSec": 572,
+            "title": "Reward design"
+          },
+          {
+            "endSec": 1032,
+            "id": "cme295-2026au-l04-s04",
+            "startSec": 743,
+            "title": "Policy gradient"
+          },
+          {
+            "endSec": 1430,
+            "id": "cme295-2026au-l04-s05",
+            "startSec": 1032,
+            "title": "Derivation of the gradient"
+          },
+          {
+            "endSec": 1551,
+            "id": "cme295-2026au-l04-s06",
+            "startSec": 1430,
+            "title": "REINFORCE"
+          },
+          {
+            "endSec": 2002,
+            "id": "cme295-2026au-l04-s07",
+            "startSec": 1551,
+            "title": "Importance sampling ratio"
+          },
+          {
+            "endSec": 2434,
+            "id": "cme295-2026au-l04-s08",
+            "startSec": 2002,
+            "title": "Challenges of policy gradients"
+          },
+          {
+            "endSec": 2569,
+            "id": "cme295-2026au-l04-s09",
+            "startSec": 2434,
+            "title": "Proximal Policy Optimization (PPO)"
+          },
+          {
+            "endSec": 3076,
+            "id": "cme295-2026au-l04-s10",
+            "startSec": 2569,
+            "title": "Value function and advantage"
+          },
+          {
+            "endSec": 3183,
+            "id": "cme295-2026au-l04-s11",
+            "startSec": 3076,
+            "title": "Policy ratio"
+          },
+          {
+            "endSec": 3465,
+            "id": "cme295-2026au-l04-s12",
+            "startSec": 3183,
+            "title": "Ratio clipping"
+          },
+          {
+            "endSec": 3588,
+            "id": "cme295-2026au-l04-s13",
+            "startSec": 3465,
+            "title": "KL Penalty"
+          },
+          {
+            "endSec": 4049,
+            "id": "cme295-2026au-l04-s14",
+            "startSec": 3588,
+            "title": "Connection with DPO"
+          },
+          {
+            "endSec": 4182,
+            "id": "cme295-2026au-l04-s15",
+            "startSec": 4049,
+            "title": "Group Relative Policy Optimization (GRPO)"
+          },
+          {
+            "endSec": 4705,
+            "id": "cme295-2026au-l04-s16",
+            "startSec": 4182,
+            "title": "Comparison of GRPO and PPO"
+          },
+          {
+            "endSec": 4961,
+            "id": "cme295-2026au-l04-s17",
+            "startSec": 4705,
+            "title": "Limitations of GRPO"
+          },
+          {
+            "endSec": 5117,
+            "id": "cme295-2026au-l04-s18",
+            "startSec": 4961,
+            "title": "DAPO, Dr. GRPO"
+          },
+          {
+            "endSec": 5972,
+            "id": "cme295-2026au-l04-s19",
+            "startSec": 5117,
+            "title": "On-Policy Distillation (OPD)"
+          },
+          {
+            "endSec": 6206,
+            "id": "cme295-2026au-l04-s20",
+            "startSec": 5972,
+            "title": "Self (OPSD) and Multi-Teacher (OPD) variants"
+          }
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2026 | Lecture 4 - Reinforcement Learning with LLMs",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20261019",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "3Vaj0Oka_t4"
+      },
+      "GaIeu3npx04": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "startSec": 287,
+            "title": "BERT and encoder-only models"
+          },
+          {
+            "startSec": 827,
+            "title": "GPT and decoder-only models"
+          },
+          {
+            "startSec": 970,
+            "title": "Encoder-decoder versus decoder-only"
+          },
+          {
+            "startSec": 1163,
+            "title": "Scaling laws"
+          },
+          {
+            "startSec": 1609,
+            "title": "Large Language Model definition"
+          },
+          {
+            "startSec": 1745,
+            "title": "Mixture of experts (MoE)"
+          },
+          {
+            "startSec": 1991,
+            "title": "MoE-based LLMs"
+          },
+          {
+            "startSec": 2163,
+            "title": "Load balancing loss"
+          },
+          {
+            "startSec": 2736,
+            "title": "Position embeddings"
+          },
+          {
+            "startSec": 3718,
+            "title": "Rotary position embeddings (RoPE)"
+          },
+          {
+            "startSec": 4168,
+            "title": "Sliding Window Attention (SWA)"
+          },
+          {
+            "startSec": 4395,
+            "title": "Group Query Attention (GQA)"
+          },
+          {
+            "startSec": 4693,
+            "title": "Pre-Norm versus Post-Norm"
+          },
+          {
+            "startSec": 4781,
+            "title": "LayerNorm versus RMSNorm"
+          },
+          {
+            "startSec": 4869,
+            "title": "Next token prediction"
+          },
+          {
+            "startSec": 5722,
+            "title": "Prompting"
+          },
+          {
+            "startSec": 5918,
+            "title": "Context rot"
+          },
+          {
+            "startSec": 6102,
+            "title": "Chain of Thought (CoT)"
+          }
+        ],
+        "chapters": 19,
+        "durationSec": 6194,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cme295-2026au-l02",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [
+          {
+            "endSec": 287,
+            "id": "cme295-2026au-l02-s01",
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "endSec": 827,
+            "id": "cme295-2026au-l02-s02",
+            "startSec": 287,
+            "title": "BERT and encoder-only models"
+          },
+          {
+            "endSec": 970,
+            "id": "cme295-2026au-l02-s03",
+            "startSec": 827,
+            "title": "GPT and decoder-only models"
+          },
+          {
+            "endSec": 1163,
+            "id": "cme295-2026au-l02-s04",
+            "startSec": 970,
+            "title": "Encoder-decoder versus decoder-only"
+          },
+          {
+            "endSec": 1609,
+            "id": "cme295-2026au-l02-s05",
+            "startSec": 1163,
+            "title": "Scaling laws"
+          },
+          {
+            "endSec": 1745,
+            "id": "cme295-2026au-l02-s06",
+            "startSec": 1609,
+            "title": "Large Language Model definition"
+          },
+          {
+            "endSec": 1991,
+            "id": "cme295-2026au-l02-s07",
+            "startSec": 1745,
+            "title": "Mixture of experts (MoE)"
+          },
+          {
+            "endSec": 2163,
+            "id": "cme295-2026au-l02-s08",
+            "startSec": 1991,
+            "title": "MoE-based LLMs"
+          },
+          {
+            "endSec": 2736,
+            "id": "cme295-2026au-l02-s09",
+            "startSec": 2163,
+            "title": "Load balancing loss"
+          },
+          {
+            "endSec": 3718,
+            "id": "cme295-2026au-l02-s10",
+            "startSec": 2736,
+            "title": "Position embeddings"
+          },
+          {
+            "endSec": 4168,
+            "id": "cme295-2026au-l02-s11",
+            "startSec": 3718,
+            "title": "Rotary position embeddings (RoPE)"
+          },
+          {
+            "endSec": 4395,
+            "id": "cme295-2026au-l02-s12",
+            "startSec": 4168,
+            "title": "Sliding Window Attention (SWA)"
+          },
+          {
+            "endSec": 4693,
+            "id": "cme295-2026au-l02-s13",
+            "startSec": 4395,
+            "title": "Group Query Attention (GQA)"
+          },
+          {
+            "endSec": 4781,
+            "id": "cme295-2026au-l02-s14",
+            "startSec": 4693,
+            "title": "Pre-Norm versus Post-Norm"
+          },
+          {
+            "endSec": 4869,
+            "id": "cme295-2026au-l02-s15",
+            "startSec": 4781,
+            "title": "LayerNorm versus RMSNorm"
+          },
+          {
+            "endSec": 5722,
+            "id": "cme295-2026au-l02-s16",
+            "startSec": 4869,
+            "title": "Next token prediction"
+          },
+          {
+            "endSec": 5918,
+            "id": "cme295-2026au-l02-s17",
+            "startSec": 5722,
+            "title": "Prompting"
+          },
+          {
+            "endSec": 6102,
+            "id": "cme295-2026au-l02-s18",
+            "startSec": 5918,
+            "title": "Context rot"
+          },
+          {
+            "endSec": 6194,
+            "id": "cme295-2026au-l02-s19",
+            "startSec": 6102,
+            "title": "Chain of Thought (CoT)"
+          }
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2026 | Lecture 2 - Large Language Models",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20261009",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "GaIeu3npx04"
+      },
+      "S3bCDcJhz4s": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "startSec": 216,
+            "title": "Pretraining"
+          },
+          {
+            "startSec": 633,
+            "title": "Cross-entropy loss"
+          },
+          {
+            "startSec": 1035,
+            "title": "Data mixtures"
+          },
+          {
+            "startSec": 1338,
+            "title": "Midtraining"
+          },
+          {
+            "startSec": 1421,
+            "title": "Long context training"
+          },
+          {
+            "startSec": 1907,
+            "title": "Supervised finetuning (SFT)"
+          },
+          {
+            "startSec": 2415,
+            "title": "Low-Rank Adaptation (LoRA)"
+          },
+          {
+            "startSec": 2797,
+            "title": "Preference tuning"
+          },
+          {
+            "startSec": 3284,
+            "title": "Bradley-Terry formulation"
+          },
+          {
+            "startSec": 3709,
+            "title": "Reinforcement Learning from Human Feedback (RLHF)"
+          },
+          {
+            "startSec": 3938,
+            "title": "Direct Preference Preference Optimization (DPO)"
+          },
+          {
+            "startSec": 4328,
+            "title": "Reasoning"
+          },
+          {
+            "startSec": 4856,
+            "title": "Group Relative Policy Optimization (GRPO)"
+          },
+          {
+            "startSec": 5011,
+            "title": "On-Policy Distillation (OPD)"
+          },
+          {
+            "startSec": 5267,
+            "title": "End-to-end example"
+          }
+        ],
+        "chapters": 16,
+        "durationSec": 6271,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cme295-2026au-l03",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [
+          {
+            "endSec": 216,
+            "id": "cme295-2026au-l03-s01",
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "endSec": 633,
+            "id": "cme295-2026au-l03-s02",
+            "startSec": 216,
+            "title": "Pretraining"
+          },
+          {
+            "endSec": 1035,
+            "id": "cme295-2026au-l03-s03",
+            "startSec": 633,
+            "title": "Cross-entropy loss"
+          },
+          {
+            "endSec": 1338,
+            "id": "cme295-2026au-l03-s04",
+            "startSec": 1035,
+            "title": "Data mixtures"
+          },
+          {
+            "endSec": 1421,
+            "id": "cme295-2026au-l03-s05",
+            "startSec": 1338,
+            "title": "Midtraining"
+          },
+          {
+            "endSec": 1907,
+            "id": "cme295-2026au-l03-s06",
+            "startSec": 1421,
+            "title": "Long context training"
+          },
+          {
+            "endSec": 2415,
+            "id": "cme295-2026au-l03-s07",
+            "startSec": 1907,
+            "title": "Supervised finetuning (SFT)"
+          },
+          {
+            "endSec": 2797,
+            "id": "cme295-2026au-l03-s08",
+            "startSec": 2415,
+            "title": "Low-Rank Adaptation (LoRA)"
+          },
+          {
+            "endSec": 3284,
+            "id": "cme295-2026au-l03-s09",
+            "startSec": 2797,
+            "title": "Preference tuning"
+          },
+          {
+            "endSec": 3709,
+            "id": "cme295-2026au-l03-s10",
+            "startSec": 3284,
+            "title": "Bradley-Terry formulation"
+          },
+          {
+            "endSec": 3938,
+            "id": "cme295-2026au-l03-s11",
+            "startSec": 3709,
+            "title": "Reinforcement Learning from Human Feedback (RLHF)"
+          },
+          {
+            "endSec": 4328,
+            "id": "cme295-2026au-l03-s12",
+            "startSec": 3938,
+            "title": "Direct Preference Preference Optimization (DPO)"
+          },
+          {
+            "endSec": 4856,
+            "id": "cme295-2026au-l03-s13",
+            "startSec": 4328,
+            "title": "Reasoning"
+          },
+          {
+            "endSec": 5011,
+            "id": "cme295-2026au-l03-s14",
+            "startSec": 4856,
+            "title": "Group Relative Policy Optimization (GRPO)"
+          },
+          {
+            "endSec": 5267,
+            "id": "cme295-2026au-l03-s15",
+            "startSec": 5011,
+            "title": "On-Policy Distillation (OPD)"
+          },
+          {
+            "endSec": 6271,
+            "id": "cme295-2026au-l03-s16",
+            "startSec": 5267,
+            "title": "End-to-end example"
+          }
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2026 | Lecture 3 - LLM training",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20261015",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "S3bCDcJhz4s"
+      },
+      "nU2a2lm6vDE": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "startSec": 533,
+            "title": "Retrieval-augmented generation (RAG)"
+          },
+          {
+            "startSec": 1032,
+            "title": "Candidate retrieval (bi-encoder, cross-encoder, BM25)"
+          },
+          {
+            "startSec": 1716,
+            "title": "Re-ranking"
+          },
+          {
+            "startSec": 2116,
+            "title": "Retrieval evaluation (NDCG, MRR, precision, recall)"
+          },
+          {
+            "startSec": 2671,
+            "title": "Tool calling"
+          },
+          {
+            "startSec": 4098,
+            "title": "Tool selection"
+          },
+          {
+            "startSec": 4362,
+            "title": "Model context protocol (MCP)"
+          },
+          {
+            "startSec": 4973,
+            "title": "Harness engineering"
+          },
+          {
+            "startSec": 5066,
+            "title": "Reason + Act (ReAct)"
+          },
+          {
+            "startSec": 5342,
+            "title": "Context compaction"
+          },
+          {
+            "startSec": 5460,
+            "title": "Memory"
+          },
+          {
+            "startSec": 5617,
+            "title": "Coding agents"
+          },
+          {
+            "startSec": 5933,
+            "title": "Discussion"
+          }
+        ],
+        "chapters": 14,
+        "durationSec": 6043,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cme295-2026au-l06",
+        "manual": [],
+        "segments": [
+          {
+            "endSec": 533,
+            "id": "cme295-2026au-l06-s01",
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "endSec": 1032,
+            "id": "cme295-2026au-l06-s02",
+            "startSec": 533,
+            "title": "Retrieval-augmented generation (RAG)"
+          },
+          {
+            "endSec": 1716,
+            "id": "cme295-2026au-l06-s03",
+            "startSec": 1032,
+            "title": "Candidate retrieval (bi-encoder, cross-encoder, BM25)"
+          },
+          {
+            "endSec": 2116,
+            "id": "cme295-2026au-l06-s04",
+            "startSec": 1716,
+            "title": "Re-ranking"
+          },
+          {
+            "endSec": 2671,
+            "id": "cme295-2026au-l06-s05",
+            "startSec": 2116,
+            "title": "Retrieval evaluation (NDCG, MRR, precision, recall)"
+          },
+          {
+            "endSec": 4098,
+            "id": "cme295-2026au-l06-s06",
+            "startSec": 2671,
+            "title": "Tool calling"
+          },
+          {
+            "endSec": 4362,
+            "id": "cme295-2026au-l06-s07",
+            "startSec": 4098,
+            "title": "Tool selection"
+          },
+          {
+            "endSec": 4973,
+            "id": "cme295-2026au-l06-s08",
+            "startSec": 4362,
+            "title": "Model context protocol (MCP)"
+          },
+          {
+            "endSec": 5066,
+            "id": "cme295-2026au-l06-s09",
+            "startSec": 4973,
+            "title": "Harness engineering"
+          },
+          {
+            "endSec": 5342,
+            "id": "cme295-2026au-l06-s10",
+            "startSec": 5066,
+            "title": "Reason + Act (ReAct)"
+          },
+          {
+            "endSec": 5460,
+            "id": "cme295-2026au-l06-s11",
+            "startSec": 5342,
+            "title": "Context compaction"
+          },
+          {
+            "endSec": 5617,
+            "id": "cme295-2026au-l06-s12",
+            "startSec": 5460,
+            "title": "Memory"
+          },
+          {
+            "endSec": 5933,
+            "id": "cme295-2026au-l06-s13",
+            "startSec": 5617,
+            "title": "Coding agents"
+          },
+          {
+            "endSec": 6043,
+            "id": "cme295-2026au-l06-s14",
+            "startSec": 5933,
+            "title": "Discussion"
+          }
+        ],
+        "title": "Stanford CME295 Transformers & LLMs | Autumn 2026 | Lecture 6 - AI Agents",
+        "track": [
+          "auto",
+          "en-orig"
+        ],
+        "uploadDate": "20261113",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "nU2a2lm6vDE"
+      }
+    }
+  },
+  "cs153-2026sp": {
+    "checkedAt": "2026-11-15",
+    "order": [
+      "8cAQdELWYuo",
+      "d0Pfu6B7gIM",
+      "F_7M4Hc-usM",
+      "g50FHC-PzK8",
+      "VeTqsCpcDgg",
+      "Lri2LNYtERM",
+      "wisccQYTRQc",
+      "B8NvdfssGac",
+      "BQrJ4lHAjhc",
+      "6nUl_w5W9Wk",
+      "CBaLU0dDEY8",
+      "vfF011ko89o",
+      "O5PfU_uDhS0",
+      "tsQB0n0YV3k"
+    ],
+    "videos": {
+      "6nUl_w5W9Wk": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction to Luma AI"
+          },
+          {
+            "startSec": 177,
+            "title": "Generative modeling vision"
+          },
+          {
+            "startSec": 365,
+            "title": "Learning from video"
+          },
+          {
+            "startSec": 562,
+            "title": "Bootstrapping the flywheel"
+          },
+          {
+            "startSec": 796,
+            "title": "Designing the AI factory"
+          },
+          {
+            "startSec": 1031,
+            "title": "End-to-end production systems"
+          },
+          {
+            "startSec": 1243,
+            "title": "Enterprise deployment challenges"
+          },
+          {
+            "startSec": 1467,
+            "title": "The architecture of intelligence"
+          },
+          {
+            "startSec": 1787,
+            "title": "Future computing frameworks"
+          },
+          {
+            "startSec": 2101,
+            "title": "Business model and growth"
+          },
+          {
+            "startSec": 2307,
+            "title": "Creativity in the AI era"
+          },
+          {
+            "startSec": 2555,
+            "title": "Q&A and closing thoughts"
+          }
+        ],
+        "chapters": 12,
+        "durationSec": 3461,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs153-2026sp-l10",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [
+          {
+            "endSec": 177,
+            "id": "cs153-2026sp-l10-s01",
+            "startSec": 0,
+            "title": "Introduction to Luma AI"
+          },
+          {
+            "endSec": 365,
+            "id": "cs153-2026sp-l10-s02",
+            "startSec": 177,
+            "title": "Generative modeling vision"
+          },
+          {
+            "endSec": 562,
+            "id": "cs153-2026sp-l10-s03",
+            "startSec": 365,
+            "title": "Learning from video"
+          },
+          {
+            "endSec": 796,
+            "id": "cs153-2026sp-l10-s04",
+            "startSec": 562,
+            "title": "Bootstrapping the flywheel"
+          },
+          {
+            "endSec": 1031,
+            "id": "cs153-2026sp-l10-s05",
+            "startSec": 796,
+            "title": "Designing the AI factory"
+          },
+          {
+            "endSec": 1243,
+            "id": "cs153-2026sp-l10-s06",
+            "startSec": 1031,
+            "title": "End-to-end production systems"
+          },
+          {
+            "endSec": 1467,
+            "id": "cs153-2026sp-l10-s07",
+            "startSec": 1243,
+            "title": "Enterprise deployment challenges"
+          },
+          {
+            "endSec": 1787,
+            "id": "cs153-2026sp-l10-s08",
+            "startSec": 1467,
+            "title": "The architecture of intelligence"
+          },
+          {
+            "endSec": 2101,
+            "id": "cs153-2026sp-l10-s09",
+            "startSec": 1787,
+            "title": "Future computing frameworks"
+          },
+          {
+            "endSec": 2307,
+            "id": "cs153-2026sp-l10-s10",
+            "startSec": 2101,
+            "title": "Business model and growth"
+          },
+          {
+            "endSec": 2555,
+            "id": "cs153-2026sp-l10-s11",
+            "startSec": 2307,
+            "title": "Creativity in the AI era"
+          },
+          {
+            "endSec": 3461,
+            "id": "cs153-2026sp-l10-s12",
+            "startSec": 2555,
+            "title": "Q&A and closing thoughts"
+          }
+        ],
+        "title": "Stanford CS153 Frontier Systems | Amit Jain from Luma AI on Unified Intelligence Systems",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260506",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "6nUl_w5W9Wk"
+      },
+      "8cAQdELWYuo": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Founding Periodic Labs"
+          },
+          {
+            "startSec": 178,
+            "title": "The autonomous lab pipeline"
+          },
+          {
+            "startSec": 345,
+            "title": "Material science focus"
+          },
+          {
+            "startSec": 661,
+            "title": "Superconductors explained"
+          },
+          {
+            "startSec": 854,
+            "title": "The Anes AI agent"
+          },
+          {
+            "startSec": 1007,
+            "title": "AI in scientific discovery"
+          },
+          {
+            "startSec": 1312,
+            "title": "Motivation and industry impact"
+          },
+          {
+            "startSec": 1644,
+            "title": "Technical challenges"
+          },
+          {
+            "startSec": 1895,
+            "title": "Q&A on the future of research"
+          }
+        ],
+        "chapters": 9,
+        "durationSec": 2529,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs153-2026sp-l01",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [
+          {
+            "endSec": 178,
+            "id": "cs153-2026sp-l01-s01",
+            "startSec": 0,
+            "title": "Founding Periodic Labs"
+          },
+          {
+            "endSec": 345,
+            "id": "cs153-2026sp-l01-s02",
+            "startSec": 178,
+            "title": "The autonomous lab pipeline"
+          },
+          {
+            "endSec": 661,
+            "id": "cs153-2026sp-l01-s03",
+            "startSec": 345,
+            "title": "Material science focus"
+          },
+          {
+            "endSec": 854,
+            "id": "cs153-2026sp-l01-s04",
+            "startSec": 661,
+            "title": "Superconductors explained"
+          },
+          {
+            "endSec": 1007,
+            "id": "cs153-2026sp-l01-s05",
+            "startSec": 854,
+            "title": "The Anes AI agent"
+          },
+          {
+            "endSec": 1312,
+            "id": "cs153-2026sp-l01-s06",
+            "startSec": 1007,
+            "title": "AI in scientific discovery"
+          },
+          {
+            "endSec": 1644,
+            "id": "cs153-2026sp-l01-s07",
+            "startSec": 1312,
+            "title": "Motivation and industry impact"
+          },
+          {
+            "endSec": 1895,
+            "id": "cs153-2026sp-l01-s08",
+            "startSec": 1644,
+            "title": "Technical challenges"
+          },
+          {
+            "endSec": 2529,
+            "id": "cs153-2026sp-l01-s09",
+            "startSec": 1895,
+            "title": "Q&A on the future of research"
+          }
+        ],
+        "title": "Stanford CS153 Frontier Systems | Teaching AI to Touch Atoms",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260929",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "8cAQdELWYuo"
+      },
+      "B8NvdfssGac": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction and context"
+          },
+          {
+            "startSec": 256,
+            "title": "Founding Andreessen Horowitz"
+          },
+          {
+            "startSec": 451,
+            "title": "Structural and systems design"
+          },
+          {
+            "startSec": 749,
+            "title": "Building network effects"
+          },
+          {
+            "startSec": 927,
+            "title": "Bootstrapping the network"
+          },
+          {
+            "startSec": 1204,
+            "title": "AI impact on venture capital"
+          },
+          {
+            "startSec": 1544,
+            "title": "Identifying good ideas"
+          },
+          {
+            "startSec": 2112,
+            "title": "Cultural initialization"
+          },
+          {
+            "startSec": 2530,
+            "title": "Investment philosophy"
+          },
+          {
+            "startSec": 2901,
+            "title": "Student Q&A session"
+          }
+        ],
+        "chapters": 10,
+        "durationSec": 3977,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs153-2026sp-l08",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [
+          {
+            "endSec": 256,
+            "id": "cs153-2026sp-l08-s01",
+            "startSec": 0,
+            "title": "Introduction and context"
+          },
+          {
+            "endSec": 451,
+            "id": "cs153-2026sp-l08-s02",
+            "startSec": 256,
+            "title": "Founding Andreessen Horowitz"
+          },
+          {
+            "endSec": 749,
+            "id": "cs153-2026sp-l08-s03",
+            "startSec": 451,
+            "title": "Structural and systems design"
+          },
+          {
+            "endSec": 927,
+            "id": "cs153-2026sp-l08-s04",
+            "startSec": 749,
+            "title": "Building network effects"
+          },
+          {
+            "endSec": 1204,
+            "id": "cs153-2026sp-l08-s05",
+            "startSec": 927,
+            "title": "Bootstrapping the network"
+          },
+          {
+            "endSec": 1544,
+            "id": "cs153-2026sp-l08-s06",
+            "startSec": 1204,
+            "title": "AI impact on venture capital"
+          },
+          {
+            "endSec": 2112,
+            "id": "cs153-2026sp-l08-s07",
+            "startSec": 1544,
+            "title": "Identifying good ideas"
+          },
+          {
+            "endSec": 2530,
+            "id": "cs153-2026sp-l08-s08",
+            "startSec": 2112,
+            "title": "Cultural initialization"
+          },
+          {
+            "endSec": 2901,
+            "id": "cs153-2026sp-l08-s09",
+            "startSec": 2530,
+            "title": "Investment philosophy"
+          },
+          {
+            "endSec": 3977,
+            "id": "cs153-2026sp-l08-s10",
+            "startSec": 2901,
+            "title": "Student Q&A session"
+          }
+        ],
+        "title": "Stanford CS153 Frontier Systems | Ben Horowitz from a16z on Venture Capital Systems, Network Effects",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260511",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "B8NvdfssGac"
+      },
+      "BQrJ4lHAjhc": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "The evolution of product"
+          },
+          {
+            "startSec": 90,
+            "title": "Speaker introduction"
+          },
+          {
+            "startSec": 223,
+            "title": "Phases of product management"
+          },
+          {
+            "startSec": 623,
+            "title": "Lessons from Google Hangouts"
+          },
+          {
+            "startSec": 880,
+            "title": "Engineers and AI signals"
+          },
+          {
+            "startSec": 1094,
+            "title": "The concept of Skip"
+          },
+          {
+            "startSec": 1359,
+            "title": "AI impact on product roles"
+          },
+          {
+            "startSec": 1832,
+            "title": "Future of product management"
+          },
+          {
+            "startSec": 2078,
+            "title": "Culture and innovation"
+          },
+          {
+            "startSec": 2468,
+            "title": "Theatrics vs. real building"
+          },
+          {
+            "startSec": 2817,
+            "title": "Advice for students"
+          },
+          {
+            "startSec": 3442,
+            "title": "Career transitions"
+          }
+        ],
+        "chapters": 12,
+        "durationSec": 3794,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs153-2026sp-l09",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [
+          {
+            "endSec": 90,
+            "id": "cs153-2026sp-l09-s01",
+            "startSec": 0,
+            "title": "The evolution of product"
+          },
+          {
+            "endSec": 223,
+            "id": "cs153-2026sp-l09-s02",
+            "startSec": 90,
+            "title": "Speaker introduction"
+          },
+          {
+            "endSec": 623,
+            "id": "cs153-2026sp-l09-s03",
+            "startSec": 223,
+            "title": "Phases of product management"
+          },
+          {
+            "endSec": 880,
+            "id": "cs153-2026sp-l09-s04",
+            "startSec": 623,
+            "title": "Lessons from Google Hangouts"
+          },
+          {
+            "endSec": 1094,
+            "id": "cs153-2026sp-l09-s05",
+            "startSec": 880,
+            "title": "Engineers and AI signals"
+          },
+          {
+            "endSec": 1359,
+            "id": "cs153-2026sp-l09-s06",
+            "startSec": 1094,
+            "title": "The concept of Skip"
+          },
+          {
+            "endSec": 1832,
+            "id": "cs153-2026sp-l09-s07",
+            "startSec": 1359,
+            "title": "AI impact on product roles"
+          },
+          {
+            "endSec": 2078,
+            "id": "cs153-2026sp-l09-s08",
+            "startSec": 1832,
+            "title": "Future of product management"
+          },
+          {
+            "endSec": 2468,
+            "id": "cs153-2026sp-l09-s09",
+            "startSec": 2078,
+            "title": "Culture and innovation"
+          },
+          {
+            "endSec": 2817,
+            "id": "cs153-2026sp-l09-s10",
+            "startSec": 2468,
+            "title": "Theatrics vs. real building"
+          },
+          {
+            "endSec": 3442,
+            "id": "cs153-2026sp-l09-s11",
+            "startSec": 2817,
+            "title": "Advice for students"
+          },
+          {
+            "endSec": 3794,
+            "id": "cs153-2026sp-l09-s12",
+            "startSec": 3442,
+            "title": "Career transitions"
+          }
+        ],
+        "title": "Stanford CS153 Frontier Systems | Nikhyl Singhal from Skip on Product Management in the AI Era",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260507",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "BQrJ4lHAjhc"
+      },
+      "CBaLU0dDEY8": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction to frontier AI"
+          },
+          {
+            "startSec": 269,
+            "title": "Origins of stable diffusion"
+          },
+          {
+            "startSec": 603,
+            "title": "Visual vs language intelligence"
+          },
+          {
+            "startSec": 1111,
+            "title": "Bootstrapping the flux flywheel"
+          },
+          {
+            "startSec": 1453,
+            "title": "Overcoming capability gaps"
+          },
+          {
+            "startSec": 1830,
+            "title": "Future frontiers and actions"
+          },
+          {
+            "startSec": 2250,
+            "title": "Open source and customization"
+          },
+          {
+            "startSec": 2465,
+            "title": "Advancements in self-flow"
+          },
+          {
+            "startSec": 2629,
+            "title": "Q&A and closing reflections"
+          }
+        ],
+        "chapters": 9,
+        "durationSec": 3674,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs153-2026sp-l11",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [
+          {
+            "endSec": 269,
+            "id": "cs153-2026sp-l11-s01",
+            "startSec": 0,
+            "title": "Introduction to frontier AI"
+          },
+          {
+            "endSec": 603,
+            "id": "cs153-2026sp-l11-s02",
+            "startSec": 269,
+            "title": "Origins of stable diffusion"
+          },
+          {
+            "endSec": 1111,
+            "id": "cs153-2026sp-l11-s03",
+            "startSec": 603,
+            "title": "Visual vs language intelligence"
+          },
+          {
+            "endSec": 1453,
+            "id": "cs153-2026sp-l11-s04",
+            "startSec": 1111,
+            "title": "Bootstrapping the flux flywheel"
+          },
+          {
+            "endSec": 1830,
+            "id": "cs153-2026sp-l11-s05",
+            "startSec": 1453,
+            "title": "Overcoming capability gaps"
+          },
+          {
+            "endSec": 2250,
+            "id": "cs153-2026sp-l11-s06",
+            "startSec": 1830,
+            "title": "Future frontiers and actions"
+          },
+          {
+            "endSec": 2465,
+            "id": "cs153-2026sp-l11-s07",
+            "startSec": 2250,
+            "title": "Open source and customization"
+          },
+          {
+            "endSec": 2629,
+            "id": "cs153-2026sp-l11-s08",
+            "startSec": 2465,
+            "title": "Advancements in self-flow"
+          },
+          {
+            "endSec": 3674,
+            "id": "cs153-2026sp-l11-s09",
+            "startSec": 2629,
+            "title": "Q&A and closing reflections"
+          }
+        ],
+        "title": "Stanford CS153 Frontier Systems | Andreas Blattmann from Black Forest Labs on Visual Intelligence",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260504",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "CBaLU0dDEY8"
+      },
+      "F_7M4Hc-usM": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction to startups"
+          },
+          {
+            "startSec": 66,
+            "title": "OpenAI founding story"
+          },
+          {
+            "startSec": 261,
+            "title": "The power of scale"
+          },
+          {
+            "startSec": 576,
+            "title": "Organizational systems"
+          },
+          {
+            "startSec": 718,
+            "title": "Building ChatGPT and Codex"
+          },
+          {
+            "startSec": 1037,
+            "title": "Future AI architectures"
+          },
+          {
+            "startSec": 1275,
+            "title": "Utility models in AI"
+          },
+          {
+            "startSec": 1450,
+            "title": "Frontier research projects"
+          },
+          {
+            "startSec": 1743,
+            "title": "Education and the future"
+          },
+          {
+            "startSec": 2026,
+            "title": "Economic and compute forks"
+          }
+        ],
+        "chapters": 10,
+        "durationSec": 2470,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs153-2026sp-l03",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [
+          {
+            "endSec": 66,
+            "id": "cs153-2026sp-l03-s01",
+            "startSec": 0,
+            "title": "Introduction to startups"
+          },
+          {
+            "endSec": 261,
+            "id": "cs153-2026sp-l03-s02",
+            "startSec": 66,
+            "title": "OpenAI founding story"
+          },
+          {
+            "endSec": 576,
+            "id": "cs153-2026sp-l03-s03",
+            "startSec": 261,
+            "title": "The power of scale"
+          },
+          {
+            "endSec": 718,
+            "id": "cs153-2026sp-l03-s04",
+            "startSec": 576,
+            "title": "Organizational systems"
+          },
+          {
+            "endSec": 1037,
+            "id": "cs153-2026sp-l03-s05",
+            "startSec": 718,
+            "title": "Building ChatGPT and Codex"
+          },
+          {
+            "endSec": 1275,
+            "id": "cs153-2026sp-l03-s06",
+            "startSec": 1037,
+            "title": "Future AI architectures"
+          },
+          {
+            "endSec": 1450,
+            "id": "cs153-2026sp-l03-s07",
+            "startSec": 1275,
+            "title": "Utility models in AI"
+          },
+          {
+            "endSec": 1743,
+            "id": "cs153-2026sp-l03-s08",
+            "startSec": 1450,
+            "title": "Frontier research projects"
+          },
+          {
+            "endSec": 2026,
+            "id": "cs153-2026sp-l03-s09",
+            "startSec": 1743,
+            "title": "Education and the future"
+          },
+          {
+            "endSec": 2470,
+            "id": "cs153-2026sp-l03-s10",
+            "startSec": 2026,
+            "title": "Economic and compute forks"
+          }
+        ],
+        "title": "Stanford CS153 Frontier Systems | Scale, AGI, and the Future of Everything",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260615",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "F_7M4Hc-usM"
+      },
+      "Lri2LNYtERM": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction and context"
+          },
+          {
+            "startSec": 143,
+            "title": "The standardization of capital"
+          },
+          {
+            "startSec": 420,
+            "title": "The AI-native company"
+          },
+          {
+            "startSec": 569,
+            "title": "Building as a 1000x engineer"
+          },
+          {
+            "startSec": 865,
+            "title": "Agentic primitives"
+          },
+          {
+            "startSec": 1133,
+            "title": "Skillify and resolvers"
+          },
+          {
+            "startSec": 1493,
+            "title": "The importance of memory"
+          },
+          {
+            "startSec": 1650,
+            "title": "Operating the agentic company"
+          },
+          {
+            "startSec": 1978,
+            "title": "Production evals and taste"
+          },
+          {
+            "startSec": 2441,
+            "title": "Starting the next unicorn"
+          }
+        ],
+        "chapters": 10,
+        "durationSec": 2834,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs153-2026sp-l06",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [
+          {
+            "endSec": 143,
+            "id": "cs153-2026sp-l06-s01",
+            "startSec": 0,
+            "title": "Introduction and context"
+          },
+          {
+            "endSec": 420,
+            "id": "cs153-2026sp-l06-s02",
+            "startSec": 143,
+            "title": "The standardization of capital"
+          },
+          {
+            "endSec": 569,
+            "id": "cs153-2026sp-l06-s03",
+            "startSec": 420,
+            "title": "The AI-native company"
+          },
+          {
+            "endSec": 865,
+            "id": "cs153-2026sp-l06-s04",
+            "startSec": 569,
+            "title": "Building as a 1000x engineer"
+          },
+          {
+            "endSec": 1133,
+            "id": "cs153-2026sp-l06-s05",
+            "startSec": 865,
+            "title": "Agentic primitives"
+          },
+          {
+            "endSec": 1493,
+            "id": "cs153-2026sp-l06-s06",
+            "startSec": 1133,
+            "title": "Skillify and resolvers"
+          },
+          {
+            "endSec": 1650,
+            "id": "cs153-2026sp-l06-s07",
+            "startSec": 1493,
+            "title": "The importance of memory"
+          },
+          {
+            "endSec": 1978,
+            "id": "cs153-2026sp-l06-s08",
+            "startSec": 1650,
+            "title": "Operating the agentic company"
+          },
+          {
+            "endSec": 2441,
+            "id": "cs153-2026sp-l06-s09",
+            "startSec": 1978,
+            "title": "Production evals and taste"
+          },
+          {
+            "endSec": 2834,
+            "id": "cs153-2026sp-l06-s10",
+            "startSec": 2441,
+            "title": "Starting the next unicorn"
+          }
+        ],
+        "title": "Stanford CS153 Frontier Systems | The AI Native Company: How One Founder Becomes a 1000x Engineer",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260520",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "Lri2LNYtERM"
+      },
+      "O5PfU_uDhS0": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Welcome and life advice"
+          },
+          {
+            "startSec": 159,
+            "title": "Instructor background"
+          },
+          {
+            "startSec": 460,
+            "title": "The great infrastructure shift"
+          },
+          {
+            "startSec": 856,
+            "title": "The industrial AI pipeline"
+          },
+          {
+            "startSec": 1061,
+            "title": "Bottlenecks to AI progress"
+          },
+          {
+            "startSec": 1441,
+            "title": "The importance of context"
+          },
+          {
+            "startSec": 1795,
+            "title": "Sovereign infrastructure"
+          },
+          {
+            "startSec": 2153,
+            "title": "Frontier RL and systems"
+          },
+          {
+            "startSec": 2601,
+            "title": "The compute crunch"
+          },
+          {
+            "startSec": 3057,
+            "title": "Historical cycles of tech"
+          },
+          {
+            "startSec": 3478,
+            "title": "Closing thoughts"
+          }
+        ],
+        "chapters": 11,
+        "durationSec": 3955,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs153-2026sp-l13",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [
+          {
+            "endSec": 159,
+            "id": "cs153-2026sp-l13-s01",
+            "startSec": 0,
+            "title": "Welcome and life advice"
+          },
+          {
+            "endSec": 460,
+            "id": "cs153-2026sp-l13-s02",
+            "startSec": 159,
+            "title": "Instructor background"
+          },
+          {
+            "endSec": 856,
+            "id": "cs153-2026sp-l13-s03",
+            "startSec": 460,
+            "title": "The great infrastructure shift"
+          },
+          {
+            "endSec": 1061,
+            "id": "cs153-2026sp-l13-s04",
+            "startSec": 856,
+            "title": "The industrial AI pipeline"
+          },
+          {
+            "endSec": 1441,
+            "id": "cs153-2026sp-l13-s05",
+            "startSec": 1061,
+            "title": "Bottlenecks to AI progress"
+          },
+          {
+            "endSec": 1795,
+            "id": "cs153-2026sp-l13-s06",
+            "startSec": 1441,
+            "title": "The importance of context"
+          },
+          {
+            "endSec": 2153,
+            "id": "cs153-2026sp-l13-s07",
+            "startSec": 1795,
+            "title": "Sovereign infrastructure"
+          },
+          {
+            "endSec": 2601,
+            "id": "cs153-2026sp-l13-s08",
+            "startSec": 2153,
+            "title": "Frontier RL and systems"
+          },
+          {
+            "endSec": 3057,
+            "id": "cs153-2026sp-l13-s09",
+            "startSec": 2601,
+            "title": "The compute crunch"
+          },
+          {
+            "endSec": 3478,
+            "id": "cs153-2026sp-l13-s10",
+            "startSec": 3057,
+            "title": "Historical cycles of tech"
+          },
+          {
+            "endSec": 3955,
+            "id": "cs153-2026sp-l13-s11",
+            "startSec": 3478,
+            "title": "Closing thoughts"
+          }
+        ],
+        "title": "Stanford CS153 Frontier Systems | Anjney Midha from AMP PBC on Frontier Systems",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260430",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "O5PfU_uDhS0"
+      },
+      "VeTqsCpcDgg": {
+        "autoOrig": true,
+        "chapterList": [],
+        "chapters": 0,
+        "durationSec": 3862,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs153-2026sp-l05",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [],
+        "title": "Stanford CS153 Frontier Systems | The Discipline of Delivering Value per Gigawatt",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260527",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "VeTqsCpcDgg"
+      },
+      "d0Pfu6B7gIM": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "The origins of the OpenAI bet"
+          },
+          {
+            "startSec": 207,
+            "title": "Frontier intelligence vision"
+          },
+          {
+            "startSec": 658,
+            "title": "Enterprise agents and security"
+          },
+          {
+            "startSec": 885,
+            "title": "Hardware and new form factors"
+          },
+          {
+            "startSec": 1208,
+            "title": "AI's societal impact"
+          },
+          {
+            "startSec": 1372,
+            "title": "Computing architecture design"
+          },
+          {
+            "startSec": 1672,
+            "title": "Quantum computing roadmap"
+          },
+          {
+            "startSec": 1956,
+            "title": "Corporate culture and growth"
+          },
+          {
+            "startSec": 2228,
+            "title": "Advice for students"
+          },
+          {
+            "startSec": 2734,
+            "title": "Future interfaces and models"
+          }
+        ],
+        "chapters": 10,
+        "durationSec": 3438,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs153-2026sp-l02",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [
+          {
+            "endSec": 207,
+            "id": "cs153-2026sp-l02-s01",
+            "startSec": 0,
+            "title": "The origins of the OpenAI bet"
+          },
+          {
+            "endSec": 658,
+            "id": "cs153-2026sp-l02-s02",
+            "startSec": 207,
+            "title": "Frontier intelligence vision"
+          },
+          {
+            "endSec": 885,
+            "id": "cs153-2026sp-l02-s03",
+            "startSec": 658,
+            "title": "Enterprise agents and security"
+          },
+          {
+            "endSec": 1208,
+            "id": "cs153-2026sp-l02-s04",
+            "startSec": 885,
+            "title": "Hardware and new form factors"
+          },
+          {
+            "endSec": 1372,
+            "id": "cs153-2026sp-l02-s05",
+            "startSec": 1208,
+            "title": "AI's societal impact"
+          },
+          {
+            "endSec": 1672,
+            "id": "cs153-2026sp-l02-s06",
+            "startSec": 1372,
+            "title": "Computing architecture design"
+          },
+          {
+            "endSec": 1956,
+            "id": "cs153-2026sp-l02-s07",
+            "startSec": 1672,
+            "title": "Quantum computing roadmap"
+          },
+          {
+            "endSec": 2228,
+            "id": "cs153-2026sp-l02-s08",
+            "startSec": 1956,
+            "title": "Corporate culture and growth"
+          },
+          {
+            "endSec": 2734,
+            "id": "cs153-2026sp-l02-s09",
+            "startSec": 2228,
+            "title": "Advice for students"
+          },
+          {
+            "endSec": 3438,
+            "id": "cs153-2026sp-l02-s10",
+            "startSec": 2734,
+            "title": "Future interfaces and models"
+          }
+        ],
+        "title": "Stanford CS153 Frontier Systems | Building the Frontier Ecosystem",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260629",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "d0Pfu6B7gIM"
+      },
+      "g50FHC-PzK8": {
+        "autoOrig": true,
+        "chapterList": [],
+        "chapters": 0,
+        "durationSec": 3918,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs153-2026sp-l04",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [],
+        "title": "Stanford CS153 Frontier Systems | The Road Ahead: Resilience Required",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260528",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "g50FHC-PzK8"
+      },
+      "tsQB0n0YV3k": {
+        "unavailable": "Private video",
+        "videoId": "tsQB0n0YV3k"
+      },
+      "vfF011ko89o": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Founding ElevenLabs"
+          },
+          {
+            "startSec": 299,
+            "title": "Voice AI product journey"
+          },
+          {
+            "startSec": 656,
+            "title": "Developing the technology"
+          },
+          {
+            "startSec": 965,
+            "title": "Timeline of audio evolution"
+          },
+          {
+            "startSec": 1320,
+            "title": "Cascaded vs. fused systems"
+          },
+          {
+            "startSec": 1843,
+            "title": "Industry collaboration"
+          },
+          {
+            "startSec": 2125,
+            "title": "Building the business"
+          },
+          {
+            "startSec": 2555,
+            "title": "Safety, security, and future"
+          },
+          {
+            "startSec": 3072,
+            "title": "Real-world impact and scaling"
+          }
+        ],
+        "chapters": 9,
+        "durationSec": 3986,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs153-2026sp-l12",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [
+          {
+            "endSec": 299,
+            "id": "cs153-2026sp-l12-s01",
+            "startSec": 0,
+            "title": "Founding ElevenLabs"
+          },
+          {
+            "endSec": 656,
+            "id": "cs153-2026sp-l12-s02",
+            "startSec": 299,
+            "title": "Voice AI product journey"
+          },
+          {
+            "endSec": 965,
+            "id": "cs153-2026sp-l12-s03",
+            "startSec": 656,
+            "title": "Developing the technology"
+          },
+          {
+            "endSec": 1320,
+            "id": "cs153-2026sp-l12-s04",
+            "startSec": 965,
+            "title": "Timeline of audio evolution"
+          },
+          {
+            "endSec": 1843,
+            "id": "cs153-2026sp-l12-s05",
+            "startSec": 1320,
+            "title": "Cascaded vs. fused systems"
+          },
+          {
+            "endSec": 2125,
+            "id": "cs153-2026sp-l12-s06",
+            "startSec": 1843,
+            "title": "Industry collaboration"
+          },
+          {
+            "endSec": 2555,
+            "id": "cs153-2026sp-l12-s07",
+            "startSec": 2125,
+            "title": "Building the business"
+          },
+          {
+            "endSec": 3072,
+            "id": "cs153-2026sp-l12-s08",
+            "startSec": 2555,
+            "title": "Safety, security, and future"
+          },
+          {
+            "endSec": 3986,
+            "id": "cs153-2026sp-l12-s09",
+            "startSec": 3072,
+            "title": "Real-world impact and scaling"
+          }
+        ],
+        "title": "Stanford CS153 Frontier Systems | Mati Staniszewski from ElevenLabs on The Future of Voice Systems",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260504",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "vfF011ko89o"
+      },
+      "wisccQYTRQc": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "The AI factory context"
+          },
+          {
+            "startSec": 70,
+            "title": "The energy bottleneck"
+          },
+          {
+            "startSec": 454,
+            "title": "Introduction to Scott Nolan"
+          },
+          {
+            "startSec": 561,
+            "title": "Industry leaders on energy"
+          },
+          {
+            "startSec": 808,
+            "title": "The path to nuclear power"
+          },
+          {
+            "startSec": 1115,
+            "title": "Uranium enrichment strategy"
+          },
+          {
+            "startSec": 1315,
+            "title": "Framework for solving problems"
+          },
+          {
+            "startSec": 1920,
+            "title": "Building General Matter"
+          },
+          {
+            "startSec": 2243,
+            "title": "Jobs and AI impact"
+          },
+          {
+            "startSec": 2556,
+            "title": "Scaling and lessons from SpaceX"
+          },
+          {
+            "startSec": 3033,
+            "title": "Nuclear supply chain and future"
+          }
+        ],
+        "chapters": 11,
+        "durationSec": 3627,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs153-2026sp-l07",
+        "manual": [
+          "en-US"
+        ],
+        "segments": [
+          {
+            "endSec": 70,
+            "id": "cs153-2026sp-l07-s01",
+            "startSec": 0,
+            "title": "The AI factory context"
+          },
+          {
+            "endSec": 454,
+            "id": "cs153-2026sp-l07-s02",
+            "startSec": 70,
+            "title": "The energy bottleneck"
+          },
+          {
+            "endSec": 561,
+            "id": "cs153-2026sp-l07-s03",
+            "startSec": 454,
+            "title": "Introduction to Scott Nolan"
+          },
+          {
+            "endSec": 808,
+            "id": "cs153-2026sp-l07-s04",
+            "startSec": 561,
+            "title": "Industry leaders on energy"
+          },
+          {
+            "endSec": 1115,
+            "id": "cs153-2026sp-l07-s05",
+            "startSec": 808,
+            "title": "The path to nuclear power"
+          },
+          {
+            "endSec": 1315,
+            "id": "cs153-2026sp-l07-s06",
+            "startSec": 1115,
+            "title": "Uranium enrichment strategy"
+          },
+          {
+            "endSec": 1920,
+            "id": "cs153-2026sp-l07-s07",
+            "startSec": 1315,
+            "title": "Framework for solving problems"
+          },
+          {
+            "endSec": 2243,
+            "id": "cs153-2026sp-l07-s08",
+            "startSec": 1920,
+            "title": "Building General Matter"
+          },
+          {
+            "endSec": 2556,
+            "id": "cs153-2026sp-l07-s09",
+            "startSec": 2243,
+            "title": "Jobs and AI impact"
+          },
+          {
+            "endSec": 3033,
+            "id": "cs153-2026sp-l07-s10",
+            "startSec": 2556,
+            "title": "Scaling and lessons from SpaceX"
+          },
+          {
+            "endSec": 3627,
+            "id": "cs153-2026sp-l07-s11",
+            "startSec": 3033,
+            "title": "Nuclear supply chain and future"
+          }
+        ],
+        "title": "Stanford CS153 Frontier Systems | Scott Nolan from General Matter on Energy Bottlenecks",
+        "track": [
+          "manual",
+          "en-US"
+        ],
+        "uploadDate": "20260512",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "wisccQYTRQc"
+      }
+    }
+  },
+  "cs329a-2025au": {
+    "checkedAt": "2026-11-15",
+    "order": [
+      "6YnLB0XbTnI",
+      "-Ggc37xLj_Y",
+      "p7TdPUcPoik",
+      "Lxh9RF5S-K0",
+      "Ml_fp9XkB8Y",
+      "yVnmHSAy3ck",
+      "Uni9dqyuuDM",
+      "8JAqLnTaZu4",
+      "AyO6wyu4DEg"
+    ],
+    "videos": {
+      "-Ggc37xLj_Y": {
+        "autoOrig": true,
+        "chapterList": [],
+        "chapters": 0,
+        "durationSec": 3800,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs329a-2025au-l02",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 2 | Test-Time Compute Scaling",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "-Ggc37xLj_Y"
+      },
+      "6YnLB0XbTnI": {
+        "autoOrig": true,
+        "chapterList": [],
+        "chapters": 0,
+        "durationSec": 4182,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs329a-2025au-l01",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 1 | Course Overview",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "6YnLB0XbTnI"
+      },
+      "8JAqLnTaZu4": {
+        "autoOrig": true,
+        "chapterList": [],
+        "chapters": 0,
+        "durationSec": 4517,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs329a-2025au-l08",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 8 | Agentic Evaluations and Long Horizon Tasks",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "8JAqLnTaZu4"
+      },
+      "AyO6wyu4DEg": {
+        "autoOrig": true,
+        "chapterList": [],
+        "chapters": 0,
+        "durationSec": 4062,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs329a-2025au-l09",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 9 | Future Research Areas",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "AyO6wyu4DEg"
+      },
+      "Lxh9RF5S-K0": {
+        "autoOrig": true,
+        "chapterList": [],
+        "chapters": 0,
+        "durationSec": 4273,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs329a-2025au-l04",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 4 | Learning from Feedback with Tools/Code",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "Lxh9RF5S-K0"
+      },
+      "Ml_fp9XkB8Y": {
+        "autoOrig": true,
+        "chapterList": [],
+        "chapters": 0,
+        "durationSec": 4495,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs329a-2025au-l05",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 5 | Planning and Multi-Step Reasoning",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "Ml_fp9XkB8Y"
+      },
+      "Uni9dqyuuDM": {
+        "autoOrig": true,
+        "chapterList": [],
+        "chapters": 0,
+        "durationSec": 4346,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs329a-2025au-l07",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 7 | Self-Improvement and Deep Research Agents",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "Uni9dqyuuDM"
+      },
+      "p7TdPUcPoik": {
+        "autoOrig": true,
+        "chapterList": [],
+        "chapters": 0,
+        "durationSec": 4378,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs329a-2025au-l03",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 3 | Robust Verification",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "p7TdPUcPoik"
+      },
+      "yVnmHSAy3ck": {
+        "autoOrig": true,
+        "chapterList": [],
+        "chapters": 0,
+        "durationSec": 4358,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs329a-2025au-l06",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [],
+        "title": "Stanford CS329A Self-Improving AI Agents | Part 6 | Train Time Scaling/Scaling RL",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20260803",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "yVnmHSAy3ck"
+      }
+    }
+  },
+  "cs329z-2026au": {
+    "checkedAt": "2026-11-15",
+    "order": [
+      "JC_pLC5EX_w",
+      "q0Q-Hy8TTps",
+      "s0S38lz6O7M",
+      "psLc-46GqY0",
+      "Vr1NzH8bT44",
+      "DGI4vucR71w",
+      "qh5tP6PBZ6U",
+      "TlX_ft_PQIM",
+      "e_m99aR7_3Q",
+      "7GW-9ug2nvw",
+      "HbgZFwWj4vY",
+      "y2cwbmOy12U"
+    ],
+    "videos": {
+      "7GW-9ug2nvw": {
+        "unavailable": "Private video",
+        "videoId": "7GW-9ug2nvw"
+      },
+      "DGI4vucR71w": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Welcome & instructor introductions"
+          },
+          {
+            "startSec": 78,
+            "title": "Course overview & logistics"
+          },
+          {
+            "startSec": 460,
+            "title": "A short history of AI agents"
+          },
+          {
+            "startSec": 840,
+            "title": "ReAct, BabyAGI & AutoGPT: the agent boom"
+          },
+          {
+            "startSec": 1146,
+            "title": "Q&A: Will model capabilities saturate?"
+          },
+          {
+            "startSec": 1325,
+            "title": "Anatomy of an LLM agent"
+          },
+          {
+            "startSec": 1699,
+            "title": "Planning & reasoning: CoT, ReAct, Reflexion"
+          },
+          {
+            "startSec": 2212,
+            "title": "Q&A: ReAct vs. chain of thought"
+          },
+          {
+            "startSec": 2439,
+            "title": "Multi-agent debate & orchestration"
+          },
+          {
+            "startSec": 2592,
+            "title": "Agent memory: episodic, semantic, procedural"
+          },
+          {
+            "startSec": 2790,
+            "title": "Tool use: Toolformer & Gorilla"
+          },
+          {
+            "startSec": 3211,
+            "title": "Compound AI systems: workflows vs. agents"
+          },
+          {
+            "startSec": 3521,
+            "title": "Tool calls & Model Context Protocol (MCP)"
+          },
+          {
+            "startSec": 3665,
+            "title": "Key challenges: reliability, safety & privacy"
+          }
+        ],
+        "chapters": 14,
+        "durationSec": 4176,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs329z-2026au-l01",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [
+          {
+            "endSec": 78,
+            "id": "cs329z-2026au-l01-s01",
+            "startSec": 0,
+            "title": "Welcome & instructor introductions"
+          },
+          {
+            "endSec": 460,
+            "id": "cs329z-2026au-l01-s02",
+            "startSec": 78,
+            "title": "Course overview & logistics"
+          },
+          {
+            "endSec": 840,
+            "id": "cs329z-2026au-l01-s03",
+            "startSec": 460,
+            "title": "A short history of AI agents"
+          },
+          {
+            "endSec": 1146,
+            "id": "cs329z-2026au-l01-s04",
+            "startSec": 840,
+            "title": "ReAct, BabyAGI & AutoGPT: the agent boom"
+          },
+          {
+            "endSec": 1325,
+            "id": "cs329z-2026au-l01-s05",
+            "startSec": 1146,
+            "title": "Q&A: Will model capabilities saturate?"
+          },
+          {
+            "endSec": 1699,
+            "id": "cs329z-2026au-l01-s06",
+            "startSec": 1325,
+            "title": "Anatomy of an LLM agent"
+          },
+          {
+            "endSec": 2212,
+            "id": "cs329z-2026au-l01-s07",
+            "startSec": 1699,
+            "title": "Planning & reasoning: CoT, ReAct, Reflexion"
+          },
+          {
+            "endSec": 2439,
+            "id": "cs329z-2026au-l01-s08",
+            "startSec": 2212,
+            "title": "Q&A: ReAct vs. chain of thought"
+          },
+          {
+            "endSec": 2592,
+            "id": "cs329z-2026au-l01-s09",
+            "startSec": 2439,
+            "title": "Multi-agent debate & orchestration"
+          },
+          {
+            "endSec": 2790,
+            "id": "cs329z-2026au-l01-s10",
+            "startSec": 2592,
+            "title": "Agent memory: episodic, semantic, procedural"
+          },
+          {
+            "endSec": 3211,
+            "id": "cs329z-2026au-l01-s11",
+            "startSec": 2790,
+            "title": "Tool use: Toolformer & Gorilla"
+          },
+          {
+            "endSec": 3521,
+            "id": "cs329z-2026au-l01-s12",
+            "startSec": 3211,
+            "title": "Compound AI systems: workflows vs. agents"
+          },
+          {
+            "endSec": 3665,
+            "id": "cs329z-2026au-l01-s13",
+            "startSec": 3521,
+            "title": "Tool calls & Model Context Protocol (MCP)"
+          },
+          {
+            "endSec": 4176,
+            "id": "cs329z-2026au-l01-s14",
+            "startSec": 3665,
+            "title": "Key challenges: reliability, safety & privacy"
+          }
+        ],
+        "title": "What Are AI Agents? Agentic Systems Explained | Stanford CS329Z Lecture 1 with Diyi Yang",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20261109",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "DGI4vucR71w"
+      },
+      "HbgZFwWj4vY": {
+        "unavailable": "Private video",
+        "videoId": "HbgZFwWj4vY"
+      },
+      "JC_pLC5EX_w": {
+        "autoOrig": true,
+        "chapterList": [],
+        "chapters": 0,
+        "durationSec": 4611,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs329z-2026au-l06",
+        "manual": [],
+        "segments": [],
+        "title": "AI Agent Design Patterns: ReAct, CodeAct & More | Stanford CS329Z Lecture 6 with Michael Ryan",
+        "track": [
+          "auto",
+          "en-orig"
+        ],
+        "uploadDate": "20261114",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "JC_pLC5EX_w"
+      },
+      "TlX_ft_PQIM": {
+        "unavailable": "Private video",
+        "videoId": "TlX_ft_PQIM"
+      },
+      "Vr1NzH8bT44": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction: the LLM stack"
+          },
+          {
+            "startSec": 237,
+            "title": "What is a language model?"
+          },
+          {
+            "startSec": 466,
+            "title": "Sampling: greedy, top-p, top-k & temperature"
+          },
+          {
+            "startSec": 963,
+            "title": "Transformer architecture & self-attention"
+          },
+          {
+            "startSec": 1707,
+            "title": "Attention vs. recurrence & linear attention"
+          },
+          {
+            "startSec": 2161,
+            "title": "Pretraining & mid-training"
+          },
+          {
+            "startSec": 2661,
+            "title": "Post-training: SFT, RLHF & RLVR"
+          },
+          {
+            "startSec": 2853,
+            "title": "Training LLMs for coding agents"
+          },
+          {
+            "startSec": 2951,
+            "title": "Q&A: long-horizon data"
+          },
+          {
+            "startSec": 3150,
+            "title": "Inference: prefill, decode & KV cache"
+          },
+          {
+            "startSec": 3596,
+            "title": "Reasoning models & test-time scaling"
+          },
+          {
+            "startSec": 3898,
+            "title": "Structured outputs & constrained decoding"
+          },
+          {
+            "startSec": 4212,
+            "title": "Context engineering & context rot"
+          },
+          {
+            "startSec": 4563,
+            "title": "Recursive language models"
+          }
+        ],
+        "chapters": 14,
+        "durationSec": 4673,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs329z-2026au-l02",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [
+          {
+            "endSec": 237,
+            "id": "cs329z-2026au-l02-s01",
+            "startSec": 0,
+            "title": "Introduction: the LLM stack"
+          },
+          {
+            "endSec": 466,
+            "id": "cs329z-2026au-l02-s02",
+            "startSec": 237,
+            "title": "What is a language model?"
+          },
+          {
+            "endSec": 963,
+            "id": "cs329z-2026au-l02-s03",
+            "startSec": 466,
+            "title": "Sampling: greedy, top-p, top-k & temperature"
+          },
+          {
+            "endSec": 1707,
+            "id": "cs329z-2026au-l02-s04",
+            "startSec": 963,
+            "title": "Transformer architecture & self-attention"
+          },
+          {
+            "endSec": 2161,
+            "id": "cs329z-2026au-l02-s05",
+            "startSec": 1707,
+            "title": "Attention vs. recurrence & linear attention"
+          },
+          {
+            "endSec": 2661,
+            "id": "cs329z-2026au-l02-s06",
+            "startSec": 2161,
+            "title": "Pretraining & mid-training"
+          },
+          {
+            "endSec": 2853,
+            "id": "cs329z-2026au-l02-s07",
+            "startSec": 2661,
+            "title": "Post-training: SFT, RLHF & RLVR"
+          },
+          {
+            "endSec": 2951,
+            "id": "cs329z-2026au-l02-s08",
+            "startSec": 2853,
+            "title": "Training LLMs for coding agents"
+          },
+          {
+            "endSec": 3150,
+            "id": "cs329z-2026au-l02-s09",
+            "startSec": 2951,
+            "title": "Q&A: long-horizon data"
+          },
+          {
+            "endSec": 3596,
+            "id": "cs329z-2026au-l02-s10",
+            "startSec": 3150,
+            "title": "Inference: prefill, decode & KV cache"
+          },
+          {
+            "endSec": 3898,
+            "id": "cs329z-2026au-l02-s11",
+            "startSec": 3596,
+            "title": "Reasoning models & test-time scaling"
+          },
+          {
+            "endSec": 4212,
+            "id": "cs329z-2026au-l02-s12",
+            "startSec": 3898,
+            "title": "Structured outputs & constrained decoding"
+          },
+          {
+            "endSec": 4563,
+            "id": "cs329z-2026au-l02-s13",
+            "startSec": 4212,
+            "title": "Context engineering & context rot"
+          },
+          {
+            "endSec": 4673,
+            "id": "cs329z-2026au-l02-s14",
+            "startSec": 4563,
+            "title": "Recursive language models"
+          }
+        ],
+        "title": "LLMs for Agent Builders: Context Engineering | Stanford CS329Z Lecture 2 with Michael Ryan",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20261110",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "Vr1NzH8bT44"
+      },
+      "e_m99aR7_3Q": {
+        "unavailable": "Private video",
+        "videoId": "e_m99aR7_3Q"
+      },
+      "psLc-46GqY0": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction & course project guidelines"
+          },
+          {
+            "startSec": 353,
+            "title": "Why RAG? Grounding answers in evidence"
+          },
+          {
+            "startSec": 535,
+            "title": "From retriever-reader QA to RAG"
+          },
+          {
+            "startSec": 1222,
+            "title": "Q&A: do frontier models still need RAG?"
+          },
+          {
+            "startSec": 1408,
+            "title": "Indexing: embeddings & chunking strategies"
+          },
+          {
+            "startSec": 1765,
+            "title": "Contextual retrieval & late chunking"
+          },
+          {
+            "startSec": 2187,
+            "title": "Hierarchical & graph RAG: RAPTOR, GraphRAG"
+          },
+          {
+            "startSec": 2425,
+            "title": "Q&A: GraphRAG & compounding errors"
+          },
+          {
+            "startSec": 2714,
+            "title": "Vector search: ANN & HNSW"
+          },
+          {
+            "startSec": 2922,
+            "title": "BM25 vs. dense retrieval (DPR)"
+          },
+          {
+            "startSec": 3342,
+            "title": "Retrieval metrics & hybrid search"
+          },
+          {
+            "startSec": 3754,
+            "title": "Bi-encoders, cross-encoders & ColBERT"
+          },
+          {
+            "startSec": 4098,
+            "title": "Agentic RAG: Self-RAG, CRAG, Search-R1"
+          },
+          {
+            "startSec": 4469,
+            "title": "RAG failure modes"
+          }
+        ],
+        "chapters": 14,
+        "durationSec": 4591,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs329z-2026au-l03",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [
+          {
+            "endSec": 353,
+            "id": "cs329z-2026au-l03-s01",
+            "startSec": 0,
+            "title": "Introduction & course project guidelines"
+          },
+          {
+            "endSec": 535,
+            "id": "cs329z-2026au-l03-s02",
+            "startSec": 353,
+            "title": "Why RAG? Grounding answers in evidence"
+          },
+          {
+            "endSec": 1222,
+            "id": "cs329z-2026au-l03-s03",
+            "startSec": 535,
+            "title": "From retriever-reader QA to RAG"
+          },
+          {
+            "endSec": 1408,
+            "id": "cs329z-2026au-l03-s04",
+            "startSec": 1222,
+            "title": "Q&A: do frontier models still need RAG?"
+          },
+          {
+            "endSec": 1765,
+            "id": "cs329z-2026au-l03-s05",
+            "startSec": 1408,
+            "title": "Indexing: embeddings & chunking strategies"
+          },
+          {
+            "endSec": 2187,
+            "id": "cs329z-2026au-l03-s06",
+            "startSec": 1765,
+            "title": "Contextual retrieval & late chunking"
+          },
+          {
+            "endSec": 2425,
+            "id": "cs329z-2026au-l03-s07",
+            "startSec": 2187,
+            "title": "Hierarchical & graph RAG: RAPTOR, GraphRAG"
+          },
+          {
+            "endSec": 2714,
+            "id": "cs329z-2026au-l03-s08",
+            "startSec": 2425,
+            "title": "Q&A: GraphRAG & compounding errors"
+          },
+          {
+            "endSec": 2922,
+            "id": "cs329z-2026au-l03-s09",
+            "startSec": 2714,
+            "title": "Vector search: ANN & HNSW"
+          },
+          {
+            "endSec": 3342,
+            "id": "cs329z-2026au-l03-s10",
+            "startSec": 2922,
+            "title": "BM25 vs. dense retrieval (DPR)"
+          },
+          {
+            "endSec": 3754,
+            "id": "cs329z-2026au-l03-s11",
+            "startSec": 3342,
+            "title": "Retrieval metrics & hybrid search"
+          },
+          {
+            "endSec": 4098,
+            "id": "cs329z-2026au-l03-s12",
+            "startSec": 3754,
+            "title": "Bi-encoders, cross-encoders & ColBERT"
+          },
+          {
+            "endSec": 4469,
+            "id": "cs329z-2026au-l03-s13",
+            "startSec": 4098,
+            "title": "Agentic RAG: Self-RAG, CRAG, Search-R1"
+          },
+          {
+            "endSec": 4591,
+            "id": "cs329z-2026au-l03-s14",
+            "startSec": 4469,
+            "title": "RAG failure modes"
+          }
+        ],
+        "title": "RAG Explained: From BM25 to Agentic RAG | Stanford CS329Z Lecture 3 with Diyi Yang",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20261111",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "psLc-46GqY0"
+      },
+      "q0Q-Hy8TTps": {
+        "autoOrig": true,
+        "chapterList": [],
+        "chapters": 0,
+        "durationSec": 4634,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "cs329z-2026au-l05",
+        "manual": [],
+        "segments": [],
+        "title": "DSPy vs. LangGraph: AI Agent Frameworks Explained | Stanford CS329Z Lecture 5 with Michael Ryan",
+        "track": [
+          "auto",
+          "en-orig"
+        ],
+        "uploadDate": "20261113",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "q0Q-Hy8TTps"
+      },
+      "qh5tP6PBZ6U": {
+        "unavailable": "Private video",
+        "videoId": "qh5tP6PBZ6U"
+      },
+      "s0S38lz6O7M": {
+        "autoOrig": true,
+        "chapterList": [],
+        "chapters": 0,
+        "durationSec": 4755,
+        "hasCaptions": true,
+        "language": "en-US",
+        "lectureId": "cs329z-2026au-l04",
+        "manual": [
+          "en-j3PyPqV-e1s"
+        ],
+        "segments": [],
+        "title": "How AI Agents Use Tools: Function Calling & MCP | Stanford CS329Z Lecture 4 with Diyi Yang",
+        "track": [
+          "manual",
+          "en-j3PyPqV-e1s"
+        ],
+        "uploadDate": "20261112",
+        "uploader": "Stanford Online",
+        "uploaderOk": true,
+        "videoId": "s0S38lz6O7M"
+      },
+      "y2cwbmOy12U": {
+        "unavailable": "Private video",
+        "videoId": "y2cwbmOy12U"
+      }
+    }
+  },
+  "ibm-ai-agents": {
+    "checkedAt": "2026-11-15",
+    "order": [
+      "hvnPWgfmvyI",
+      "rXFV1ivDe6c",
+      "EkdIZXDnRK8",
+      "4LINhsEZEDI",
+      "BwXremQ-i6I",
+      "hTAWHgQI4xg",
+      "F3hlZSZc6UI",
+      "jRMbbRdju7Q",
+      "X4FVEEegCbk",
+      "nVImVgKpoOY",
+      "i1ZmNUbRGD4",
+      "BHGTA6ZEls4",
+      "qYNs80FKIVc",
+      "bNRhppHct54",
+      "goU9VIXA8II",
+      "k5jYwyhDMxA",
+      "fCHe_fOqlYA",
+      "PjrXaC5UsIw",
+      "kYkZI3oj2W4",
+      "BacJ6sEhqMo"
+    ],
+    "videos": {
+      "4LINhsEZEDI": {
+        "unavailable": "Private video",
+        "videoId": "4LINhsEZEDI"
+      },
+      "BHGTA6ZEls4": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Direct connection pattern"
+          },
+          {
+            "startSec": 144,
+            "title": "Adding OAuth flows"
+          },
+          {
+            "startSec": 318,
+            "title": "Model Context Protocol"
+          },
+          {
+            "startSec": 414,
+            "title": "Token exchange delegation"
+          },
+          {
+            "startSec": 573,
+            "title": "Vault-based security"
+          }
+        ],
+        "chapters": 5,
+        "durationSec": 688,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l11",
+        "manual": [
+          "en"
+        ],
+        "segments": [
+          {
+            "endSec": 144,
+            "id": "ibm-ai-agents-l11-s01",
+            "startSec": 0,
+            "title": "Direct connection pattern"
+          },
+          {
+            "endSec": 318,
+            "id": "ibm-ai-agents-l11-s02",
+            "startSec": 144,
+            "title": "Adding OAuth flows"
+          },
+          {
+            "endSec": 414,
+            "id": "ibm-ai-agents-l11-s03",
+            "startSec": 318,
+            "title": "Model Context Protocol"
+          },
+          {
+            "endSec": 573,
+            "id": "ibm-ai-agents-l11-s04",
+            "startSec": 414,
+            "title": "Token exchange delegation"
+          },
+          {
+            "endSec": 688,
+            "id": "ibm-ai-agents-l11-s05",
+            "startSec": 573,
+            "title": "Vault-based security"
+          }
+        ],
+        "title": "5 Ways to Connect AI Agents to Tools: From APIs to MCP",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260816",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "BHGTA6ZEls4"
+      },
+      "BacJ6sEhqMo": {
+        "autoOrig": true,
+        "chapterList": [],
+        "chapters": 0,
+        "durationSec": 640,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l19",
+        "manual": [
+          "en"
+        ],
+        "segments": [],
+        "title": "The Four Types of Memory Every AI Agent Needs",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260526",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "BacJ6sEhqMo"
+      },
+      "BwXremQ-i6I": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Bigger Context Windows, Better AI Agents? Not So Fast"
+          },
+          {
+            "startSec": 45,
+            "title": "Context Rot: Why AI Models Become Less Reliable Over Time"
+          },
+          {
+            "startSec": 65,
+            "title": "What Is Context Engineering and Why Does It Matter?"
+          },
+          {
+            "startSec": 110,
+            "title": "Inside an AI Agent’s Context Window: What’s Taking Up Space?"
+          },
+          {
+            "startSec": 275,
+            "title": "Context Poisoning: When Bad Information Becomes ‘Truth’"
+          },
+          {
+            "startSec": 320,
+            "title": "Context Distraction: How Long Histories Derail Agent Performance"
+          },
+          {
+            "startSec": 363,
+            "title": "Context Confusion: Why Too Many Tools Hurt AI Accuracy"
+          },
+          {
+            "startSec": 415,
+            "title": "Context Clash: When Conflicting Information Breaks Reasoning"
+          },
+          {
+            "startSec": 452,
+            "title": "4 Context Engineering Fixes: Validate, Compact, Curate & Prune"
+          },
+          {
+            "startSec": 590,
+            "title": "The Key Lesson: Why AI Agents Often Perform Better with Less Context"
+          }
+        ],
+        "chapters": 10,
+        "durationSec": 620,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l04",
+        "manual": [
+          "en"
+        ],
+        "segments": [
+          {
+            "endSec": 45,
+            "id": "ibm-ai-agents-l04-s01",
+            "startSec": 0,
+            "title": "Bigger Context Windows, Better AI Agents? Not So Fast"
+          },
+          {
+            "endSec": 65,
+            "id": "ibm-ai-agents-l04-s02",
+            "startSec": 45,
+            "title": "Context Rot: Why AI Models Become Less Reliable Over Time"
+          },
+          {
+            "endSec": 110,
+            "id": "ibm-ai-agents-l04-s03",
+            "startSec": 65,
+            "title": "What Is Context Engineering and Why Does It Matter?"
+          },
+          {
+            "endSec": 275,
+            "id": "ibm-ai-agents-l04-s04",
+            "startSec": 110,
+            "title": "Inside an AI Agent’s Context Window: What’s Taking Up Space?"
+          },
+          {
+            "endSec": 320,
+            "id": "ibm-ai-agents-l04-s05",
+            "startSec": 275,
+            "title": "Context Poisoning: When Bad Information Becomes ‘Truth’"
+          },
+          {
+            "endSec": 363,
+            "id": "ibm-ai-agents-l04-s06",
+            "startSec": 320,
+            "title": "Context Distraction: How Long Histories Derail Agent Performance"
+          },
+          {
+            "endSec": 415,
+            "id": "ibm-ai-agents-l04-s07",
+            "startSec": 363,
+            "title": "Context Confusion: Why Too Many Tools Hurt AI Accuracy"
+          },
+          {
+            "endSec": 452,
+            "id": "ibm-ai-agents-l04-s08",
+            "startSec": 415,
+            "title": "Context Clash: When Conflicting Information Breaks Reasoning"
+          },
+          {
+            "endSec": 590,
+            "id": "ibm-ai-agents-l04-s09",
+            "startSec": 452,
+            "title": "4 Context Engineering Fixes: Validate, Compact, Curate & Prune"
+          },
+          {
+            "endSec": 620,
+            "id": "ibm-ai-agents-l04-s10",
+            "startSec": 590,
+            "title": "The Key Lesson: Why AI Agents Often Perform Better with Less Context"
+          }
+        ],
+        "title": "Context Engineering for AI Agents: 4 Failure Modes to Avoid",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20261015",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "BwXremQ-i6I"
+      },
+      "EkdIZXDnRK8": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Give AI Coding Agents Better Context"
+          },
+          {
+            "startSec": 37,
+            "title": "See Why One Prompt Isn't Enough"
+          },
+          {
+            "startSec": 83,
+            "title": "Give Agents the Right Code & Repository Structure"
+          },
+          {
+            "startSec": 137,
+            "title": "Ground AI Coding with Dependency Versions"
+          },
+          {
+            "startSec": 163,
+            "title": "Use Tests as an Agent Feedback Loop"
+          },
+          {
+            "startSec": 180,
+            "title": "Add Documentation & Developer Intent"
+          },
+          {
+            "startSec": 222,
+            "title": "Let AI Agents Ask for Missing Context"
+          },
+          {
+            "startSec": 242,
+            "title": "Interview, Explore & Plan Before Coding"
+          },
+          {
+            "startSec": 298,
+            "title": "Avoid Overloading the AI Context Window"
+          },
+          {
+            "startSec": 345,
+            "title": "Keep Agentic Coding Context Focused"
+          }
+        ],
+        "chapters": 10,
+        "durationSec": 393,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l03",
+        "manual": [
+          "en"
+        ],
+        "segments": [
+          {
+            "endSec": 37,
+            "id": "ibm-ai-agents-l03-s01",
+            "startSec": 0,
+            "title": "Give AI Coding Agents Better Context"
+          },
+          {
+            "endSec": 83,
+            "id": "ibm-ai-agents-l03-s02",
+            "startSec": 37,
+            "title": "See Why One Prompt Isn't Enough"
+          },
+          {
+            "endSec": 137,
+            "id": "ibm-ai-agents-l03-s03",
+            "startSec": 83,
+            "title": "Give Agents the Right Code & Repository Structure"
+          },
+          {
+            "endSec": 163,
+            "id": "ibm-ai-agents-l03-s04",
+            "startSec": 137,
+            "title": "Ground AI Coding with Dependency Versions"
+          },
+          {
+            "endSec": 180,
+            "id": "ibm-ai-agents-l03-s05",
+            "startSec": 163,
+            "title": "Use Tests as an Agent Feedback Loop"
+          },
+          {
+            "endSec": 222,
+            "id": "ibm-ai-agents-l03-s06",
+            "startSec": 180,
+            "title": "Add Documentation & Developer Intent"
+          },
+          {
+            "endSec": 242,
+            "id": "ibm-ai-agents-l03-s07",
+            "startSec": 222,
+            "title": "Let AI Agents Ask for Missing Context"
+          },
+          {
+            "endSec": 298,
+            "id": "ibm-ai-agents-l03-s08",
+            "startSec": 242,
+            "title": "Interview, Explore & Plan Before Coding"
+          },
+          {
+            "endSec": 345,
+            "id": "ibm-ai-agents-l03-s09",
+            "startSec": 298,
+            "title": "Avoid Overloading the AI Context Window"
+          },
+          {
+            "endSec": 393,
+            "id": "ibm-ai-agents-l03-s10",
+            "startSec": 345,
+            "title": "Keep Agentic Coding Context Focused"
+          }
+        ],
+        "title": "Context-Aware Coding: Give AI Agents the Right Context",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20261102",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "EkdIZXDnRK8"
+      },
+      "F3hlZSZc6UI": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "See How AI Analyzes a US Open Serve"
+          },
+          {
+            "startSec": 68,
+            "title": "Understand Why LLMs Need Real-Time Data"
+          },
+          {
+            "startSec": 158,
+            "title": "Turn Tennis Video & Match Stats Into AI Context"
+          },
+          {
+            "startSec": 270,
+            "title": "Process 1 Billion US Open Data Points"
+          },
+          {
+            "startSec": 368,
+            "title": "Turn Complex Data Into LLM-Ready Insights"
+          },
+          {
+            "startSec": 422,
+            "title": "Connect AI Agents to APIs & Tools"
+          },
+          {
+            "startSec": 463,
+            "title": "Build the AI Agent Tool-Calling Loop"
+          },
+          {
+            "startSec": 540,
+            "title": "Apply the AI Agent + API Pattern Anywhere"
+          }
+        ],
+        "chapters": 8,
+        "durationSec": 586,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l06",
+        "manual": [
+          "en"
+        ],
+        "segments": [
+          {
+            "endSec": 68,
+            "id": "ibm-ai-agents-l06-s01",
+            "startSec": 0,
+            "title": "See How AI Analyzes a US Open Serve"
+          },
+          {
+            "endSec": 158,
+            "id": "ibm-ai-agents-l06-s02",
+            "startSec": 68,
+            "title": "Understand Why LLMs Need Real-Time Data"
+          },
+          {
+            "endSec": 270,
+            "id": "ibm-ai-agents-l06-s03",
+            "startSec": 158,
+            "title": "Turn Tennis Video & Match Stats Into AI Context"
+          },
+          {
+            "endSec": 368,
+            "id": "ibm-ai-agents-l06-s04",
+            "startSec": 270,
+            "title": "Process 1 Billion US Open Data Points"
+          },
+          {
+            "endSec": 422,
+            "id": "ibm-ai-agents-l06-s05",
+            "startSec": 368,
+            "title": "Turn Complex Data Into LLM-Ready Insights"
+          },
+          {
+            "endSec": 463,
+            "id": "ibm-ai-agents-l06-s06",
+            "startSec": 422,
+            "title": "Connect AI Agents to APIs & Tools"
+          },
+          {
+            "endSec": 540,
+            "id": "ibm-ai-agents-l06-s07",
+            "startSec": 463,
+            "title": "Build the AI Agent Tool-Calling Loop"
+          },
+          {
+            "endSec": 586,
+            "id": "ibm-ai-agents-l06-s08",
+            "startSec": 540,
+            "title": "Apply the AI Agent + API Pattern Anywhere"
+          }
+        ],
+        "title": "How AI Agents, LLMs & APIs Use Real-Time Data at the US Open",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260924",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "F3hlZSZc6UI"
+      },
+      "PjrXaC5UsIw": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "The modernization challenge"
+          },
+          {
+            "startSec": 61,
+            "title": "Defining agentic coding"
+          },
+          {
+            "startSec": 141,
+            "title": "Legacy system complexity"
+          },
+          {
+            "startSec": 286,
+            "title": "An iterative AI workflow"
+          },
+          {
+            "startSec": 527,
+            "title": "Building trust and control"
+          }
+        ],
+        "chapters": 5,
+        "durationSec": 620,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l17",
+        "manual": [
+          "en"
+        ],
+        "segments": [
+          {
+            "endSec": 61,
+            "id": "ibm-ai-agents-l17-s01",
+            "startSec": 0,
+            "title": "The modernization challenge"
+          },
+          {
+            "endSec": 141,
+            "id": "ibm-ai-agents-l17-s02",
+            "startSec": 61,
+            "title": "Defining agentic coding"
+          },
+          {
+            "endSec": 286,
+            "id": "ibm-ai-agents-l17-s03",
+            "startSec": 141,
+            "title": "Legacy system complexity"
+          },
+          {
+            "endSec": 527,
+            "id": "ibm-ai-agents-l17-s04",
+            "startSec": 286,
+            "title": "An iterative AI workflow"
+          },
+          {
+            "endSec": 620,
+            "id": "ibm-ai-agents-l17-s05",
+            "startSec": 527,
+            "title": "Building trust and control"
+          }
+        ],
+        "title": "What Is Agentic Coding? How AI Agents Modernize Code",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260608",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "PjrXaC5UsIw"
+      },
+      "X4FVEEegCbk": {
+        "autoOrig": true,
+        "chapterList": [],
+        "chapters": 0,
+        "durationSec": 550,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l08",
+        "manual": [
+          "en"
+        ],
+        "segments": [],
+        "title": "Skills vs MCP vs RAG vs Memory: What AI Agents Need to Know",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260903",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "X4FVEEegCbk"
+      },
+      "bNRhppHct54": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Understanding AI hallucination"
+          },
+          {
+            "startSec": 60,
+            "title": "The impact of autonomous agents"
+          },
+          {
+            "startSec": 205,
+            "title": "Why AI models hallucinate"
+          },
+          {
+            "startSec": 329,
+            "title": "Strategies to mitigate risk"
+          }
+        ],
+        "chapters": 4,
+        "durationSec": 651,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l13",
+        "manual": [
+          "en"
+        ],
+        "segments": [
+          {
+            "endSec": 60,
+            "id": "ibm-ai-agents-l13-s01",
+            "startSec": 0,
+            "title": "Understanding AI hallucination"
+          },
+          {
+            "endSec": 205,
+            "id": "ibm-ai-agents-l13-s02",
+            "startSec": 60,
+            "title": "The impact of autonomous agents"
+          },
+          {
+            "endSec": 329,
+            "id": "ibm-ai-agents-l13-s03",
+            "startSec": 205,
+            "title": "Why AI models hallucinate"
+          },
+          {
+            "endSec": 651,
+            "id": "ibm-ai-agents-l13-s04",
+            "startSec": 329,
+            "title": "Strategies to mitigate risk"
+          }
+        ],
+        "title": "Understanding AI Agent Hallucination in AI Systems",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260802",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "bNRhppHct54"
+      },
+      "fCHe_fOqlYA": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "The challenge of scaling"
+          },
+          {
+            "startSec": 31,
+            "title": "Traditional vs agentic scale"
+          },
+          {
+            "startSec": 100,
+            "title": "The cost of complexity"
+          },
+          {
+            "startSec": 242,
+            "title": "Propagation of failures"
+          },
+          {
+            "startSec": 346,
+            "title": "The systems design problem"
+          },
+          {
+            "startSec": 450,
+            "title": "Decomposing agent systems"
+          },
+          {
+            "startSec": 504,
+            "title": "Coordination trade-offs"
+          },
+          {
+            "startSec": 652,
+            "title": "Architecting for success"
+          }
+        ],
+        "chapters": 8,
+        "durationSec": 785,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l16",
+        "manual": [
+          "en"
+        ],
+        "segments": [
+          {
+            "endSec": 31,
+            "id": "ibm-ai-agents-l16-s01",
+            "startSec": 0,
+            "title": "The challenge of scaling"
+          },
+          {
+            "endSec": 100,
+            "id": "ibm-ai-agents-l16-s02",
+            "startSec": 31,
+            "title": "Traditional vs agentic scale"
+          },
+          {
+            "endSec": 242,
+            "id": "ibm-ai-agents-l16-s03",
+            "startSec": 100,
+            "title": "The cost of complexity"
+          },
+          {
+            "endSec": 346,
+            "id": "ibm-ai-agents-l16-s04",
+            "startSec": 242,
+            "title": "Propagation of failures"
+          },
+          {
+            "endSec": 450,
+            "id": "ibm-ai-agents-l16-s05",
+            "startSec": 346,
+            "title": "The systems design problem"
+          },
+          {
+            "endSec": 504,
+            "id": "ibm-ai-agents-l16-s06",
+            "startSec": 450,
+            "title": "Decomposing agent systems"
+          },
+          {
+            "endSec": 652,
+            "id": "ibm-ai-agents-l16-s07",
+            "startSec": 504,
+            "title": "Coordination trade-offs"
+          },
+          {
+            "endSec": 785,
+            "id": "ibm-ai-agents-l16-s08",
+            "startSec": 652,
+            "title": "Architecting for success"
+          }
+        ],
+        "title": "Building AI Agent Systems and Scaling Challenges in Agentic AI",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260609",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "fCHe_fOqlYA"
+      },
+      "goU9VIXA8II": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction to AI agents"
+          },
+          {
+            "startSec": 37,
+            "title": "Context engineering"
+          },
+          {
+            "startSec": 148,
+            "title": "Model context protocol"
+          },
+          {
+            "startSec": 237,
+            "title": "Using AI skills"
+          },
+          {
+            "startSec": 371,
+            "title": "Choosing MCP versus skills"
+          },
+          {
+            "startSec": 427,
+            "title": "Conclusion and wrap-up"
+          }
+        ],
+        "chapters": 6,
+        "durationSec": 482,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l14",
+        "manual": [
+          "en"
+        ],
+        "segments": [
+          {
+            "endSec": 37,
+            "id": "ibm-ai-agents-l14-s01",
+            "startSec": 0,
+            "title": "Introduction to AI agents"
+          },
+          {
+            "endSec": 148,
+            "id": "ibm-ai-agents-l14-s02",
+            "startSec": 37,
+            "title": "Context engineering"
+          },
+          {
+            "endSec": 237,
+            "id": "ibm-ai-agents-l14-s03",
+            "startSec": 148,
+            "title": "Model context protocol"
+          },
+          {
+            "endSec": 371,
+            "id": "ibm-ai-agents-l14-s04",
+            "startSec": 237,
+            "title": "Using AI skills"
+          },
+          {
+            "endSec": 427,
+            "id": "ibm-ai-agents-l14-s05",
+            "startSec": 371,
+            "title": "Choosing MCP versus skills"
+          },
+          {
+            "endSec": 482,
+            "id": "ibm-ai-agents-l14-s06",
+            "startSec": 427,
+            "title": "Conclusion and wrap-up"
+          }
+        ],
+        "title": "MCP vs Skills: Which Is Right for Your AI Agent and LLMs?",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260707",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "goU9VIXA8II"
+      },
+      "hTAWHgQI4xg": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Will AI Replace Developers? A Real-World Look at the Future"
+          },
+          {
+            "startSec": 53,
+            "title": "The AI Coding Inflection Point: From Autocomplete to Autonomous Features"
+          },
+          {
+            "startSec": 109,
+            "title": "Spec-Driven Development: How AI Agents Build from Requirements"
+          },
+          {
+            "startSec": 148,
+            "title": "Why Developers Are Shifting from Coding to Conducting"
+          },
+          {
+            "startSec": 234,
+            "title": "Context Engineering & Loop Engineering Explained"
+          },
+          {
+            "startSec": 292,
+            "title": "What Every Developer Should Know About How LLMs Work"
+          },
+          {
+            "startSec": 375,
+            "title": "Skills, Automations & Sub-Agents: Building Smarter AI Workflows"
+          },
+          {
+            "startSec": 440,
+            "title": "Prompt Injection Risks and Securing AI Coding Agents"
+          },
+          {
+            "startSec": 505,
+            "title": "Andrew Ng’s “AI Is the New Electricity” Prediction"
+          },
+          {
+            "startSec": 564,
+            "title": "The Future of Software Engineering in an AI-Driven World"
+          }
+        ],
+        "chapters": 10,
+        "durationSec": 602,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l05",
+        "manual": [
+          "en"
+        ],
+        "segments": [
+          {
+            "endSec": 53,
+            "id": "ibm-ai-agents-l05-s01",
+            "startSec": 0,
+            "title": "Will AI Replace Developers? A Real-World Look at the Future"
+          },
+          {
+            "endSec": 109,
+            "id": "ibm-ai-agents-l05-s02",
+            "startSec": 53,
+            "title": "The AI Coding Inflection Point: From Autocomplete to Autonomous Features"
+          },
+          {
+            "endSec": 148,
+            "id": "ibm-ai-agents-l05-s03",
+            "startSec": 109,
+            "title": "Spec-Driven Development: How AI Agents Build from Requirements"
+          },
+          {
+            "endSec": 234,
+            "id": "ibm-ai-agents-l05-s04",
+            "startSec": 148,
+            "title": "Why Developers Are Shifting from Coding to Conducting"
+          },
+          {
+            "endSec": 292,
+            "id": "ibm-ai-agents-l05-s05",
+            "startSec": 234,
+            "title": "Context Engineering & Loop Engineering Explained"
+          },
+          {
+            "endSec": 375,
+            "id": "ibm-ai-agents-l05-s06",
+            "startSec": 292,
+            "title": "What Every Developer Should Know About How LLMs Work"
+          },
+          {
+            "endSec": 440,
+            "id": "ibm-ai-agents-l05-s07",
+            "startSec": 375,
+            "title": "Skills, Automations & Sub-Agents: Building Smarter AI Workflows"
+          },
+          {
+            "endSec": 505,
+            "id": "ibm-ai-agents-l05-s08",
+            "startSec": 440,
+            "title": "Prompt Injection Risks and Securing AI Coding Agents"
+          },
+          {
+            "endSec": 564,
+            "id": "ibm-ai-agents-l05-s09",
+            "startSec": 505,
+            "title": "Andrew Ng’s “AI Is the New Electricity” Prediction"
+          },
+          {
+            "endSec": 602,
+            "id": "ibm-ai-agents-l05-s10",
+            "startSec": 564,
+            "title": "The Future of Software Engineering in an AI-Driven World"
+          }
+        ],
+        "title": "5 Concepts to Know for Coding with AI Agents",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20261012",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "hTAWHgQI4xg"
+      },
+      "hvnPWgfmvyI": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "See What AI Agents Still Don't Know"
+          },
+          {
+            "startSec": 37,
+            "title": "Give AI Agents Two Types of Context"
+          },
+          {
+            "startSec": 46,
+            "title": "Ground AI Agents with RAG"
+          },
+          {
+            "startSec": 107,
+            "title": "Add Live Context with Observability"
+          },
+          {
+            "startSec": 186,
+            "title": "Investigate a Hybrid Transaction with AI"
+          },
+          {
+            "startSec": 252,
+            "title": "Add Logs, Metrics & Traces to the Investigation"
+          },
+          {
+            "startSec": 323,
+            "title": "Connect RAG Knowledge to Live Evidence"
+          },
+          {
+            "startSec": 382,
+            "title": "Turn AI Context into Evidence, Impact & Next Steps"
+          },
+          {
+            "startSec": 455,
+            "title": "Keep Human Operators in Control"
+          },
+          {
+            "startSec": 489,
+            "title": "Combine RAG + Observability for Better AI Agents"
+          }
+        ],
+        "chapters": 10,
+        "durationSec": 544,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l01",
+        "manual": [
+          "en"
+        ],
+        "segments": [
+          {
+            "endSec": 37,
+            "id": "ibm-ai-agents-l01-s01",
+            "startSec": 0,
+            "title": "See What AI Agents Still Don't Know"
+          },
+          {
+            "endSec": 46,
+            "id": "ibm-ai-agents-l01-s02",
+            "startSec": 37,
+            "title": "Give AI Agents Two Types of Context"
+          },
+          {
+            "endSec": 107,
+            "id": "ibm-ai-agents-l01-s03",
+            "startSec": 46,
+            "title": "Ground AI Agents with RAG"
+          },
+          {
+            "endSec": 186,
+            "id": "ibm-ai-agents-l01-s04",
+            "startSec": 107,
+            "title": "Add Live Context with Observability"
+          },
+          {
+            "endSec": 252,
+            "id": "ibm-ai-agents-l01-s05",
+            "startSec": 186,
+            "title": "Investigate a Hybrid Transaction with AI"
+          },
+          {
+            "endSec": 323,
+            "id": "ibm-ai-agents-l01-s06",
+            "startSec": 252,
+            "title": "Add Logs, Metrics & Traces to the Investigation"
+          },
+          {
+            "endSec": 382,
+            "id": "ibm-ai-agents-l01-s07",
+            "startSec": 323,
+            "title": "Connect RAG Knowledge to Live Evidence"
+          },
+          {
+            "endSec": 455,
+            "id": "ibm-ai-agents-l01-s08",
+            "startSec": 382,
+            "title": "Turn AI Context into Evidence, Impact & Next Steps"
+          },
+          {
+            "endSec": 489,
+            "id": "ibm-ai-agents-l01-s09",
+            "startSec": 455,
+            "title": "Keep Human Operators in Control"
+          },
+          {
+            "endSec": 544,
+            "id": "ibm-ai-agents-l01-s10",
+            "startSec": 489,
+            "title": "Combine RAG + Observability for Better AI Agents"
+          }
+        ],
+        "title": "Why AI Agents Need RAG + Observability",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20261112",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "hvnPWgfmvyI"
+      },
+      "i1ZmNUbRGD4": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "startSec": 26,
+            "title": "Rules vs. Agents"
+          },
+          {
+            "startSec": 128,
+            "title": "Deterministic vs. Probabilistic"
+          },
+          {
+            "startSec": 247,
+            "title": "Choosing the right method"
+          },
+          {
+            "startSec": 374,
+            "title": "Building hybrid systems"
+          },
+          {
+            "startSec": 543,
+            "title": "Implementation and conclusion"
+          }
+        ],
+        "chapters": 6,
+        "durationSec": 625,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l10",
+        "manual": [
+          "en"
+        ],
+        "segments": [
+          {
+            "endSec": 26,
+            "id": "ibm-ai-agents-l10-s01",
+            "startSec": 0,
+            "title": "Introduction"
+          },
+          {
+            "endSec": 128,
+            "id": "ibm-ai-agents-l10-s02",
+            "startSec": 26,
+            "title": "Rules vs. Agents"
+          },
+          {
+            "endSec": 247,
+            "id": "ibm-ai-agents-l10-s03",
+            "startSec": 128,
+            "title": "Deterministic vs. Probabilistic"
+          },
+          {
+            "endSec": 374,
+            "id": "ibm-ai-agents-l10-s04",
+            "startSec": 247,
+            "title": "Choosing the right method"
+          },
+          {
+            "endSec": 543,
+            "id": "ibm-ai-agents-l10-s05",
+            "startSec": 374,
+            "title": "Building hybrid systems"
+          },
+          {
+            "endSec": 625,
+            "id": "ibm-ai-agents-l10-s06",
+            "startSec": 543,
+            "title": "Implementation and conclusion"
+          }
+        ],
+        "title": "AI Agents vs Business Rules: Which Should Make Decisions?",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260820",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "i1ZmNUbRGD4"
+      },
+      "jRMbbRdju7Q": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "The risks of super agents"
+          },
+          {
+            "startSec": 65,
+            "title": "Security concerns"
+          },
+          {
+            "startSec": 194,
+            "title": "Benefits of super agents"
+          },
+          {
+            "startSec": 332,
+            "title": "Agent swarm architecture"
+          },
+          {
+            "startSec": 445,
+            "title": "Best practices for security"
+          }
+        ],
+        "chapters": 5,
+        "durationSec": 685,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l07",
+        "manual": [
+          "en"
+        ],
+        "segments": [
+          {
+            "endSec": 65,
+            "id": "ibm-ai-agents-l07-s01",
+            "startSec": 0,
+            "title": "The risks of super agents"
+          },
+          {
+            "endSec": 194,
+            "id": "ibm-ai-agents-l07-s02",
+            "startSec": 65,
+            "title": "Security concerns"
+          },
+          {
+            "endSec": 332,
+            "id": "ibm-ai-agents-l07-s03",
+            "startSec": 194,
+            "title": "Benefits of super agents"
+          },
+          {
+            "endSec": 445,
+            "id": "ibm-ai-agents-l07-s04",
+            "startSec": 332,
+            "title": "Agent swarm architecture"
+          },
+          {
+            "endSec": 685,
+            "id": "ibm-ai-agents-l07-s05",
+            "startSec": 445,
+            "title": "Best practices for security"
+          }
+        ],
+        "title": "When Should AI Systems Use Super Agents?",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260920",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "jRMbbRdju7Q"
+      },
+      "k5jYwyhDMxA": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Introduction to agentic AI"
+          },
+          {
+            "startSec": 48,
+            "title": "Configuring agents with .md"
+          },
+          {
+            "startSec": 195,
+            "title": "Modular task-specific skills"
+          },
+          {
+            "startSec": 283,
+            "title": "MCP for tool connectivity"
+          },
+          {
+            "startSec": 381,
+            "title": "Agent-to-agent communication"
+          },
+          {
+            "startSec": 496,
+            "title": "Scaling with sub-agents"
+          }
+        ],
+        "chapters": 6,
+        "durationSec": 667,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l15",
+        "manual": [
+          "en"
+        ],
+        "segments": [
+          {
+            "endSec": 48,
+            "id": "ibm-ai-agents-l15-s01",
+            "startSec": 0,
+            "title": "Introduction to agentic AI"
+          },
+          {
+            "endSec": 195,
+            "id": "ibm-ai-agents-l15-s02",
+            "startSec": 48,
+            "title": "Configuring agents with .md"
+          },
+          {
+            "endSec": 283,
+            "id": "ibm-ai-agents-l15-s03",
+            "startSec": 195,
+            "title": "Modular task-specific skills"
+          },
+          {
+            "endSec": 381,
+            "id": "ibm-ai-agents-l15-s04",
+            "startSec": 283,
+            "title": "MCP for tool connectivity"
+          },
+          {
+            "endSec": 496,
+            "id": "ibm-ai-agents-l15-s05",
+            "startSec": 381,
+            "title": "Agent-to-agent communication"
+          },
+          {
+            "endSec": 667,
+            "id": "ibm-ai-agents-l15-s06",
+            "startSec": 496,
+            "title": "Scaling with sub-agents"
+          }
+        ],
+        "title": "5 AI Agent Terms You Need to Know",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260623",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "k5jYwyhDMxA"
+      },
+      "kYkZI3oj2W4": {
+        "autoOrig": true,
+        "chapterList": [],
+        "chapters": 0,
+        "durationSec": 655,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l18",
+        "manual": [
+          "en"
+        ],
+        "segments": [],
+        "title": "Multi AI Agent Systems: When One AI Brain Isn’t Enough",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260528",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "kYkZI3oj2W4"
+      },
+      "nVImVgKpoOY": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "The benchmark-reality gap"
+          },
+          {
+            "startSec": 62,
+            "title": "Balancing the AI triangle"
+          },
+          {
+            "startSec": 125,
+            "title": "Model evaluations"
+          },
+          {
+            "startSec": 376,
+            "title": "System evaluations"
+          },
+          {
+            "startSec": 649,
+            "title": "Evaluating agent workflows"
+          },
+          {
+            "startSec": 796,
+            "title": "Conclusion"
+          }
+        ],
+        "chapters": 6,
+        "durationSec": 901,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l09",
+        "manual": [
+          "en"
+        ],
+        "segments": [
+          {
+            "endSec": 62,
+            "id": "ibm-ai-agents-l09-s01",
+            "startSec": 0,
+            "title": "The benchmark-reality gap"
+          },
+          {
+            "endSec": 125,
+            "id": "ibm-ai-agents-l09-s02",
+            "startSec": 62,
+            "title": "Balancing the AI triangle"
+          },
+          {
+            "endSec": 376,
+            "id": "ibm-ai-agents-l09-s03",
+            "startSec": 125,
+            "title": "Model evaluations"
+          },
+          {
+            "endSec": 649,
+            "id": "ibm-ai-agents-l09-s04",
+            "startSec": 376,
+            "title": "System evaluations"
+          },
+          {
+            "endSec": 796,
+            "id": "ibm-ai-agents-l09-s05",
+            "startSec": 649,
+            "title": "Evaluating agent workflows"
+          },
+          {
+            "endSec": 901,
+            "id": "ibm-ai-agents-l09-s06",
+            "startSec": 796,
+            "title": "Conclusion"
+          }
+        ],
+        "title": "LLM & AI Agent Benchmarks vs Reality: Why AI Applications Break",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260827",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "nVImVgKpoOY"
+      },
+      "qYNs80FKIVc": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Intro"
+          },
+          {
+            "startSec": 89,
+            "title": "Write Skills That Trigger"
+          },
+          {
+            "startSec": 218,
+            "title": "Build from Real Expertise"
+          },
+          {
+            "startSec": 375,
+            "title": "Spend Context Wisely"
+          },
+          {
+            "startSec": 505,
+            "title": "When Agents Shouldn't Guess"
+          },
+          {
+            "startSec": 662,
+            "title": "Can You Trust This Skill?"
+          },
+          {
+            "startSec": 740,
+            "title": "Key Takeaways"
+          }
+        ],
+        "chapters": 7,
+        "durationSec": 802,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l12",
+        "manual": [
+          "en"
+        ],
+        "segments": [
+          {
+            "endSec": 89,
+            "id": "ibm-ai-agents-l12-s01",
+            "startSec": 0,
+            "title": "Intro"
+          },
+          {
+            "endSec": 218,
+            "id": "ibm-ai-agents-l12-s02",
+            "startSec": 89,
+            "title": "Write Skills That Trigger"
+          },
+          {
+            "endSec": 375,
+            "id": "ibm-ai-agents-l12-s03",
+            "startSec": 218,
+            "title": "Build from Real Expertise"
+          },
+          {
+            "endSec": 505,
+            "id": "ibm-ai-agents-l12-s04",
+            "startSec": 375,
+            "title": "Spend Context Wisely"
+          },
+          {
+            "endSec": 662,
+            "id": "ibm-ai-agents-l12-s05",
+            "startSec": 505,
+            "title": "When Agents Shouldn't Guess"
+          },
+          {
+            "endSec": 740,
+            "id": "ibm-ai-agents-l12-s06",
+            "startSec": 662,
+            "title": "Can You Trust This Skill?"
+          },
+          {
+            "endSec": 802,
+            "id": "ibm-ai-agents-l12-s07",
+            "startSec": 740,
+            "title": "Key Takeaways"
+          }
+        ],
+        "title": "5 Best Practices for Building AI Agent Skills",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20260810",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "qYNs80FKIVc"
+      },
+      "rXFV1ivDe6c": {
+        "autoOrig": true,
+        "chapterList": [
+          {
+            "startSec": 0,
+            "title": "Are Vector Databases Still Needed in the Age of AI Agents?"
+          },
+          {
+            "startSec": 29,
+            "title": "What Vector Databases Actually Do: Embeddings & Semantic Search"
+          },
+          {
+            "startSec": 75,
+            "title": "The Retrieval Pyramid: Choosing the Right Search Strategy"
+          },
+          {
+            "startSec": 109,
+            "title": "3 Reasons You Might Not Need a Vector Database"
+          },
+          {
+            "startSec": 121,
+            "title": "Agentic Search vs Vector Search: Can Keyword Search Win?"
+          },
+          {
+            "startSec": 188,
+            "title": "Do Long Context Windows Make Retrieval Obsolete?"
+          },
+          {
+            "startSec": 213,
+            "title": "The Hidden Costs of Embeddings and Vector Indexes"
+          },
+          {
+            "startSec": 327,
+            "title": "When Vector Search Outperforms Keyword Search"
+          },
+          {
+            "startSec": 442,
+            "title": "Vector Index vs Vector Database: What's the Difference?"
+          },
+          {
+            "startSec": 498,
+            "title": "How to Decide the Right Retrieval Approach for Your AI System"
+          }
+        ],
+        "chapters": 10,
+        "durationSec": 601,
+        "hasCaptions": true,
+        "language": "en",
+        "lectureId": "ibm-ai-agents-l02",
+        "manual": [
+          "en"
+        ],
+        "segments": [
+          {
+            "endSec": 29,
+            "id": "ibm-ai-agents-l02-s01",
+            "startSec": 0,
+            "title": "Are Vector Databases Still Needed in the Age of AI Agents?"
+          },
+          {
+            "endSec": 75,
+            "id": "ibm-ai-agents-l02-s02",
+            "startSec": 29,
+            "title": "What Vector Databases Actually Do: Embeddings & Semantic Search"
+          },
+          {
+            "endSec": 109,
+            "id": "ibm-ai-agents-l02-s03",
+            "startSec": 75,
+            "title": "The Retrieval Pyramid: Choosing the Right Search Strategy"
+          },
+          {
+            "endSec": 121,
+            "id": "ibm-ai-agents-l02-s04",
+            "startSec": 109,
+            "title": "3 Reasons You Might Not Need a Vector Database"
+          },
+          {
+            "endSec": 188,
+            "id": "ibm-ai-agents-l02-s05",
+            "startSec": 121,
+            "title": "Agentic Search vs Vector Search: Can Keyword Search Win?"
+          },
+          {
+            "endSec": 213,
+            "id": "ibm-ai-agents-l02-s06",
+            "startSec": 188,
+            "title": "Do Long Context Windows Make Retrieval Obsolete?"
+          },
+          {
+            "endSec": 327,
+            "id": "ibm-ai-agents-l02-s07",
+            "startSec": 213,
+            "title": "The Hidden Costs of Embeddings and Vector Indexes"
+          },
+          {
+            "endSec": 442,
+            "id": "ibm-ai-agents-l02-s08",
+            "startSec": 327,
+            "title": "When Vector Search Outperforms Keyword Search"
+          },
+          {
+            "endSec": 498,
+            "id": "ibm-ai-agents-l02-s09",
+            "startSec": 442,
+            "title": "Vector Index vs Vector Database: What's the Difference?"
+          },
+          {
+            "endSec": 601,
+            "id": "ibm-ai-agents-l02-s10",
+            "startSec": 498,
+            "title": "How to Decide the Right Retrieval Approach for Your AI System"
+          }
+        ],
+        "title": "Are Vector Databases Still Needed? RAG, AI Agents & Search",
+        "track": [
+          "manual",
+          "en"
+        ],
+        "uploadDate": "20261105",
+        "uploader": "IBM Technology",
+        "uploaderOk": true,
+        "videoId": "rXFV1ivDe6c"
+      }
+    }
+  }
+}

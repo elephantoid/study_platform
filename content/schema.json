@@ -1,0 +1,1040 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "study-platform/content/schema.json",
+  "title": "Study platform content frontmatter",
+  "description": "content/ 아래 모든 파일의 frontmatter 계약. 정본은 이 파일이고, docs/CONTRACT.md 는 설명이다.",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "maxLength": 80
+    },
+    "roleId": {
+      "enum": [
+        "mle",
+        "rs",
+        "agent",
+        "ds"
+      ]
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "reviewed",
+        "published"
+      ]
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "license": {
+      "enum": [
+        "NONE",
+        "MIT",
+        "Apache-2.0",
+        "BSD-3-Clause",
+        "CC-BY-4.0",
+        "CC-BY-SA-4.0",
+        "YouTube-Standard"
+      ],
+      "description": "닫힌 목록. 새 라이선스는 계약 변경 PR 로 추가한다"
+    },
+    "verbatimLicense": {
+      "enum": [
+        "MIT",
+        "Apache-2.0",
+        "BSD-3-Clause",
+        "CC-BY-4.0",
+        "CC-BY-SA-4.0"
+      ]
+    },
+    "reviewGate": {
+      "description": "검수 게이트. reviewed/published 는 pass 검수가 있어야 하고, 검수자는 생성자와 달라야 한다 (생성자 4종 모두에 분기를 둔다). published 전환의 사람 승인은 CI 가 별도로 검사한다 (CONTRACT §3)",
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "status": {
+                "enum": [
+                  "reviewed",
+                  "published"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "review"
+            ],
+            "properties": {
+              "review": {
+                "required": [
+                  "verdict"
+                ],
+                "properties": {
+                  "verdict": {
+                    "const": "pass"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "generation",
+              "review"
+            ],
+            "properties": {
+              "generation": {
+                "properties": {
+                  "by": {
+                    "const": "claude-code"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "review": {
+                "properties": {
+                  "by": {
+                    "enum": [
+                      "antigravity",
+                      "human"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "generation",
+              "review"
+            ],
+            "properties": {
+              "generation": {
+                "properties": {
+                  "by": {
+                    "const": "antigravity"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "review": {
+                "properties": {
+                  "by": {
+                    "enum": [
+                      "claude-code",
+                      "human"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "generation",
+              "review"
+            ],
+            "properties": {
+              "generation": {
+                "properties": {
+                  "by": {
+                    "const": "human"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "review": {
+                "properties": {
+                  "by": {
+                    "enum": [
+                      "claude-code",
+                      "antigravity"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "description": "NotebookLM 은 Gemini 계열이라 AG 가 검수하면 같은 계열 자기 검수가 된다",
+          "if": {
+            "required": [
+              "generation",
+              "review"
+            ],
+            "properties": {
+              "generation": {
+                "properties": {
+                  "by": {
+                    "const": "notebooklm"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "review": {
+                "properties": {
+                  "by": {
+                    "enum": [
+                      "claude-code",
+                      "human"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "review": {
+      "type": "object",
+      "description": "교차 검수 기록. 생성한 쪽과 다른 도구·모델 계열이 채운다.",
+      "required": [
+        "by",
+        "model",
+        "verdict",
+        "at"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "by": {
+          "enum": [
+            "claude-code",
+            "antigravity",
+            "human"
+          ]
+        },
+        "model": {
+          "type": "string"
+        },
+        "verdict": {
+          "enum": [
+            "pass",
+            "fail"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "at": {
+          "$ref": "#/$defs/date"
+        }
+      }
+    },
+    "generation": {
+      "type": "object",
+      "required": [
+        "by",
+        "model",
+        "at"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "by": {
+          "enum": [
+            "claude-code",
+            "antigravity",
+            "human",
+            "notebooklm"
+          ]
+        },
+        "model": {
+          "type": "string",
+          "description": "예: claude-sonnet-5-5, gemini-3.5-flash-lite, notebooklm"
+        },
+        "at": {
+          "$ref": "#/$defs/date"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "description": "content/sources.yaml 의 항목 하나.",
+      "required": [
+        "id",
+        "url",
+        "kind",
+        "license",
+        "reuse",
+        "attribution",
+        "checkedAt"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "url": {
+          "$ref": "#/$defs/url"
+        },
+        "kind": {
+          "enum": [
+            "repo",
+            "youtube-playlist",
+            "blog"
+          ]
+        },
+        "license": {
+          "$ref": "#/$defs/license"
+        },
+        "reuse": {
+          "enum": [
+            "verbatim",
+            "summary_link",
+            "link_only"
+          ]
+        },
+        "attribution": {
+          "type": "string"
+        },
+        "uploader": {
+          "type": "string",
+          "description": "youtube 일 때 필수 확인값. 공식 강의는 'Stanford Online' 등"
+        },
+        "checkedAt": {
+          "$ref": "#/$defs/date"
+        }
+      },
+      "allOf": [
+        {
+          "description": "fail closed: 원문 수록은 허용 목록의 라이선스만",
+          "if": {
+            "properties": {
+              "reuse": {
+                "const": "verbatim"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "license": {
+                "$ref": "#/$defs/verbatimLicense"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "license": {
+                "const": "NONE"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reuse": {
+                "const": "link_only"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "youtube-playlist"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "uploader"
+            ],
+            "properties": {
+              "license": {
+                "const": "YouTube-Standard"
+              },
+              "reuse": {
+                "const": "summary_link"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "studyNote": {
+      "type": "object",
+      "description": "content/notes/<topicId>/<id>.md. 본문(markdown)은 reuse=verbatim 일 때만 원문, 아니면 한국어 요약.",
+      "required": [
+        "id",
+        "topicId",
+        "sourceId",
+        "title",
+        "canonicalUrl",
+        "roles",
+        "status",
+        "generation"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "topicId": {
+          "$ref": "#/$defs/id"
+        },
+        "sourceId": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string"
+        },
+        "canonicalUrl": {
+          "$ref": "#/$defs/url"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/roleId"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "generation": {
+          "$ref": "#/$defs/generation"
+        },
+        "review": {
+          "$ref": "#/$defs/review"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/$defs/reviewGate"
+        }
+      ]
+    },
+    "rubric": {
+      "type": "object",
+      "required": [
+        "mustHave",
+        "criteria",
+        "modelAnswerKo"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "mustHave": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "desc",
+              "points"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^c[0-9]+$"
+              },
+              "desc": {
+                "type": "string"
+              },
+              "points": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        },
+        "deductions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "desc",
+              "points"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "desc": {
+                "type": "string"
+              },
+              "points": {
+                "type": "integer",
+                "maximum": -1
+              }
+            }
+          }
+        },
+        "modelAnswerKo": {
+          "type": "string",
+          "maxLength": 1500
+        }
+      }
+    },
+    "followUp": {
+      "type": "object",
+      "description": "본 문항 풀이 후 이어서 답하는 꼬리질문. id 는 <questionId>-f<order>",
+      "required": [
+        "id",
+        "order",
+        "promptMd",
+        "hintKo",
+        "rubricKeywords",
+        "modelAnswerKo",
+        "maxScore"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "order": {
+          "enum": [
+            1,
+            2,
+            3
+          ]
+        },
+        "promptMd": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "hintKo": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "rubricKeywords": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "minItems": 1,
+          "description": "채점은 의미 일치로 한다. 문자열 포함 여부로 판정하지 않는다"
+        },
+        "modelAnswerKo": {
+          "type": "string",
+          "maxLength": 1500
+        },
+        "sampleFeedbackKo": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "maxScore": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "question": {
+      "type": "object",
+      "description": "content/questions/<topicId>/<id>.md. 본문(markdown) = 문제 지문.",
+      "required": [
+        "id",
+        "topicId",
+        "sourceId",
+        "type",
+        "difficulty",
+        "roles",
+        "reviewTarget",
+        "status",
+        "generation"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "topicId": {
+          "$ref": "#/$defs/id"
+        },
+        "sourceId": {
+          "$ref": "#/$defs/id"
+        },
+        "type": {
+          "enum": [
+            "concept",
+            "open",
+            "mcq"
+          ]
+        },
+        "difficulty": {
+          "enum": [
+            "basic",
+            "intermediate",
+            "advanced"
+          ]
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/roleId"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 2,
+          "maxItems": 6
+        },
+        "answerIndex": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rubric": {
+          "$ref": "#/$defs/rubric"
+        },
+        "reviewTarget": {
+          "type": "object",
+          "description": "오답 시 이동할 곳. 둘 중 하나 이상.",
+          "additionalProperties": false,
+          "properties": {
+            "noteId": {
+              "$ref": "#/$defs/id"
+            },
+            "segmentId": {
+              "$ref": "#/$defs/id"
+            }
+          },
+          "minProperties": 1
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "generation": {
+          "$ref": "#/$defs/generation"
+        },
+        "review": {
+          "$ref": "#/$defs/review"
+        },
+        "followUps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/followUp"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/$defs/reviewGate"
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "mcq"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "choices",
+              "answerIndex"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "open"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "rubric"
+            ]
+          }
+        }
+      ]
+    },
+    "slideUnit": {
+      "type": "object",
+      "description": "슬라이드 몇 장 + 해설 글 한 장. 해설은 NotebookLM 생성 가능 (generation.by 로 기록)",
+      "required": [
+        "slideId",
+        "slideNumberLabel",
+        "slideTitle",
+        "timestampSec",
+        "slideVisualBullets",
+        "explanationArticleMd",
+        "keyTakeawayKo",
+        "notebookLmPrompt",
+        "generatedBy"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "slideId": {
+          "$ref": "#/$defs/id"
+        },
+        "slideNumberLabel": {
+          "type": "string",
+          "description": "예: Slides 01–04",
+          "maxLength": 40
+        },
+        "slideTitle": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "timestampSec": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "slideVisualBullets": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "minItems": 1,
+          "description": "슬라이드 요점을 한국어로 재구성한 것. 슬라이드 문장을 그대로 옮기지 않는다",
+          "maxItems": 12
+        },
+        "explanationArticleMd": {
+          "type": "string",
+          "maxLength": 3000
+        },
+        "keyTakeawayKo": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "notebookLmPrompt": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "generatedBy": {
+          "enum": [
+            "antigravity",
+            "notebooklm",
+            "human"
+          ],
+          "description": "이 카드를 쓴 주체. 파일의 generation.by 와 다를 수 있다 (예: AG 파일 안의 NotebookLM 해설)"
+        }
+      }
+    },
+    "segment": {
+      "type": "object",
+      "required": [
+        "id",
+        "startSec",
+        "endSec",
+        "title",
+        "summaryKo",
+        "topicIds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*-l[0-9]{2}-s[0-9]{2}$",
+          "description": "<lectureId>-s<NN>. YouTube 챕터가 있으면 챕터 순번(1부터)과 일치해야 한다"
+        },
+        "startSec": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "endSec": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "type": "string"
+        },
+        "summaryKo": {
+          "type": "string",
+          "maxLength": 1200,
+          "description": "구간 학습 가이드. 강의 전체 요약과 자막 원문은 금지"
+        },
+        "topicIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "minItems": 1
+        },
+        "slideRange": {
+          "type": "string",
+          "description": "예: Slides 1–11. 슬라이드가 없는 강의는 생략"
+        },
+        "slideKeyPointsPlaceholder": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "slideUnits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/slideUnit"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "syllabus": {
+      "type": "object",
+      "required": [
+        "lectureNo",
+        "date",
+        "instructor",
+        "syllabusUrl",
+        "slidesTitle",
+        "slidesUrl",
+        "deckPageCount"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "lectureNo": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "date": {
+          "$ref": "#/$defs/date"
+        },
+        "instructor": {
+          "type": "string"
+        },
+        "syllabusUrl": {
+          "$ref": "#/$defs/url"
+        },
+        "slidesTitle": {
+          "type": "string"
+        },
+        "slidesUrl": {
+          "$ref": "#/$defs/url"
+        },
+        "deckPageCount": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "notebookLmUrl": {
+          "$ref": "#/$defs/url"
+        },
+        "readingLinks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "title",
+              "url"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "$ref": "#/$defs/url"
+              }
+            }
+          }
+        }
+      }
+    },
+    "lecture": {
+      "type": "object",
+      "description": "content/lectures/<course>/<id>.md. 강의 전체 요약 금지. syllabus 의 slides 와 구간을 함께 공부하는 구조. syllabus 가 없는 강의(IBM 등)는 생략",
+      "required": [
+        "id",
+        "sourceId",
+        "course",
+        "term",
+        "title",
+        "videoId",
+        "durationSec",
+        "hasCaptions",
+        "segments",
+        "status",
+        "generation"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*-l[0-9]{2}$",
+          "description": "<sourceId>-l<NN>. NN = 제목의 Lecture 번호, 없으면 재생목록 순서. pipeline 이 manifest 에 미리 계산해 둔다"
+        },
+        "sourceId": {
+          "$ref": "#/$defs/id"
+        },
+        "course": {
+          "enum": [
+            "cs329z",
+            "cs329a",
+            "cme295",
+            "cs153",
+            "ibm"
+          ]
+        },
+        "term": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "lectureNo": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "videoId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{11}$"
+        },
+        "durationSec": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "hasCaptions": {
+          "type": "boolean"
+        },
+        "segments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/segment"
+          },
+          "minItems": 1
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "generation": {
+          "$ref": "#/$defs/generation"
+        },
+        "review": {
+          "$ref": "#/$defs/review"
+        },
+        "syllabus": {
+          "$ref": "#/$defs/syllabus"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/$defs/reviewGate"
+        },
+        {
+          "description": "카드 단위 생성자도 교차 검수 대상이다. AG·NotebookLM 카드가 하나라도 있으면 검수는 CC 또는 사람",
+          "if": {
+            "required": [
+              "review",
+              "segments"
+            ],
+            "properties": {
+              "segments": {
+                "contains": {
+                  "required": [
+                    "slideUnits"
+                  ],
+                  "properties": {
+                    "slideUnits": {
+                      "contains": {
+                        "properties": {
+                          "generatedBy": {
+                            "enum": [
+                              "antigravity",
+                              "notebooklm"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "review": {
+                "properties": {
+                  "by": {
+                    "enum": [
+                      "claude-code",
+                      "human"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "topic": {
+      "type": "object",
+      "description": "content/topics.yaml 의 항목 하나.",
+      "required": [
+        "id",
+        "name",
+        "roles"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string"
+        },
+        "parentId": {
+          "$ref": "#/$defs/id"
+        },
+        "roles": {
+          "type": "object",
+          "description": "직무별 가중치 1~3 (3=핵심). 없는 직무는 0",
+          "propertyNames": {
+            "$ref": "#/$defs/roleId"
+          },
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3
+          },
+          "minProperties": 1
+        }
+      }
+    }
+  }
+}
