@@ -42,6 +42,8 @@ data
 
 # 앱 빌드에 필요 없는 것
 pipeline
+# 예외: 웹 빌드의 콘텐츠 로더가 강의 파일 없는 구간을 manifest 로 푼다 (CONTRACT §3.1, 재리뷰 N3)
+!pipeline/manifests/videos.json
 docs
 k8s
 mk

@@ -11,7 +11,9 @@
 | `web` | `ghcr.io/elephantoid/study_platform-web` | Next.js 앱 (standalone, UID 1000, 읽기 전용 루트) | ○ |
 | `pipeline` | `ghcr.io/elephantoid/study_platform-pipeline` | 수집 CLI `ingest` | ✕ (필요할 때 한 번씩) |
 
-지금 앱은 목업 데이터로 돌고 DB 도 API 도 없다. 그래서 컨테이너에 저장되는 앱 데이터가 없다.
+지금 앱은 빌드 때 `content/` 를 읽어 정적 페이지로 만든다. DB 도 인증도 없어서 컨테이너에 저장되는 앱 데이터가 없다.
+
+**기본 이미지는 열람 전용이다.** 비로그인은 열람만 한다는 계약(CONTRACT §5) 때문에 답안 제출·꼬리질문 답변·복습은 로그인이 필요한데, 인증이 아직 없다. 개인 학습용으로 쓰려면 `NEXT_PUBLIC_DEMO_AUTH=1` 로 빌드해 데모 로그인 토글을 켠다(빌드 때 새겨진다. 기록은 서버에 저장되지 않는다).
 
 ## 기동 (5분)
 
@@ -107,7 +109,7 @@ docker compose down                               # 컨테이너·네트워크 �
 | `package.json 이 없다` / `"/package-lock.json": not found` | 앱이 없는 브랜치다. 위 **전제** 참고 |
 | `port is already allocated` | `.env` 의 `WEB_PORT` 를 바꾼다 |
 | `unhealthy` | `docker compose logs web`. 앱이 루트(`/`)에서 2xx 를 주는지 본다 |
-| draft 미리보기가 안 켜진다 | `NEXT_PUBLIC_SHOW_DRAFT` 는 **빌드 때** 새겨진다. 바꾼 뒤 `--build` |
+| draft 미리보기가 안 켜진다 | `STUDY_SHOW_DRAFT` 는 **빌드 때** 정해진다(페이지를 정적으로 만든다). 바꾼 뒤 `--build` |
 | 빌드가 `mv next.config.ts` 에서 실패 | 앱 설정 파일 이름이나 형식(함수형 설정 등)이 바뀌었다. `Dockerfile` 의 standalone 래퍼를 맞춘다 |
 | pipeline `Permission denied` | `HOST_UID`·`HOST_GID` (위 Linux 안내) |
 

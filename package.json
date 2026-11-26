@@ -1,0 +1,43 @@
+{
+  "name": "study-platform-ag",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "build:e2e": "NEXT_PUBLIC_DEMO_AUTH=1 next build",
+    "test:e2e": "playwright test",
+    "test:parity": "tsx --conditions=react-server --test tests/parity/*.test.ts"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "katex": "^0.19.1",
+    "lucide-react": "^0.475.0",
+    "next": "^16.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
+    "rehype-katex": "^7.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0",
+    "server-only": "^0.0.1",
+    "tailwind-merge": "^3.0.1",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.6",
+    "tailwindcss": "^4.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.7.0"
+  }
+}

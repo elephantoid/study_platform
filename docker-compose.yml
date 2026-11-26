@@ -8,7 +8,8 @@ services:
       context: .
       target: web
       args:
-        NEXT_PUBLIC_SHOW_DRAFT: ${NEXT_PUBLIC_SHOW_DRAFT:-0}
+        STUDY_SHOW_DRAFT: ${STUDY_SHOW_DRAFT:-0}
+        NEXT_PUBLIC_DEMO_AUTH: ${NEXT_PUBLIC_DEMO_AUTH:-0}
         REVISION: ${REVISION:-unknown}
     ports:
       # 로그인이 없는 앱이라 기본은 이 컴퓨터에서만 열린다.

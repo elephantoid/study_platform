@@ -1,0 +1,71 @@
+name: web
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+jobs:
+  ui:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run typecheck
+      - run: npm run lint
+      # 데모 로그인 토글을 켠 빌드(e2e 용). 그 외에는 배포 빌드와 같다.
+      - run: npm run build:e2e
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+        env:
+          CI: "1"
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
+  # 재리뷰 N2: UI 로더(lib/content/load.ts)와 Rust API(server/)가 같은 카드·토픽을 내는지 비교한다.
+  # PR 이벤트는 main 과의 병합 결과를 체크아웃하므로 server/ 가 있다. 없으면(server 이전 브랜치) 건너뛴다.
+  parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - id: srv
+        run: if [ -f server/Cargo.toml ]; then echo present=true >> "$GITHUB_OUTPUT"; else echo present=false >> "$GITHUB_OUTPUT"; fi
+      - if: steps.srv.outputs.present == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - if: steps.srv.outputs.present == 'true'
+        run: npm ci --no-audit --no-fund
+      - if: steps.srv.outputs.present == 'true'
+        working-directory: server
+        run: rustup show active-toolchain
+      - if: steps.srv.outputs.present == 'true'
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: server
+      - if: steps.srv.outputs.present == 'true'
+        working-directory: server
+        run: cargo build --release --locked
+      - if: steps.srv.outputs.present == 'true'
+        name: start API on 127.0.0.1:8080 (content/ of this checkout)
+        run: |
+          ./server/target/release/study-server > server.log 2>&1 &
+          node tests/parity/wait-for-api.mjs || { cat server.log; exit 1; }
+        env:
+          STUDY_API_URL: http://127.0.0.1:8080
+      - if: steps.srv.outputs.present == 'true'
+        run: npm run test:parity
+        env:
+          STUDY_API_URL: http://127.0.0.1:8080
