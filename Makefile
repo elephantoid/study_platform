@@ -12,7 +12,7 @@ RUFF_VERSION := 0.17.6
 .PHONY: help setup test check check-strict gate gate-staged audit lint all
 
 help: ## 이 도움말
-	@awk 'BEGIN {FS = ":.*## "} /^[a-z-]+:.*## / {printf "  make %-13s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*## "} /^[A-Za-z0-9_.-]+:.*## / {printf "  make %-18s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 setup: ## 의존성 설치(uv sync) + git hook 연결(core.hooksPath, 모든 worktree 공유)
 	cd pipeline && uv sync
@@ -44,3 +44,6 @@ all: ## CI 와 같은 검증: test → check → gate
 	@$(MAKE) --no-print-directory test
 	@$(MAKE) --no-print-directory check
 	@$(MAKE) --no-print-directory gate
+
+# 컨테이너·k8s 타깃 (docs/SELF_HOSTING.md). 파일이 없어도 이 Makefile 은 동작한다.
+-include mk/container.mk
