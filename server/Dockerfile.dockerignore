@@ -1,0 +1,8 @@
+# Build context for server/Dockerfile (context = repository root). Allow-list only.
+*
+!server/Cargo.toml
+!server/Cargo.lock
+!server/rust-toolchain.toml
+!server/src/
+!content/
+!pipeline/manifests/videos.json

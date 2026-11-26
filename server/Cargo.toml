@@ -1,0 +1,38 @@
+[package]
+name = "study-server"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.97"
+description = "Read-only content API for study_platform: loads content/ at startup, validates it against content/schema.json, serves it from memory."
+license = "MIT"
+publish = false
+
+[dependencies]
+axum = { version = "0.8.9", default-features = false, features = ["http1", "json", "query", "tokio", "tracing"] }
+jsonschema = { version = "0.63.1", default-features = false }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+serde_yaml_ng = "0.10.0"
+thiserror = "2.0.21"
+tokio = { version = "1.54.1", features = ["macros", "net", "rt-multi-thread", "signal"] }
+tower-http = { version = "0.7.1", features = ["set-header", "timeout", "trace"] }
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter", "fmt"] }
+
+[dev-dependencies]
+http-body-util = "0.1.5"
+tower = { version = "0.5.3", features = ["util"] }
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+all = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+module_name_repetitions = "allow"
+missing_errors_doc = "allow"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true
