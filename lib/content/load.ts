@@ -206,8 +206,17 @@ export function listCards(): CardSummary[] {
       status: c.status,
       promptMd: c.promptMd,
       hasFollowUps: Boolean(c.followUps),
-      attribution: c.attribution,
     }));
+}
+
+/** 출처 id → 배지용 Attribution (url 은 출처 URL). 목록 행처럼 카드 attribution 이 없는 곳에 쓴다. */
+export function sourceAttributions(): Record<string, Attribution> {
+  return Object.fromEntries(
+    [...store().sources.values()].map((s) => [
+      s.id,
+      { sourceId: s.id, license: s.license, reuse: s.reuse, attribution: s.attribution, url: s.url },
+    ])
+  );
 }
 
 export function listTopics(): Topic[] {

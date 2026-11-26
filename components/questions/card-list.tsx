@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import type { CardSummary } from "@/lib/content/types";
+import type { Attribution, CardSummary } from "@/lib/content/types";
 import { isQuizType } from "@/lib/content/types";
 import { AttributionBadge } from "@/components/common/attribution-badge";
 import { Badge } from "@/components/ui/badge";
@@ -21,8 +21,10 @@ const plain = (md: string) => md.replace(/[#*`$>_\[\]]/g, "").replace(/\s+/g, " 
 export function CardList({
   cards,
   topics,
+  sources,
 }: {
   cards: CardSummary[];
+  sources: Record<string, Attribution>;
   topics: { id: string; name: string; parentId?: string }[];
 }) {
   const sp = useSearchParams();
@@ -98,7 +100,7 @@ export function CardList({
               {plain(c.promptMd)}
             </Link>
             <span className="shrink-0 text-[11px] text-slate-500">{names.get(c.topicId) ?? c.topicId}</span>
-            <AttributionBadge attribution={c.attribution} compact />
+            {sources[c.sourceId] && <AttributionBadge attribution={sources[c.sourceId]} compact />}
           </li>
         ))}
       </ul>

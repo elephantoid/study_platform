@@ -60,7 +60,7 @@ export type CardView = {
 export type CardSummary = Pick<
   CardView,
   "id" | "type" | "topicId" | "sourceId" | "difficulty" | "roles" | "status" | "promptMd"
-> & { hasFollowUps: boolean; attribution: Attribution };
+> & { hasFollowUps: boolean };
 
 /** GET /api/topics 항목 */
 export type Topic = {
@@ -73,8 +73,7 @@ export type Topic = {
 
 /**
  * GET /api/roles/:roleId/dashboard.
- * CONTRACT §4 와 다른 점: lectures[].attribution, topics[].sources 를 더했다
- * (출처 배지가 목업 조회에 기대지 않게). 계약 변경은 CC 에 PR 로 요청한다.
+ * CONTRACT §4 Dashboard 와 같다 (출처 배지는 lectures[].attribution, topics[].sources 로 그린다).
  */
 export type Dashboard = {
   role: { id: RoleId; name: string };

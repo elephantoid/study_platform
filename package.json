@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "build:e2e": "NEXT_PUBLIC_DEMO_AUTH=1 next build",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:parity": "tsx --conditions=react-server --test tests/parity/*.test.ts"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
@@ -36,6 +37,7 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.4.6",
     "tailwindcss": "^4.0.0",
+    "tsx": "^4.23.15",
     "typescript": "^5.7.0"
   }
 }
