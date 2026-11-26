@@ -2,315 +2,135 @@
 
 import * as React from "react";
 import Link from "next/link";
-import {
-  canShowLectureGeneratedContent,
-  formatSecondsToTimestamp,
-  getDashboardMock,
-  MOCK_ATTRIBUTIONS,
-  MOCK_LECTURES,
-  QUESTION_LIST,
-} from "@/app/_mock";
-import type { RoleId } from "@/app/_mock/types";
+import type { Dashboard } from "@/lib/content/types";
+import { ROLE_IDS } from "@/lib/content/types";
+import { formatTimestamp } from "@/lib/format";
 import { AttributionBadge } from "@/components/common/attribution-badge";
 import { AuthGateBanner } from "@/components/common/auth-gate-banner";
-import { useDemoSession } from "@/components/layout/app-header";
+import { useDemoSession } from "@/components/layout/demo-session";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
+import { buttonVariants } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-const ROLES: { id: RoleId; label: string; subtitle: string }[] = [
-  {
-    id: "agent",
-    label: "Agent Engineer",
-    subtitle: "ReAct · 도구 호출 · 메모리 · 평가 가드레일",
-  },
-  {
-    id: "mle",
-    label: "ML Engineer",
-    subtitle: "모델 학습 · 추론 서빙 · 편향-분산 · 시스템 최적화",
-  },
-  {
-    id: "rs",
-    label: "Research Scientist",
-    subtitle: "Attention 수식 · 최적화 이론 · 아키텍처 설계",
-  },
-  {
-    id: "ds",
-    label: "Data Scientist",
-    subtitle: "가설 검정 · A/B 테스트 · 인과 추론 · 통계 모델링",
-  },
-];
+const ROLE_LABELS = { agent: "Agent Engineer", mle: "ML Engineer", rs: "Research Scientist", ds: "Data Scientist" } as const;
+const WEIGHT_LABEL: Record<number, string> = { 3: "핵심", 2: "중요", 1: "참고" };
 
-export function RoleDashboardView({ initialRoleId }: { initialRoleId: RoleId }) {
-  const { isLoggedIn, setIsLoggedIn } = useDemoSession();
-  const dashboard = getDashboardMock(initialRoleId);
-  const effectiveDueCount = isLoggedIn ? dashboard.dueCount : 0;
+export function RoleDashboardView({ dashboard, demoDueCount }: { dashboard: Dashboard; demoDueCount: number }) {
+  const { isLoggedIn } = useDemoSession();
+  const dueCount = isLoggedIn ? demoDueCount : dashboard.dueCount;
 
   return (
     <div className="space-y-6">
-      {/* 상단 직무 선택 탭 */}
       <section className="space-y-3">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <Badge variant="info" className="mb-1.5">
-              직무 맞춤형 학습 로드맵
-            </Badge>
-            <h1 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
-              {dashboard.role.name} 학습 대시보드
-            </h1>
-            <p className="text-xs text-slate-600 sm:text-sm">
-              직무별 가중치가 반영된 기술 면접 문항(+3단계 꼬리질문)과 Stanford CS329Z 강의 슬라이드를 함께 학습합니다.
-            </p>
+            <h1 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">{dashboard.role.name} 학습 대시보드</h1>
+            <p className="text-xs text-slate-600 sm:text-sm">직무 가중치가 높은 토픽부터 개념 카드와 퀴즈 카드를 공부합니다.</p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Link href="/questions/q-agent-react-open">
-              <Button variant="primary" size="sm">
-                심층 면접 풀이 시작 (+꼬리질문 3)
-              </Button>
+            <Link href="/questions?type=quiz" className={buttonVariants({ variant: "primary", size: "sm" })}>
+              퀴즈 카드 풀기
             </Link>
-            <Link href="/lectures/cs329z-lec01">
-              <Button variant="outline" size="sm">
-                CS329Z 강의 + Slides 열기
-              </Button>
+            <Link href="/lectures" className={buttonVariants({ variant: "outline", size: "sm" })}>
+              강의 보기
             </Link>
           </div>
         </div>
 
-        <div
-          role="tablist"
-          aria-label="직무 선택"
-          className="grid grid-cols-2 gap-2 sm:grid-cols-4"
-        >
-          {ROLES.map((r) => {
-            const active = r.id === dashboard.role.id;
+        <nav aria-label="직무 선택" className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {ROLE_IDS.map((id) => {
+            const active = id === dashboard.role.id;
             return (
               <Link
-                key={r.id}
-                href={`/roles/${r.id}`}
-                role="tab"
-                aria-selected={active}
-                className={`flex flex-col justify-between rounded-xl border p-3 text-left transition-all ${
-                  active
-                    ? "border-indigo-600 bg-indigo-50/70 shadow-xs"
-                    : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
+                key={id}
+                href={`/roles/${id}`}
+                aria-current={active ? "page" : undefined}
+                className={`rounded-xl border p-3 text-xs font-bold sm:text-sm ${
+                  active ? "border-indigo-600 bg-indigo-50/70 text-indigo-950" : "border-slate-200 bg-white text-slate-800 hover:bg-slate-50"
                 }`}
               >
-                <div className="flex items-center justify-between gap-1">
-                  <span
-                    className={`text-xs font-bold sm:text-sm ${
-                      active ? "text-indigo-950" : "text-slate-800"
-                    }`}
-                  >
-                    {r.label}
-                  </span>
-                  {active && <Badge variant="info">선택됨</Badge>}
-                </div>
-                <span className="mt-1 text-[11px] text-slate-500 line-clamp-1">
-                  {r.subtitle}
-                </span>
+                {ROLE_LABELS[id]}
               </Link>
             );
           })}
-        </div>
+        </nav>
       </section>
 
-      {/* 비로그인 안내 배너 */}
-      {!isLoggedIn && (
-        <AuthGateBanner
-          actionLabel="FSRS 복습 스케줄 기록 및 답안 채점 저장"
-          onEnableDemoAuth={() => setIsLoggedIn(true)}
-        />
-      )}
+      {!isLoggedIn && <AuthGateBanner actionLabel="FSRS 복습 기록과 숙련도 집계" />}
 
-      {/* 오늘의 FSRS 복습 큐 요약 카드 */}
       <Card className="border-indigo-100 bg-gradient-to-r from-indigo-50/80 via-white to-slate-50">
         <CardContent className="flex flex-col justify-between gap-4 p-5 sm:flex-row sm:items-center">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <Badge variant={effectiveDueCount > 0 ? "success" : "secondary"}>
-                FSRS 간격 반복
-              </Badge>
-              <span className="text-xs font-medium text-slate-500">
-                {isLoggedIn
-                  ? "기억 감쇠 곡선 기반 오늘의 복습 큐"
-                  : "비로그인 상태 (dueCount: 0)"}
-              </span>
-            </div>
-            <h2 className="text-base font-bold text-slate-900 sm:text-lg">
-              오늘 복습할 문항:{" "}
-              <span className="text-indigo-600" data-testid="dashboard-due-count">
-                {effectiveDueCount}개
-              </span>
-            </h2>
-            <p className="text-xs text-slate-600">
-              {isLoggedIn
-                ? "Again / Hard / Good / Easy 4단계 자기 평가로 다음 복습 일자(due)가 자동 갱신됩니다."
-                : "로그인하면 개인별 FSRS 복습 예정 카드가 집계됩니다."}
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2">
-            <Link href="/review">
-              <Button variant="primary" size="sm">
-                {isLoggedIn
-                  ? `오늘의 복습 큐 시작 (${effectiveDueCount})`
-                  : "복습 큐 열람하기"}
-              </Button>
-            </Link>
-          </div>
+          <h2 className="text-base font-bold text-slate-900 sm:text-lg">
+            오늘 복습할 카드:{" "}
+            <span className="text-indigo-600" data-testid="dashboard-due-count">
+              {dueCount}개
+            </span>
+          </h2>
+          <Link href="/review" className={buttonVariants({ variant: "primary", size: "sm" })}>
+            복습 큐 열기
+          </Link>
         </CardContent>
       </Card>
 
-      {/* 토픽별 가중치 & 숙련도 그리드 */}
       <section className="space-y-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-base font-bold text-slate-900 sm:text-lg">
-            직무 토픽 트리 & 출제 가중치
-          </h2>
-          <span className="text-xs text-slate-500">
-            가중치 합계: {dashboard.topics.reduce((acc, t) => acc + t.weight, 0)}%
-          </span>
-        </div>
-
+        <h2 className="text-base font-bold text-slate-900 sm:text-lg">직무 토픽 (가중치 1–3)</h2>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {dashboard.topics.map((topic) => {
-            const masteryPercent = isLoggedIn
-              ? Math.round(topic.masteredRatio * 100)
-              : 0;
-            const matchingQuestion =
-              QUESTION_LIST.find((q) => q.topicId === topic.id) ??
-              QUESTION_LIST[0];
-
-            return (
-              <Card key={topic.id} className="flex flex-col justify-between">
-                <CardHeader className="pb-3">
-                  <div className="flex items-start justify-between gap-2">
-                    <CardTitle className="text-sm sm:text-base">
-                      {topic.name}
-                    </CardTitle>
-                    <Badge variant="info" className="shrink-0">
-                      비중 {topic.weight}%
-                    </Badge>
-                  </div>
-                  <CardDescription className="text-xs">
-                    수록 문항 {topic.questionCount}개 · 본 문항 + 꼬리질문 3단계 제공
-                  </CardDescription>
-                </CardHeader>
-
-                <CardContent className="space-y-3 pt-0">
-                  <div className="space-y-1.5">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-slate-500">
-                        {isLoggedIn ? "FSRS 숙련도 (Mastered Ratio)" : "숙련도 (로그인 필요)"}
-                      </span>
-                      <span className="font-semibold text-slate-800">
-                        {masteryPercent}%
-                      </span>
-                    </div>
-                    <Progress value={masteryPercent} />
-                  </div>
-
-                  <div className="flex items-center justify-between pt-1">
-                    <span className="text-[11px] text-slate-500">
-                      대표 유형: {matchingQuestion.type.toUpperCase()}
-                    </span>
-                    <Link href={`/questions/${matchingQuestion.id}`}>
-                      <Button variant="outline" size="sm">
-                        문항 & 꼬리질문 풀기 →
-                      </Button>
+          {dashboard.topics.map((t) => (
+            <Card key={t.id} data-testid={`topic-card-${t.id}`}>
+              <CardHeader className="pb-3">
+                <div className="flex items-start justify-between gap-2">
+                  <CardTitle className="text-sm sm:text-base">{t.name}</CardTitle>
+                  <Badge variant="info" className="shrink-0">
+                    가중치 {t.weight} · {WEIGHT_LABEL[t.weight] ?? ""}
+                  </Badge>
+                </div>
+                <CardDescription className="text-xs">
+                  개념 카드 {t.cardCounts.concept}개 · 퀴즈 카드 {t.cardCounts.quiz}개
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3 pt-0">
+                <div className="flex flex-wrap gap-2">
+                  {t.cardCounts.concept > 0 && (
+                    <Link href={`/questions?topic=${t.id}&type=concept`} className={buttonVariants({ variant: "outline", size: "sm" })}>
+                      개념 카드 →
                     </Link>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
+                  )}
+                  {t.cardCounts.quiz > 0 && (
+                    <Link href={`/questions?topic=${t.id}&type=quiz`} className={buttonVariants({ variant: "outline", size: "sm" })}>
+                      퀴즈 카드 →
+                    </Link>
+                  )}
+                </div>
+                {/* 토픽 카드는 본문을 그리지 않는다. 이 토픽 카드들의 실제 출처를 모두 적는다. */}
+                <div className="flex flex-wrap gap-1">
+                  {t.sources.map((s) => (
+                    <AttributionBadge key={s.sourceId} attribution={s} compact />
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
-
-        <AttributionBadge attribution={MOCK_ATTRIBUTIONS["src-boost-ai"]} />
       </section>
 
-      {/* 추천 강의 (Syllabus Slides 동시 학습) */}
       <section className="space-y-3">
-        <div>
-          <h2 className="text-base font-bold text-slate-900 sm:text-lg">
-            연결된 신기술 강의 (YouTube + Syllabus Slides 학습)
-          </h2>
-          <p className="text-xs text-slate-500">
-            강의 전체 요약 대신 공식 Syllabus의 강의 슬라이드(Slides)와 세그먼트별 타임스탬프를 나란히 보며 학습합니다.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-4">
-          {dashboard.lectures.map((lec) => {
-            const fullLecture = MOCK_LECTURES[lec.id];
-            const showGenerated = canShowLectureGeneratedContent(fullLecture);
-            const visibleSyllabus = showGenerated ? fullLecture?.syllabus : undefined;
-            return (
-              <Card key={lec.id}>
-                <CardContent className="p-5 space-y-4">
-                  <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
-                    <div className="space-y-1">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <Badge variant="default">{lec.course}</Badge>
-                        {fullLecture && (
-                          <Badge variant="outline">{fullLecture.term}</Badge>
-                        )}
-                        <Badge variant="info">
-                          재생시간 {formatSecondsToTimestamp(lec.durationSec)} (
-                          {lec.durationSec}초)
-                        </Badge>
-                        {visibleSyllabus?.deckPageCount ? (
-                          <Badge variant="success">
-                            Syllabus Slides ({visibleSyllabus.deckPageCount}p) 연동
-                          </Badge>
-                        ) : !showGenerated ? (
-                          <Badge variant="warning">
-                            검수 대기 중 (draft) — 영상 및 챕터 이동 제공
-                          </Badge>
-                        ) : null}
-                      </div>
-                      <h3 className="text-base font-bold text-slate-900">
-                        {lec.title}
-                      </h3>
-                      {visibleSyllabus && (
-                        <p className="text-xs text-slate-600">
-                          강사: {visibleSyllabus.instructor}
-                          {visibleSyllabus.slidesTitle ? (
-                            <>
-                              {" · "}슬라이드 자료:{" "}
-                              <span className="font-medium text-slate-800">
-                                {visibleSyllabus.slidesTitle}
-                              </span>
-                            </>
-                          ) : null}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="flex flex-wrap gap-2 shrink-0">
-                      <Link href={`/lectures/${lec.id}`}>
-                        <Button variant="primary" size="sm">
-                          {showGenerated ? "강의 + 학습 카드 열기" : "영상 + 챕터 열기"}
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
-
-                  {fullLecture && (
-                    <AttributionBadge attribution={fullLecture.attribution} />
-                  )}
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
+        <h2 className="text-base font-bold text-slate-900 sm:text-lg">연결된 강의</h2>
+        {dashboard.lectures.map((lec) => (
+          <Card key={lec.id}>
+            <CardContent className="space-y-3 p-5">
+              <div className="flex flex-wrap items-center gap-2">
+                <Badge variant="default">{lec.course}</Badge>
+                <Badge variant="outline">{lec.term}</Badge>
+                <Badge variant="info">재생시간 {formatTimestamp(lec.durationSec)}</Badge>
+                {lec.status === "draft" && <Badge variant="warning">검수 대기 (draft) — 영상 및 챕터 이동 제공</Badge>}
+              </div>
+              <Link href={`/lectures/${lec.id}`} className="block break-words text-base font-bold text-slate-900 hover:text-indigo-700 hover:underline">
+                {lec.title}
+              </Link>
+              <AttributionBadge attribution={lec.attribution} />
+            </CardContent>
+          </Card>
+        ))}
       </section>
     </div>
   );
