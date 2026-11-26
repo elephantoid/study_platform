@@ -8,7 +8,8 @@ test("없는 문항 id 는 다른 문항이 아니라 404", async ({ page }) => 
   expect(res?.status()).toBe(404);
 });
 
-test("비로그인은 퀴즈 카드를 열람만 하고 모범답안을 볼 수 없다", async ({ page }) => {
+// 화면 기준 검사다. modelAnswerKo 는 API.md 의 공개 필드라 페이지 데이터(RSC props)에는 들어 있다 (재리뷰 N4).
+test("비로그인은 퀴즈 카드를 열람만 하고 모범답안이 화면에 보이지 않는다", async ({ page }) => {
   await page.goto(OPEN);
   await expect(page.getByTestId("guest-auth-gate")).toBeVisible();
   await expect(page.getByTestId("model-answer")).toHaveCount(0);

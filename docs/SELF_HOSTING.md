@@ -11,7 +11,9 @@
 | `web` | `ghcr.io/elephantoid/study_platform-web` | Next.js 앱 (standalone, UID 1000, 읽기 전용 루트) | ○ |
 | `pipeline` | `ghcr.io/elephantoid/study_platform-pipeline` | 수집 CLI `ingest` | ✕ (필요할 때 한 번씩) |
 
-지금 앱은 목업 데이터로 돌고 DB 도 API 도 없다. 그래서 컨테이너에 저장되는 앱 데이터가 없다.
+지금 앱은 빌드 때 `content/` 를 읽어 정적 페이지로 만든다. DB 도 인증도 없어서 컨테이너에 저장되는 앱 데이터가 없다.
+
+**기본 이미지는 열람 전용이다.** 비로그인은 열람만 한다는 계약(CONTRACT §5) 때문에 답안 제출·꼬리질문 답변·복습은 로그인이 필요한데, 인증이 아직 없다. 개인 학습용으로 쓰려면 `NEXT_PUBLIC_DEMO_AUTH=1` 로 빌드해 데모 로그인 토글을 켠다(빌드 때 새겨진다. 기록은 서버에 저장되지 않는다).
 
 ## 기동 (5분)
 

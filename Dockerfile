@@ -14,6 +14,9 @@ COPY . .
 # 페이지는 빌드 때 정적으로 만들어진다. draft 미리보기(서버 전용, 번들에 안 들어감)도 빌드 때 정한다.
 ARG STUDY_SHOW_DRAFT=0
 ENV STUDY_SHOW_DRAFT=$STUDY_SHOW_DRAFT
+# 1 이면 데모 로그인 토글 (실제 인증 없음). NEXT_PUBLIC_* 라 번들에 새겨진다. 기본은 열람 전용
+ARG NEXT_PUBLIC_DEMO_AUTH=0
+ENV NEXT_PUBLIC_DEMO_AUTH=$NEXT_PUBLIC_DEMO_AUTH
 # 앱 설정은 그대로 두고 이미지 안에서만 standalone 출력을 켠다.
 RUN mv next.config.ts next.config.app.ts
 COPY <<'TS' ./next.config.ts
