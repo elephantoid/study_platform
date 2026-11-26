@@ -1,0 +1,70 @@
+# Rust 읽기 전용 콘텐츠 API (server/, docs/API.md). web 은 이 API 를 부르지 않는다.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: study-platform-server
+  labels:
+    app.kubernetes.io/name: study-platform-server
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: study-platform-server
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: study-platform-server
+    spec:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        # distroless :nonroot 의 사용자
+        runAsUser: 65532
+        runAsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: server
+          image: ghcr.io/elephantoid/study_platform-server # 태그는 overlay 가 정한다
+          ports:
+            - name: http
+              containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: study-platform-server
+          resources:
+            requests:
+              cpu: 20m
+              memory: 32Mi
+            limits:
+              cpu: 500m
+              memory: 128Mi
+          # 콘텐츠를 기동 때 메모리에 올리고 검증한다. 틀리면 프로세스가 끝나 CrashLoopBackOff 가 된다.
+          startupProbe:
+            httpGet:
+              path: /api/health
+              port: http
+            periodSeconds: 2
+            failureThreshold: 15
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 3
+          # /api/health 는 메모리 스냅샷만 본다(외부 의존 없음). 그래서 liveness 에 써도 연쇄 재시작이 없다.
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: http
+            periodSeconds: 20
+            timeoutSeconds: 3
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
+          # 콘텐츠는 이미지에 구운 /app/content 를 쓴다 (읽기 전용 루트라 쓰기 불가).
+          # restricted 네임스페이스는 hostPath 를 막으므로 레포를 마운트하지 않는다. 바꾸려면 이미지를 다시 빌드한다.

@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 # Build from the repository root (the image bakes in content/ and the lecture manifest):
-#   docker build -f server/Dockerfile -t study-server .
+#   docker build -f server/Dockerfile -t ghcr.io/elephantoid/study_platform-server:local .
 # server/Dockerfile.dockerignore limits the build context (BuildKit reads it instead of a root
 # .dockerignore).
 
@@ -18,6 +18,9 @@ RUN touch src/main.rs src/lib.rs \
     && RUSTUP_TOOLCHAIN=1.97.1 cargo build --release --locked
 
 FROM gcr.io/distroless/cc-debian13:nonroot
+ARG REVISION=unknown
+LABEL org.opencontainers.image.source="https://github.com/elephantoid/study_platform" \
+      org.opencontainers.image.revision="$REVISION"
 WORKDIR /app
 COPY --from=build /src/server/target/release/study-server /app/study-server
 COPY content /app/content
@@ -29,4 +32,7 @@ ENV HOST=0.0.0.0 \
     RUST_LOG=info
 USER nonroot:nonroot
 EXPOSE 8080
+# No shell in distroless: the binary probes its own GET /api/health (src/healthcheck.rs).
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD ["/app/study-server", "--healthcheck"]
 ENTRYPOINT ["/app/study-server"]
