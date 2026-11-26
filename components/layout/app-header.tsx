@@ -2,135 +2,125 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { QUESTION_LIST } from "@/app/_mock/questions";
-import { MOCK_LECTURES } from "@/app/_mock/lectures";
-
-interface DemoSessionContextValue {
-  isLoggedIn: boolean;
-  setIsLoggedIn: (v: boolean) => void;
-}
-
-const DemoSessionContext = React.createContext<DemoSessionContextValue>({
-  isLoggedIn: true,
-  setIsLoggedIn: () => {},
-});
-
-export function useDemoSession() {
-  return React.useContext(DemoSessionContext);
-}
-
-export function DemoSessionProvider({ children }: { children: React.ReactNode }) {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
-  return (
-    <DemoSessionContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
-      {children}
-    </DemoSessionContext.Provider>
-  );
-}
+import { DEMO_AUTH_ENABLED, useDemoSession } from "./demo-session";
 
 const NAV_ITEMS = [
   { href: "/roles/agent", matchPrefix: "/roles", label: "직무 대시보드" },
-  {
-    href: "/questions/q-agent-react-open",
-    matchPrefix: "/questions",
-    label: "문항 풀이 (+꼬리질문 3)",
-  },
-  { href: "/review", matchPrefix: "/review", label: "FSRS 복습 큐" },
-  {
-    href: "/lectures/cs329z-lec01",
-    matchPrefix: "/lectures",
-    label: "강의 + Syllabus Slides",
-  },
+  { href: "/questions", matchPrefix: "/questions", label: "문항" },
+  { href: "/review", matchPrefix: "/review", label: "복습 큐" },
+  { href: "/lectures", matchPrefix: "/lectures", label: "강의" },
 ];
+
+function SearchDialog({ onClose }: { onClose: () => void }) {
+  const router = useRouter();
+  const [query, setQuery] = React.useState("");
+  const dialogRef = React.useRef<HTMLDivElement>(null);
+
+  // 포커스 트랩: Tab 이 대화상자 밖으로 나가지 않게 한다. 닫으면 연 버튼으로 돌아간다.
+  React.useEffect(() => {
+    const opener = document.activeElement as HTMLElement | null;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key !== "Tab" || !dialogRef.current) return;
+      const els = dialogRef.current.querySelectorAll<HTMLElement>("input, button");
+      const first = els[0];
+      const last = els[els.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      opener?.focus();
+    };
+  }, [onClose]);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-start justify-center bg-slate-900/50 p-4 pt-16" onClick={onClose}>
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="search-dialog-title"
+        className="w-full max-w-lg rounded-xl border border-slate-200 bg-white p-4 shadow-xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h2 id="search-dialog-title" className="sr-only">
+          문항 검색
+        </h2>
+        <form
+          className="flex items-center gap-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            onClose();
+            router.push(`/questions?q=${encodeURIComponent(query.trim())}`);
+          }}
+        >
+          <input
+            type="search"
+            aria-label="문항 검색어"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="문항 내용이나 id 로 검색"
+            className="w-full text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none"
+            autoFocus
+          />
+          <Button type="submit" variant="primary" size="sm">
+            검색
+          </Button>
+          <Button type="button" variant="ghost" size="sm" onClick={onClose}>
+            닫기
+          </Button>
+        </form>
+      </div>
+    </div>
+  );
+}
 
 export function AppHeader() {
   const pathname = usePathname();
   const { isLoggedIn, setIsLoggedIn } = useDemoSession();
   const [searchOpen, setSearchOpen] = React.useState(false);
-  const [query, setQuery] = React.useState("");
+  const close = React.useCallback(() => setSearchOpen(false), []);
 
   React.useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setSearchOpen((prev) => !prev);
-      } else if (e.key === "Escape") {
-        setSearchOpen(false);
       }
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  const filteredQuestions = QUESTION_LIST.filter(
-    (q) =>
-      q.promptMd.toLowerCase().includes(query.toLowerCase()) ||
-      q.id.toLowerCase().includes(query.toLowerCase())
-  );
-
-  const filteredLectures = Object.values(MOCK_LECTURES).filter(
-    (l) =>
-      l.title.toLowerCase().includes(query.toLowerCase()) ||
-      l.course.toLowerCase().includes(query.toLowerCase())
-  );
-
   return (
     <>
       <header className="sticky top-0 z-30 w-full border-b border-slate-200 bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center justify-between gap-3">
-            <Link
-              href="/roles/agent"
-              className="flex items-center gap-2 font-bold tracking-tight text-slate-900"
-            >
-              <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-600 text-xs font-extrabold text-white">
-                AI
-              </span>
-              <span className="text-sm sm:text-base">AI Tech Study Platform</span>
-            </Link>
+          <Link href="/roles/agent" className="flex items-center gap-2 font-bold tracking-tight text-slate-900">
+            <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-600 text-xs font-extrabold text-white">AI</span>
+            <span className="text-sm sm:text-base">AI Tech Study Platform</span>
+          </Link>
 
-            <div className="flex items-center gap-1.5 sm:hidden">
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={() => setSearchOpen(true)}
-                aria-label="검색 열기"
-              >
-                🔍 ⌘K
-              </Button>
-              <Button
-                type="button"
-                variant={isLoggedIn ? "secondary" : "outline"}
-                size="sm"
-                onClick={() => setIsLoggedIn(!isLoggedIn)}
-                data-testid="mode-toggle-mobile"
-              >
-                {isLoggedIn ? "학습 모드" : "비로그인 열람"}
-              </Button>
-            </div>
-          </div>
-
-          <nav
-            aria-label="주요 화면 탐색"
-            className="flex flex-wrap items-center gap-1.5"
-          >
+          <nav aria-label="주요 화면" className="flex flex-wrap items-center gap-1.5">
             {NAV_ITEMS.map((item) => {
-              const isActive =
-                pathname === item.href ||
-                (item.matchPrefix !== "/" && pathname?.startsWith(item.matchPrefix)) ||
-                (pathname === "/" && item.matchPrefix === "/roles");
+              const active = pathname?.startsWith(item.matchPrefix);
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`rounded-lg px-2.5 py-1.5 text-xs font-medium transition-colors sm:text-sm ${
-                    isActive
-                      ? "bg-indigo-600 text-white"
-                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                  aria-current={active ? "page" : undefined}
+                  className={`rounded-lg px-2.5 py-1.5 text-xs font-medium sm:text-sm ${
+                    active ? "bg-indigo-600 text-white" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                   }`}
                 >
                   {item.label}
@@ -139,112 +129,26 @@ export function AppHeader() {
             })}
           </nav>
 
-          <div className="hidden sm:flex items-center gap-2">
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() => setSearchOpen(true)}
-              data-testid="cmd-k-trigger"
-            >
-              <span>🔍 빠른 검색</span>
-              <kbd className="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] text-slate-500">
-                ⌘K
-              </kbd>
+          <div className="flex items-center gap-2">
+            <Button type="button" variant="outline" size="sm" onClick={() => setSearchOpen(true)} data-testid="cmd-k-trigger" aria-haspopup="dialog">
+              🔍 검색 <kbd className="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] text-slate-500">⌘K</kbd>
             </Button>
-
-            <Button
-              type="button"
-              variant={isLoggedIn ? "secondary" : "outline"}
-              size="sm"
-              onClick={() => setIsLoggedIn(!isLoggedIn)}
-              data-testid="session-mode-toggle"
-            >
-              <Badge variant={isLoggedIn ? "success" : "warning"} className="mr-1">
-                {isLoggedIn ? "로그인됨" : "비로그인"}
-              </Badge>
-              <span>{isLoggedIn ? "열람 모드로 전환" : "학습 모드로 전환"}</span>
-            </Button>
+            {DEMO_AUTH_ENABLED && (
+              <Button
+                type="button"
+                variant={isLoggedIn ? "secondary" : "outline"}
+                size="sm"
+                onClick={() => setIsLoggedIn(!isLoggedIn)}
+                data-testid="session-mode-toggle"
+                aria-pressed={isLoggedIn}
+              >
+                <Badge variant={isLoggedIn ? "success" : "warning"}>{isLoggedIn ? "데모 로그인" : "비로그인"}</Badge>
+              </Button>
+            )}
           </div>
         </div>
       </header>
-
-      {searchOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-start justify-center bg-slate-900/50 p-4 pt-16"
-          onClick={() => setSearchOpen(false)}
-        >
-          <div
-            className="w-full max-w-lg rounded-xl border border-slate-200 bg-white p-4 shadow-xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between gap-2 border-b border-slate-100 pb-3">
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="문항(ReAct, 편향-분산, Attention) 또는 강의(CS329Z) 검색..."
-                className="w-full text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none"
-                autoFocus
-              />
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={() => setSearchOpen(false)}
-              >
-                닫기
-              </Button>
-            </div>
-
-            <div className="mt-3 max-h-80 space-y-3 overflow-y-auto text-sm">
-              <div>
-                <p className="mb-1.5 text-xs font-semibold text-slate-400">
-                  면접 문항 ({filteredQuestions.length})
-                </p>
-                <div className="space-y-1">
-                  {filteredQuestions.map((q) => (
-                    <Link
-                      key={q.id}
-                      href={`/questions/${q.id}`}
-                      onClick={() => setSearchOpen(false)}
-                      className="block rounded-lg p-2 hover:bg-slate-50"
-                    >
-                      <div className="flex items-center gap-2">
-                        <Badge variant="info">{q.type.toUpperCase()}</Badge>
-                        <span className="font-medium text-slate-800 line-clamp-1">
-                          {q.promptMd.replace(/\*\*/g, "")}
-                        </span>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <p className="mb-1.5 text-xs font-semibold text-slate-400">
-                  강의 + Syllabus Slides ({filteredLectures.length})
-                </p>
-                <div className="space-y-1">
-                  {filteredLectures.map((l) => (
-                    <Link
-                      key={l.id}
-                      href={`/lectures/${l.id}`}
-                      onClick={() => setSearchOpen(false)}
-                      className="block rounded-lg p-2 hover:bg-slate-50"
-                    >
-                      <div className="flex items-center gap-2">
-                        <Badge variant="secondary">{l.course}</Badge>
-                        <span className="font-medium text-slate-800">{l.title}</span>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {searchOpen && <SearchDialog onClose={close} />}
     </>
   );
 }

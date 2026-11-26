@@ -2,7 +2,8 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "./badge";
 
-const buttonVariants = cva(
+/** <Link className={buttonVariants(...)}> 로 쓴다. <a> 안에 <button> 을 넣지 않기 위해서다. */
+export const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
   {
     variants: {
