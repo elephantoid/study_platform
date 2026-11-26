@@ -107,7 +107,7 @@ docker compose down                               # 컨테이너·네트워크 �
 | `package.json 이 없다` / `"/package-lock.json": not found` | 앱이 없는 브랜치다. 위 **전제** 참고 |
 | `port is already allocated` | `.env` 의 `WEB_PORT` 를 바꾼다 |
 | `unhealthy` | `docker compose logs web`. 앱이 루트(`/`)에서 2xx 를 주는지 본다 |
-| draft 미리보기가 안 켜진다 | `NEXT_PUBLIC_SHOW_DRAFT` 는 **빌드 때** 새겨진다. 바꾼 뒤 `--build` |
+| draft 미리보기가 안 켜진다 | `STUDY_SHOW_DRAFT` 는 **빌드 때** 정해진다(페이지를 정적으로 만든다). 바꾼 뒤 `--build` |
 | 빌드가 `mv next.config.ts` 에서 실패 | 앱 설정 파일 이름이나 형식(함수형 설정 등)이 바뀌었다. `Dockerfile` 의 standalone 래퍼를 맞춘다 |
 | pipeline `Permission denied` | `HOST_UID`·`HOST_GID` (위 Linux 안내) |
 
