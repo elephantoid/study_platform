@@ -6,6 +6,8 @@
 
 FROM rust:1.97.1-slim-trixie AS build
 WORKDIR /src/server
+# RUSTUP_TOOLCHAIN names the same pinned 1.97.1 the image ships. It only stops rustup from
+# fetching rustfmt/clippy (listed in rust-toolchain.toml for development) for a release build.
 # Dependencies first, so source edits do not rebuild them.
 COPY server/Cargo.toml server/Cargo.lock server/rust-toolchain.toml ./
 RUN mkdir src && echo 'fn main() {}' > src/main.rs && touch src/lib.rs \
