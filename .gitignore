@@ -60,3 +60,7 @@ coverage/
 *.mp3
 *.m4a
 *.wav
+
+# Playwright
+/playwright-report/
+/test-results/
