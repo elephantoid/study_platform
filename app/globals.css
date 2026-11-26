@@ -12,3 +12,19 @@
       "Segoe UI", Roboto, sans-serif;
   }
 }
+
+/* components/common/markdown.tsx 본문. Tailwind preflight 가 지운 기본 서식을 되살린다. */
+@layer components {
+  .markdown-body { @apply space-y-3 text-sm leading-relaxed text-slate-800 break-words; }
+  .markdown-body h1, .markdown-body h2 { @apply mt-4 text-base font-bold text-slate-900; }
+  .markdown-body h3, .markdown-body h4 { @apply mt-3 text-sm font-bold text-slate-900; }
+  .markdown-body ul { @apply list-disc space-y-1 pl-5; }
+  .markdown-body ol { @apply list-decimal space-y-1 pl-5; }
+  .markdown-body code { @apply rounded bg-slate-100 px-1 py-0.5 font-mono text-[0.85em]; }
+  .markdown-body pre { @apply max-w-full overflow-x-auto rounded-lg bg-slate-900 p-3 text-slate-100; }
+  .markdown-body pre code { @apply bg-transparent p-0 text-slate-100; }
+  .markdown-body blockquote { @apply border-l-4 border-slate-200 pl-3 text-slate-600; }
+  .markdown-body table { @apply block max-w-full overflow-x-auto border-collapse text-xs; }
+  .markdown-body th, .markdown-body td { @apply border border-slate-200 px-2 py-1; }
+  .markdown-body .katex-display { @apply max-w-full overflow-x-auto overflow-y-hidden; }
+}

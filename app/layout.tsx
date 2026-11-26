@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import "katex/dist/katex.min.css";
 import "./globals.css";
-import { AppHeader, DemoSessionProvider } from "@/components/layout/app-header";
+import { AppHeader } from "@/components/layout/app-header";
+import { DemoSessionProvider } from "@/components/layout/demo-session";
 
 export const metadata: Metadata = {
   title: "AI Tech Study Platform — 면접 간격 반복 & Stanford/IBM 강의 학습",
   description:
-    "ML Engineer · Research Scientist · Agent Engineer · Data Scientist 맞춤형 기술 면접(3단계 꼬리질문) 및 Stanford CS329Z 강의 + Syllabus Slides 학습 플랫폼",
+    "ML Engineer · Research Scientist · Agent Engineer · Data Scientist 맞춤형 기술 면접 개념·퀴즈 카드(꼬리질문 포함)와 Stanford 강의 학습 플랫폼",
 };
 
 export default function RootLayout({
