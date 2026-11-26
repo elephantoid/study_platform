@@ -25,6 +25,34 @@ services:
     security_opt: ["no-new-privileges:true"]
     mem_limit: 512m
 
+  # Rust 읽기 전용 콘텐츠 API (server/, docs/API.md). web 은 이 API 를 부르지 않는다
+  # (빌드 때 content/ 를 직접 읽는다). 외부 클라이언트·확인용으로 따로 연다.
+  server:
+    image: ghcr.io/elephantoid/study_platform-server:${IMAGE_TAG:-local}
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+      args:
+        REVISION: ${REVISION:-unknown}
+    ports:
+      - "${SERVER_BIND:-127.0.0.1}:${SERVER_PORT:-8091}:8080"
+    environment:
+      PORT: "8080"
+      STUDY_CONTENT_DIR: /app/content
+      STUDY_MANIFEST_PATH: /app/pipeline/manifests/videos.json
+    # 이미지에 구운 콘텐츠 대신 레포의 것을 읽기 전용으로 쓴다. 콘텐츠를 고친 뒤엔
+    # `docker compose restart server` 로 다시 읽는다 (기동 때 검증, 틀리면 뜨지 않는다).
+    volumes:
+      - ./content:/app/content:ro
+      - ./pipeline/manifests/videos.json:/app/pipeline/manifests/videos.json:ro
+    # 이미지의 HEALTHCHECK(`study-server --healthcheck`)를 그대로 쓴다.
+    restart: unless-stopped
+    init: true
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 128m
+
   # 일회성 CLI: docker compose run --rm pipeline check
   pipeline:
     profiles: [tools]

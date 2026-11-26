@@ -5,6 +5,7 @@ use std::sync::Arc;
 
 use study_server::config::{Config, ConfigError};
 use study_server::content::{self, LoadError};
+use study_server::healthcheck;
 use tracing_subscriber::EnvFilter;
 
 #[derive(Debug, thiserror::Error)]
@@ -24,6 +25,10 @@ enum StartupError {
 
 #[tokio::main]
 async fn main() -> ExitCode {
+    // HEALTHCHECK of the distroless image (no shell, no curl): `study-server --healthcheck`.
+    if std::env::args().nth(1).as_deref() == Some("--healthcheck") {
+        return healthcheck();
+    }
     tracing_subscriber::fmt()
         .with_env_filter(
             EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("info")),
@@ -73,6 +78,26 @@ async fn run() -> Result<(), StartupError> {
         .with_graceful_shutdown(shutdown_signal())
         .await
         .map_err(StartupError::Serve)
+}
+
+/// Exit 0 when this container's server answers `GET /api/health` with 2xx, 1 otherwise.
+/// Reads only `HOST`/`PORT` and does not load content.
+fn healthcheck() -> ExitCode {
+    let result = Config::from_env()
+        .map_err(|e| e.to_string())
+        .and_then(|cfg| {
+            healthcheck::probe(
+                healthcheck::target(cfg.host, cfg.port),
+                std::time::Duration::from_secs(3),
+            )
+        });
+    match result {
+        Ok(()) => ExitCode::SUCCESS,
+        Err(e) => {
+            eprintln!("healthcheck: {e}");
+            ExitCode::FAILURE
+        }
+    }
 }
 
 /// Ctrl-C locally, SIGTERM from a container runtime.

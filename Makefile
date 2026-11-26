@@ -47,3 +47,5 @@ all: ## CI 와 같은 검증: test → check → gate
 
 # 컨테이너·k8s 타깃 (docs/SELF_HOSTING.md). 파일이 없어도 이 Makefile 은 동작한다.
 -include mk/container.mk
+# Rust 서버 타깃 (server/, docs/API.md).
+-include mk/rust.mk

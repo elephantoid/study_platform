@@ -6,6 +6,8 @@ labels:
 resources:
   - deployment.yaml
   - service.yaml
+  - server-deployment.yaml
+  - server-service.yaml
 # 이름에 내용 해시가 붙어, 값이 바뀌면 파드가 자동으로 교체된다.
 configMapGenerator:
   - name: study-platform-web
@@ -13,3 +15,9 @@ configMapGenerator:
       - PORT=3000
       # k8s 가 HOSTNAME 을 파드 이름으로 덮어써 Next 가 127.0.0.1 로 접근되지 않는 일을 막는다.
       - HOSTNAME=0.0.0.0
+  - name: study-platform-server
+    literals:
+      - HOST=0.0.0.0
+      - PORT=8080
+      - STUDY_CONTENT_DIR=/app/content
+      - STUDY_MANIFEST_PATH=/app/pipeline/manifests/videos.json

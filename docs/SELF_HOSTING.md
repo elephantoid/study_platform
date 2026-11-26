@@ -2,16 +2,24 @@
 
 내 컴퓨터에서 study_platform 을 컨테이너로 띄우는 절차. 쿠버네티스는 `SELF_HOSTING_KUBERNETES.md`.
 
-**전제**: 앱(`package.json`, `app/`)과 `pipeline/` 이 있는 체크아웃이어야 한다. 이 문서를 쓴 시점(2026-11-25)의 `main` 에는 둘 다 없고 `feat/ui-ag`, `fix/notes-review` 에 있다.
+**전제**: `main` 체크아웃 (앱 `app/`, `pipeline/`, Rust 서버 `server/` 가 모두 있다. PR #1~#7).
 
 ## 구성
 
 | 서비스 | 이미지 | 역할 | 상시 실행 |
 |---|---|---|---|
 | `web` | `ghcr.io/elephantoid/study_platform-web` | Next.js 앱 (standalone, UID 1000, 읽기 전용 루트) | ○ |
+| `server` | `ghcr.io/elephantoid/study_platform-server` | Rust 읽기 전용 콘텐츠 API (`docs/API.md`, distroless, UID 65532, 읽기 전용 루트) | ○ |
 | `pipeline` | `ghcr.io/elephantoid/study_platform-pipeline` | 수집 CLI `ingest` | ✕ (필요할 때 한 번씩) |
 
 지금 앱은 빌드 때 `content/` 를 읽어 정적 페이지로 만든다. DB 도 인증도 없어서 컨테이너에 저장되는 앱 데이터가 없다.
+
+**web 은 server 를 부르지 않는다.** UI 로더(`lib/content/load.ts`)는 `server-only` 로 `content/` 를 파일시스템에서 직접 읽고, API URL 같은 환경변수가 없다. 그래서 둘 사이에 연결 설정이 없고 기동 순서도 상관없다. 두 구현이 같은 카드를 내는지는 CI 의 `web / parity` 잡이 본다. `server` 는 외부 클라이언트와 확인용으로 `127.0.0.1:8091` 에 따로 열린다.
+
+| | web | server |
+|---|---|---|
+| 콘텐츠를 읽는 때 | **빌드** 때 (이미지에 구워짐) | **기동** 때. compose 는 레포의 `content/`·`videos.json` 을 읽기 전용(`:ro`)으로 마운트 |
+| 콘텐츠를 고친 뒤 | `docker compose up -d --build web` | `docker compose restart server` (기동 때 검증하고, 틀리면 뜨지 않는다) |
 
 **기본 이미지는 열람 전용이다.** 비로그인은 열람만 한다는 계약(CONTRACT §5) 때문에 답안 제출·꼬리질문 답변·복습은 로그인이 필요한데, 인증이 아직 없다. 개인 학습용으로 쓰려면 `NEXT_PUBLIC_DEMO_AUTH=1` 로 빌드해 데모 로그인 토글을 켠다(빌드 때 새겨진다. 기록은 서버에 저장되지 않는다).
 
@@ -22,13 +30,13 @@ Docker Desktop 또는 Rancher Desktop(moby) 이 켜져 있으면 된다.
 ```sh
 cp .env.example .env            # 선택. 기본값으로도 뜬다
 docker compose up -d --build --wait
-open http://localhost:8090      # 포트는 .env 의 WEB_PORT
+open http://localhost:8090      # 포트는 .env 의 WEB_PORT (server 는 SERVER_PORT, 기본 8091)
 ```
 
-같은 일을 하는 make 타깃: `make docker-up`. Makefile 이 없으면 `make -f mk/container.mk docker-up`.
+같은 일을 하는 make 타깃: `make docker-up` (web·server 를 함께 띄운다). server 만: `docker compose up -d --build --wait server`.
 
 - `--wait` 는 healthcheck 가 통과할 때까지 기다리고, 실패하면 0 이 아닌 코드로 끝난다.
-- 기본은 `127.0.0.1` 에만 열린다. 로그인이 없으니 `WEB_BIND=0.0.0.0` 은 믿는 네트워크에서만 쓴다.
+- 기본은 `127.0.0.1` 에만 열린다. 로그인이 없으니 `WEB_BIND`·`SERVER_BIND=0.0.0.0` 은 믿는 네트워크에서만 쓴다.
 - 기본 포트가 8090 인 이유: 8080 은 다른 셀프호스팅 앱(openGym 등)과 자주 겹친다.
 
 compose 없이 이미지만 띄우려면:
@@ -38,17 +46,25 @@ docker build -t ghcr.io/elephantoid/study_platform-web:local .
 docker run -d --name study-web -p 127.0.0.1:8090:3000 --read-only \
   --tmpfs /tmp --tmpfs /app/.next/cache:uid=1000,gid=1000 \
   ghcr.io/elephantoid/study_platform-web:local
+
+make server-image     # = docker build -f server/Dockerfile -t ghcr.io/elephantoid/study_platform-server:local .
+docker run -d --name study-server -p 127.0.0.1:8091:8080 --read-only --cap-drop ALL \
+  ghcr.io/elephantoid/study_platform-server:local     # 이미지에 구운 content/ 를 쓴다
 ```
 
 ## 확인
 
 ```sh
-docker compose ps                            # STATUS 에 (healthy)
+docker compose ps                            # web, server 둘 다 (healthy)  — make docker-health
 curl -fsS -o /dev/null -w '%{http_code}\n' http://localhost:8090/   # 200
-docker compose logs -f web
+curl -fsS http://localhost:8091/api/health   # {"status":"ok","version":"0.1.0","cards":386}
+docker compose logs -f web server
 ```
 
-healthcheck 는 `/` 를 본다. `/api/health` 가 생기면 `Dockerfile` 의 `HEALTHCHECK` 와 `k8s/base/deployment.yaml` 의 startup·readiness 경로를 함께 바꾼다.
+| 이미지 | HEALTHCHECK |
+|---|---|
+| web | `wget` 으로 `/` (alpine 이라 셸이 있다). web 에는 `/api/health` 가 없다 |
+| server | `CMD ["/app/study-server", "--healthcheck"]` (exec 형식). distroless 라 셸·curl 이 없어서 바이너리가 자기 `GET /api/health` 를 불러 2xx 면 0, 아니면 1 로 끝난다 (`server/src/healthcheck.rs`). 손으로: `docker compose exec server /app/study-server --healthcheck; echo $?` |
 
 ## 수집 파이프라인
 
@@ -107,19 +123,20 @@ docker compose down                               # 컨테이너·네트워크 �
 | 증상 | 원인과 조치 |
 |---|---|
 | `package.json 이 없다` / `"/package-lock.json": not found` | 앱이 없는 브랜치다. 위 **전제** 참고 |
-| `port is already allocated` | `.env` 의 `WEB_PORT` 를 바꾼다 |
+| `port is already allocated` | `.env` 의 `WEB_PORT`·`SERVER_PORT` 를 바꾼다 |
 | `unhealthy` | `docker compose logs web`. 앱이 루트(`/`)에서 2xx 를 주는지 본다 |
+| server 가 `Restarting` / 바로 종료 | `docker compose logs server`. 콘텐츠 검증 실패면 원인 목록이 찍힌다 (`make check`·`make server-test` 로 재현) |
+| server `Permission denied` (마운트) | 컨테이너 사용자 65532 가 `content/` 를 읽을 수 있어야 한다. 파일이 `600` 이면 `644` 로 |
 | draft 미리보기가 안 켜진다 | `STUDY_SHOW_DRAFT` 는 **빌드 때** 정해진다(페이지를 정적으로 만든다). 바꾼 뒤 `--build` |
 | 빌드가 `mv next.config.ts` 에서 실패 | 앱 설정 파일 이름이나 형식(함수형 설정 등)이 바뀌었다. `Dockerfile` 의 standalone 래퍼를 맞춘다 |
 | pipeline `Permission denied` | `HOST_UID`·`HOST_GID` (위 Linux 안내) |
 
 ## 앞으로 생길 것의 자리
 
-코드가 생기는 PR 에서 아래에 맞춰 붙인다. 지금은 아무것도 없다.
+코드가 생기는 PR 에서 아래에 맞춰 붙인다.
 
 | 생길 것 (ARCHITECTURE) | compose | k8s |
 |---|---|---|
-| `app/api/` | `web` 에 포함. 서비스 추가 없음 | 동일 |
 | Postgres | 서비스 `db` + `./data/postgres` 볼륨. 백업 대상은 `./data` 하나로 모은다 (`.dockerignore` 에 이미 제외, `.gitignore` 에 `data/` 추가 필요) | StatefulSet + PVC |
 | DB 접속·LLM 채점 키 | `.env` → `web.environment` | Secret `study-platform-web` (`k8s/secret.yaml.example`). Deployment 가 이미 선택적으로 읽는다 |
-| `lib/content/` 로더 | 빌드 컨텍스트에 `content/` 가 이미 들어간다. 런타임에 파일을 읽으면 standalone 추적 대상인지 확인한다 | 동일 |
+| web 이 server API 를 부르게 될 때 | `web.environment` 에 server 주소(`http://server:8080`) 추가. 같은 compose 네트워크라 서비스 이름으로 닿는다 | ConfigMap `study-platform-web` 에 `http://study-platform-server` 추가 |
