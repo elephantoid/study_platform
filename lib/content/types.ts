@@ -1,7 +1,7 @@
 /**
  * UI 가 쓰는 콘텐츠 타입.
  * 정본: docs/CONTRACT.md §4 와 PR #7 docs/API.md (`GET /api/cards/{id}` 는 QuestionView 의 상위 집합).
- * 서버 로더(lib/content/load.ts)가 content/ 에서 이 모양을 만든다. 백엔드가 붙으면 같은 모양을 fetch 로 받는다.
+ * 파일 로더(lib/content/load.ts)와 Rust API 클라이언트(lib/content/api.ts)가 같은 모양을 만들고, lib/content/source.ts 가 STUDY_API_URL 로 둘 중 하나를 고른다.
  */
 
 export type RoleId = "mle" | "rs" | "agent" | "ds";
