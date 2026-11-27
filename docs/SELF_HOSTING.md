@@ -12,14 +12,24 @@
 | `server` | `ghcr.io/elephantoid/study_platform-server` | Rust 읽기 전용 콘텐츠 API (`docs/API.md`, distroless, UID 65532, 읽기 전용 루트) | ○ |
 | `pipeline` | `ghcr.io/elephantoid/study_platform-pipeline` | 수집 CLI `ingest` | ✕ (필요할 때 한 번씩) |
 
-지금 앱은 빌드 때 `content/` 를 읽어 정적 페이지로 만든다. DB 도 인증도 없어서 컨테이너에 저장되는 앱 데이터가 없다.
+DB 도 인증도 없어서 컨테이너에 저장되는 앱 데이터가 없다.
 
-**web 은 server 를 부르지 않는다.** UI 로더(`lib/content/load.ts`)는 `server-only` 로 `content/` 를 파일시스템에서 직접 읽고, API URL 같은 환경변수가 없다. 그래서 둘 사이에 연결 설정이 없고 기동 순서도 상관없다. 두 구현이 같은 카드를 내는지는 CI 의 `web / parity` 잡이 본다. `server` 는 외부 클라이언트와 확인용으로 `127.0.0.1:8091` 에 따로 열린다.
+**web 은 카드·토픽·카드 상세(꼬리질문 포함)를 server API 에서 읽는다.** compose 는 web 에 `STUDY_API_URL=http://server:8080` 을 넣고, server 가 `healthy`(기동 때 콘텐츠 검증 통과)가 된 뒤에 web 을 띄운다(`depends_on: condition: service_healthy`). 데이터 소스는 `lib/content/source.ts` 한 곳에서 고른다.
+
+| `STUDY_API_URL` (web 런타임 env) | 카드·토픽·카드 상세 | 강의·대시보드·출처 목록 |
+|---|---|---|
+| 있음 (compose·k8s 기본) | **요청 때** Rust API (`/api/cards`, `/api/cards/{id}`, `/api/topics`) | 빌드 때 `content/` (API 에 엔드포인트가 없다, API.md §5) |
+| 없음·빈 값 | 요청 때 이미지에 구운 `content/` (`lib/content/load.ts`) | 같음 |
+
+- 카드 페이지(`/questions`, `/questions/{id}`, `/review`)는 요청 때 렌더링한다. 그래서 **빌드에 server 가 필요 없고**, 같은 이미지를 두 방식으로 쓴다. 대시보드·강의 페이지는 지금처럼 빌드 때 정적으로 만든다.
+- **server 가 죽으면** 카드 페이지는 500 을 낸다(로그에 `ContentApiError: content API unreachable`). 파일로 몰래 되돌아가지 않는다: API 를 쓰기로 했는데 다른 데이터가 보이면 설정 오류가 가려진다. 강의·대시보드는 정적이라 계속 뜬다. web healthcheck(`/`)도 그래서 API 와 무관하다.
+- 파일 모드로 띄우려면 `.env` 에 `WEB_STUDY_API_URL=` (빈 값). compose 변수 이름을 따로 둔 이유: 호스트 셸의 `STUDY_API_URL`(로컬 parity 용 `127.0.0.1`)이 컨테이너로 새지 않게.
+- 두 소스가 같은 값을 내는지는 CI `web / parity` 잡이 본다 (HTTP 응답 ↔ 파일 로더, `source.ts` API 모드 ↔ 파일 모드, API 모드 Playwright).
 
 | | web | server |
 |---|---|---|
-| 콘텐츠를 읽는 때 | **빌드** 때 (이미지에 구워짐) | **기동** 때. compose 는 레포의 `content/`·`videos.json` 을 읽기 전용(`:ro`)으로 마운트 |
-| 콘텐츠를 고친 뒤 | `docker compose up -d --build web` | `docker compose restart server` (기동 때 검증하고, 틀리면 뜨지 않는다) |
+| 콘텐츠를 읽는 때 | 카드: **요청** 때 server 에서. 강의·대시보드: **빌드** 때 (이미지에 구워짐) | **기동** 때. compose 는 레포의 `content/`·`videos.json` 을 읽기 전용(`:ro`)으로 마운트 |
+| 콘텐츠를 고친 뒤 | 카드만이면 `docker compose restart server` 로 web 에도 보인다. 강의·토픽 구조를 바꿨으면 `docker compose up -d --build web` 도 | `docker compose restart server` (기동 때 검증하고, 틀리면 뜨지 않는다) |
 
 **기본 이미지는 열람 전용이다.** 비로그인은 열람만 한다는 계약(CONTRACT §5) 때문에 답안 제출·꼬리질문 답변·복습은 로그인이 필요한데, 인증이 아직 없다. 개인 학습용으로 쓰려면 `NEXT_PUBLIC_DEMO_AUTH=1` 로 빌드해 데모 로그인 토글을 켠다(빌드 때 새겨진다. 기록은 서버에 저장되지 않는다).
 
@@ -127,7 +137,8 @@ docker compose down                               # 컨테이너·네트워크 �
 | `unhealthy` | `docker compose logs web`. 앱이 루트(`/`)에서 2xx 를 주는지 본다 |
 | server 가 `Restarting` / 바로 종료 | `docker compose logs server`. 콘텐츠 검증 실패면 원인 목록이 찍힌다 (`make check`·`make server-test` 로 재현) |
 | server `Permission denied` (마운트) | 컨테이너 사용자 65532 가 `content/` 를 읽을 수 있어야 한다. 파일이 `600` 이면 `644` 로 |
-| draft 미리보기가 안 켜진다 | `STUDY_SHOW_DRAFT` 는 **빌드 때** 정해진다(페이지를 정적으로 만든다). 바꾼 뒤 `--build` |
+| draft 미리보기가 안 켜진다 | `STUDY_SHOW_DRAFT` 는 **빌드 때** 정해진다(강의 페이지를 정적으로 만든다). 바꾼 뒤 `--build` |
+| 카드 페이지(`/questions`)만 500 | web 이 server 에 닿지 않는다. `docker compose ps server`, `docker compose logs web` 의 `ContentApiError` 주소 확인. `docker compose exec web wget -qO- http://server:8080/api/health` |
 | 빌드가 `mv next.config.ts` 에서 실패 | 앱 설정 파일 이름이나 형식(함수형 설정 등)이 바뀌었다. `Dockerfile` 의 standalone 래퍼를 맞춘다 |
 | pipeline `Permission denied` | `HOST_UID`·`HOST_GID` (위 Linux 안내) |
 
@@ -139,4 +150,4 @@ docker compose down                               # 컨테이너·네트워크 �
 |---|---|---|
 | Postgres | 서비스 `db` + `./data/postgres` 볼륨. 백업 대상은 `./data` 하나로 모은다 (`.dockerignore` 에 이미 제외, `.gitignore` 에 `data/` 추가 필요) | StatefulSet + PVC |
 | DB 접속·LLM 채점 키 | `.env` → `web.environment` | Secret `study-platform-web` (`k8s/secret.yaml.example`). Deployment 가 이미 선택적으로 읽는다 |
-| web 이 server API 를 부르게 될 때 | `web.environment` 에 server 주소(`http://server:8080`) 추가. 같은 compose 네트워크라 서비스 이름으로 닿는다 | ConfigMap `study-platform-web` 에 `http://study-platform-server` 추가 |
+| 강의·대시보드 API (API.md §5) | `lib/content/source.ts` 에 함수를 옮기면 compose 는 그대로 | 그대로 |
