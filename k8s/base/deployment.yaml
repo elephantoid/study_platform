@@ -23,6 +23,30 @@ spec:
         runAsGroup: 1000
         seccompProfile:
           type: RuntimeDefault
+      # server 가 Ready(/api/health 200, 콘텐츠 검증 통과)가 된 뒤에 web 을 시작한다.
+      # 같은 web 이미지(alpine busybox wget)를 쓰므로 이미지를 하나 더 받지 않는다.
+      initContainers:
+        - name: wait-for-api
+          image: ghcr.io/elephantoid/study_platform-web # 태그는 overlay 가 정한다
+          command:
+            - sh
+            - -c
+            - until wget -q -T 3 -O /dev/null "$STUDY_API_URL/api/health"; do echo "waiting for $STUDY_API_URL"; sleep 2; done
+          envFrom:
+            - configMapRef:
+                name: study-platform-web
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
       containers:
         - name: web
           image: ghcr.io/elephantoid/study_platform-web # 태그는 overlay 가 정한다
@@ -48,6 +72,7 @@ spec:
               port: http
             periodSeconds: 2
             failureThreshold: 30
+          # `/` 는 정적 페이지라 API 장애와 무관하다. API 가 죽으면 카드 페이지만 500 이 되고 강의·대시보드는 남는다.
           readinessProbe:
             httpGet:
               path: /

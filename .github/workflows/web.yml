@@ -32,7 +32,8 @@ jobs:
             test-results/
           retention-days: 7
 
-  # 재리뷰 N2: UI 로더(lib/content/load.ts)와 Rust API(server/)가 같은 카드·토픽을 내는지 비교한다.
+  # 재리뷰 N2: UI 로더(lib/content/load.ts)와 Rust API(server/)가 같은 카드·토픽을 내는지 비교하고,
+  # web 이 API 모드(STUDY_API_URL)로 같은 화면을 그리는지 본다.
   # PR 이벤트는 main 과의 병합 결과를 체크아웃하므로 server/ 가 있다. 없으면(server 이전 브랜치) 건너뛴다.
   parity:
     runs-on: ubuntu-latest
@@ -69,3 +70,38 @@ jobs:
         run: npm run test:parity
         env:
           STUDY_API_URL: http://127.0.0.1:8080
+      # API 모드 UI 검사: 같은 Playwright 스위트를 web 이 Rust API 에서 카드를 읽는 상태로 돌린다
+      # (개념/퀴즈 구분, 꼬리질문, 출처 배지, draft 번들 검사). webServer(next start)가 STUDY_API_URL 을 물려받는다.
+      - if: steps.srv.outputs.present == 'true'
+        run: npm run build:e2e
+      - if: steps.srv.outputs.present == 'true'
+        run: npx playwright install --with-deps chromium
+      - if: steps.srv.outputs.present == 'true'
+        run: npm run test:e2e
+        env:
+          CI: "1"
+          STUDY_API_URL: http://127.0.0.1:8080
+      # 위 통과가 파일 로더 덕이 아니라는 확인: API 를 끄면 카드 페이지는 500(파일로 되돌아가지 않음), 정적 `/` 는 200.
+      - if: steps.srv.outputs.present == 'true'
+        name: web fails closed when the API is down
+        run: |
+          pkill -f target/release/study-server
+          npx next start -p 3200 -H 127.0.0.1 > web.log 2>&1 &
+          for i in $(seq 30); do curl -fsS -o /dev/null http://127.0.0.1:3200/ && break; sleep 1; done
+          home=$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:3200/)
+          card=$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:3200/questions/boost-algo-004)
+          echo "/ → $home, /questions/boost-algo-004 → $card"
+          grep -m1 ContentApiError web.log
+          test "$home" = 200 && test "$card" = 500
+        env:
+          STUDY_API_URL: http://127.0.0.1:8080
+      - if: failure() && steps.srv.outputs.present == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-api-mode
+          path: |
+            playwright-report/
+            test-results/
+            server.log
+            web.log
+          retention-days: 7

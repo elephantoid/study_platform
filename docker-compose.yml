@@ -14,6 +14,15 @@ services:
     ports:
       # 로그인이 없는 앱이라 기본은 이 컴퓨터에서만 열린다.
       - "${WEB_BIND:-127.0.0.1}:${WEB_PORT:-8090}:3000"
+    # 카드·토픽·카드 상세는 server API 에서 요청 때 읽는다 (lib/content/source.ts).
+    # .env 에서 WEB_STUDY_API_URL= (빈 값)으로 두면 이미지에 구운 content/ 를 쓴다 (파일 모드).
+    # 호스트 셸의 STUDY_API_URL(로컬 parity 용 127.0.0.1)이 컨테이너로 새지 않게 이름을 따로 둔다.
+    environment:
+      STUDY_API_URL: ${WEB_STUDY_API_URL-http://server:8080}
+    # server 가 healthy(콘텐츠 검증 통과)가 된 뒤에 뜬다. server 가 나중에 죽으면 카드 페이지만 500 이 된다.
+    depends_on:
+      server:
+        condition: service_healthy
     # 이미지의 HEALTHCHECK 를 그대로 쓴다 (정의는 Dockerfile 한 곳).
     restart: unless-stopped
     init: true
@@ -25,8 +34,8 @@ services:
     security_opt: ["no-new-privileges:true"]
     mem_limit: 512m
 
-  # Rust 읽기 전용 콘텐츠 API (server/, docs/API.md). web 은 이 API 를 부르지 않는다
-  # (빌드 때 content/ 를 직접 읽는다). 외부 클라이언트·확인용으로 따로 연다.
+  # Rust 읽기 전용 콘텐츠 API (server/, docs/API.md). web 이 compose 네트워크(http://server:8080)로 부른다.
+  # 호스트 포트는 외부 클라이언트·확인용이다.
   server:
     image: ghcr.io/elephantoid/study_platform-server:${IMAGE_TAG:-local}
     build:

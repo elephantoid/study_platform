@@ -15,6 +15,8 @@ configMapGenerator:
       - PORT=3000
       # k8s 가 HOSTNAME 을 파드 이름으로 덮어써 Next 가 127.0.0.1 로 접근되지 않는 일을 막는다.
       - HOSTNAME=0.0.0.0
+      # 카드·토픽·카드 상세를 이 API 에서 요청 때 읽는다 (lib/content/source.ts). 같은 네임스페이스의 Service.
+      - STUDY_API_URL=http://study-platform-server
   - name: study-platform-server
     literals:
       - HOST=0.0.0.0

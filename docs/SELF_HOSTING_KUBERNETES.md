@@ -14,14 +14,15 @@ k8s/
 
 - `pipeline` 은 배포하지 않는다. 결과가 git 작업 트리(`content/`)로 가야 하는 일회성 CLI 라서 compose 로 돌린다.
 - PVC 는 없다. 앱이 저장하는 데이터가 아직 없다.
-- web 은 server 를 부르지 않는다 (빌드 때 `content/` 를 직접 읽는다, `SELF_HOSTING.md` 참고). 그래서 둘 사이 설정이 없다.
+- web 은 카드·토픽·카드 상세를 server API 에서 요청 때 읽는다 (ConfigMap `STUDY_API_URL=http://study-platform-server`, 동작은 `SELF_HOSTING.md`). 시작 순서: web 파드의 initContainer `wait-for-api` 가 server `/api/health` 200 을 기다린 뒤 web 컨테이너를 띄운다. k8s 에는 compose `depends_on` 같은 순서가 없어서다. web readiness 는 `/`(정적) 라 server 가 나중에 죽어도 web 이 Service 에서 빠지지 않고, 카드 페이지만 500 이 된다.
 - server 콘텐츠는 이미지에 구운 `/app/content` 를 쓴다. 읽기 전용 루트 파일시스템이라 쓸 수 없다. compose 처럼 레포를 마운트하지 않는 이유: `restricted` 가 hostPath 를 막는다. 콘텐츠를 바꾸면 이미지를 다시 빌드한다.
 
 | | web | server |
 |---|---|---|
 | 포트 (컨테이너 → Service) | 3000 → 80 | 8080 → 80 |
-| 환경변수 (ConfigMap) | `PORT`, `HOSTNAME` | `HOST=0.0.0.0`, `PORT=8080`, `STUDY_CONTENT_DIR`, `STUDY_MANIFEST_PATH` |
+| 환경변수 (ConfigMap) | `PORT`, `HOSTNAME`, `STUDY_API_URL` | `HOST=0.0.0.0`, `PORT=8080`, `STUDY_CONTENT_DIR`, `STUDY_MANIFEST_PATH` |
 | requests / limits | 50m·128Mi / 1·512Mi | 20m·32Mi / 500m·128Mi (실측 상주 메모리 약 7MiB) |
+| 시작 순서 | initContainer `wait-for-api` (같은 web 이미지의 busybox `wget`) | 먼저 |
 | startup·readiness | `/` | `/api/health` |
 | liveness | TCP | `/api/health` (메모리 스냅샷만 보므로 외부 장애로 재시작되지 않는다) |
 | UID | 1000 | 65532 (distroless `nonroot`) |
@@ -81,6 +82,7 @@ kind delete cluster --name study          # kind 로 따로 만든 경우
 | 증상 | 원인과 조치 |
 |---|---|
 | `ErrImageNeverPull` | 이미지가 노드에 없다. 1단계의 이미지 넣기를 다시 한다 |
+| web 이 `Init:0/1` 에 머문다 | server 가 Ready 가 아니다. `kubectl -n study-platform logs deploy/study-platform-web -c wait-for-api`, server 상태 확인 |
 | `Running` 인데 `0/1` | `kubectl -n study-platform logs deploy/study-platform-web`, `describe pod` 로 probe 확인 |
 | server `CrashLoopBackOff` | `kubectl -n study-platform logs deploy/study-platform-server --previous`. 콘텐츠 검증 실패면 원인이 찍힌다. 고친 뒤 이미지 재빌드 |
 | `violates PodSecurity "restricted"` | 파드 설정을 바꿨다면 base 의 securityContext 를 유지한다 |

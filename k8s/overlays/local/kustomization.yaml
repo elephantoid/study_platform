@@ -18,6 +18,9 @@ patches:
       - op: add
         path: /spec/template/spec/containers/0/imagePullPolicy
         value: Never
+      - op: add
+        path: /spec/template/spec/initContainers/0/imagePullPolicy
+        value: Never
   - target:
       kind: Deployment
       name: study-platform-server
